@@ -1,7 +1,7 @@
 import React from "react";
 import HighChart from "components/Chart/HighChart";
 
-function Dashboard() {
+const Dashboard = () => {
   const chartData = [40000, 50000, 60000, 70000, 100000, 1240000, 1243012];
   const chartData2 = [1040000, 1240000, 1243012];
   const chartData3 = [40000, 50000, 60000, 70000];
@@ -19,6 +19,6 @@ function Dashboard() {
       </div>
     </div>
   );
-}
+};
 
 export default Dashboard;
