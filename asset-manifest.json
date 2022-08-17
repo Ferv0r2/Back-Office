@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.daa95962.css",
-    "main.js": "/static/js/main.d9e50740.js",
+    "main.js": "/static/js/main.481efb6c.js",
     "static/media/MavenPro-Regular.ttf": "/static/media/MavenPro-Regular.6dfe1d1523d27edc3e27.ttf",
     "index.html": "/index.html",
     "main.daa95962.css.map": "/static/css/main.daa95962.css.map",
-    "main.d9e50740.js.map": "/static/js/main.d9e50740.js.map"
+    "main.481efb6c.js.map": "/static/js/main.481efb6c.js.map"
   },
   "entrypoints": [
     "static/css/main.daa95962.css",
-    "static/js/main.d9e50740.js"
+    "static/js/main.481efb6c.js"
   ]
 }
