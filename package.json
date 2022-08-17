@@ -6,15 +6,24 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next export && type NUL > out/.nojekyll && copy CNAME out && gh-pages -d out -t true"
   },
   "dependencies": {
+    "highcharts": "^10.2.0",
+    "highcharts-react-official": "^3.1.0",
     "next": "12.2.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "recoil": "^0.7.5"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.8",
     "eslint": "8.22.0",
-    "eslint-config-next": "12.2.5"
+    "eslint-config-next": "12.2.5",
+    "gh-pages": "^4.0.0",
+    "postcss": "^8.4.16",
+    "react-icons": "^4.4.0",
+    "tailwindcss": "^3.1.8"
   }
 }
