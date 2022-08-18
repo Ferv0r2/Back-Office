@@ -20,15 +20,9 @@ const contents = [
     icon: <HiCollection />,
   },
   {
-    id: "n3",
-    name: "Billing",
-    url: "/billing",
-    icon: <RiCalculatorFill />,
-  },
-  {
     id: "n4",
-    name: "Notifications",
-    url: "/notifications",
+    name: "Event",
+    url: "/event",
     icon: <HiBell />,
   },
   {

@@ -3,27 +3,41 @@ import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 function HighChart(props) {
-  const { chartData } = props;
+  const { chartType, chartData } = props;
 
   const options = {
     chart: {
-      type: "bar",
-      backgroundColor: "#f7f7f7",
+      type: chartType,
+      backgroundColor: "#202940",
       shadow: true,
       borderRadius: 20,
+      spacingTop: 40,
+      spacingLeft: 40,
+      spacingRight: 40,
+      spacingBottom: 20,
     },
     title: {
       text: "Metaoneer",
+      style: {
+        color: "#ffffff",
+      },
     },
     credits: {
       enabled: false,
     },
+    // xAxis: {
+    //   type: "category",
+    // },
     xAxis: {
-      type: "category",
+      gridLineWidth: 1,
+    },
+    yAxis: {
+      gridLineWidth: 1,
     },
     legend: {
       reversed: true,
       margin: 8,
+      textColor: "#fff",
     },
     plotOptions: {
       series: {

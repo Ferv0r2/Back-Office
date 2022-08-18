@@ -3,8 +3,8 @@ import React from "react";
 
 const Tables = () => {
   return (
-    <div className="pt-12 pl-80 pr-12 min-h-screen">
-      <Table />
+    <div>
+      <Table title="Table of members" />
     </div>
   );
 };

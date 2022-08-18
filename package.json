@@ -10,10 +10,12 @@
     "deploy": "next export && type NUL > out/.nojekyll && copy CNAME out && gh-pages -d out -t true"
   },
   "dependencies": {
+    "framer-motion": "^7.2.0",
     "highcharts": "^10.2.0",
     "highcharts-react-official": "^3.1.0",
     "next": "12.2.5",
     "react": "18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "18.2.0",
     "recoil": "^0.7.5"
   },
