@@ -1,15 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {KTSVG, toAbsoluteUrl} from 'src/utils'
-import {Dropdown1} from '../../content/dropdown/Dropdown1'
+import {KTSVG} from 'src/utils'
+import {Link} from 'react-router-dom'
 
-type Props = {
+interface Props {
   className: string
+  nft: {
+    thumbnail?: string
+    contract: string
+    name: string
+    symbol: string
+    holders: number
+    totalSupply: number
+    homepage?: string
+  }
 }
 
-const FeedsWidget6: React.FC<Props> = ({className}) => {
+const FeedsWidget: React.FC<Props> = ({className, nft}) => {
   return (
-    <div className={`card ${className}`}>
+    <Link className={`card ${className}`} to={`/nft/collections/${nft.name}`}>
       {/* begin::Body */}
       <div className='card-body pb-0'>
         {/* begin::Header */}
@@ -18,56 +27,30 @@ const FeedsWidget6: React.FC<Props> = ({className}) => {
           <div className='d-flex align-items-center flex-grow-1'>
             {/* begin::Avatar */}
             <div className='symbol symbol-45px me-5'>
-              <img src={toAbsoluteUrl('/media/avatars/300-13.jpg')} alt='' />
+              <img src={nft.thumbnail} alt='icon' />
             </div>
             {/* end::Avatar */}
 
             {/* begin::Info */}
             <div className='d-flex flex-column'>
-              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
-                Mat Dillon
-              </a>
-              <span className='text-gray-400 fw-semibold'>Last month</span>
+              <p className='mb-1 text-gray-800 text-hover-primary fs-6 fw-bold'>{nft.name}</p>
+
+              <span className='text-gray-400 fw-semibold'>{nft.contract}</span>
             </div>
             {/* end::Info */}
           </div>
           {/* end::User */}
-
-          {/* begin::Menu */}
-          <div className='my-0'>
-            <button
-              type='button'
-              className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
-              data-kt-menu-trigger='click'
-              data-kt-menu-placement='bottom-end'
-              data-kt-menu-flip='top-end'
-            >
-              <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
-            </button>
-            <Dropdown1 />
-          </div>
-          {/* end::Menu */}
         </div>
         {/* end::Header */}
 
         {/* begin::Post */}
-        <div className='mb-6'>
+        <div className='mb-5'>
           {/* begin::Text */}
-          <div className='text-gray-800 fs-6 fw-normal mb-5'>
+          <p className='text-gray-800 fw-normal mb-5'>
             Outlines keep you honest. They stop you from indulging in poorly thought-out metaphors
-          </div>
+            about driving and keep you focused on the overall structure of your post
+          </p>
           {/* end::Text */}
-
-          {/* begin::Video */}
-          <div className='mb-5'>
-            <iframe
-              title='widget11-video'
-              className='embed-responsive-item rounded h-300px w-100'
-              src='https://www.youtube.com/embed/qIHXpnASPAA'
-              allowFullScreen={true}
-            />
-          </div>
-          {/* end::Video */}
 
           {/* begin::Toolbar */}
           <div className='d-flex align-items-center mb-5'>
@@ -75,8 +58,8 @@ const FeedsWidget6: React.FC<Props> = ({className}) => {
               href='#'
               className='btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4'
             >
-              <KTSVG path='/media/icons/duotune/communication/com012.svg' className='svg-icon-3' />
-              189
+              <KTSVG path='/media/icons/duotune/communication/com012.svg' className='svg-icon-2' />
+              120
             </a>
 
             <a
@@ -84,12 +67,12 @@ const FeedsWidget6: React.FC<Props> = ({className}) => {
               className='btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2'
             >
               <KTSVG path='/media/icons/duotune/general/gen030.svg' className='svg-icon-2' />
-              229
+              15
             </a>
           </div>
           {/* end::Toolbar */}
         </div>
-        {/* end::Bottom */}
+        {/* end::Post */}
 
         {/* begin::Separator */}
         <div className='separator mb-4'></div>
@@ -99,7 +82,6 @@ const FeedsWidget6: React.FC<Props> = ({className}) => {
         <form className='position-relative mb-6'>
           <textarea
             className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
-            data-kt-autosize='true'
             rows={1}
             placeholder='Reply..'
           ></textarea>
@@ -120,8 +102,8 @@ const FeedsWidget6: React.FC<Props> = ({className}) => {
         {/* edit::Reply input */}
       </div>
       {/* end::Body */}
-    </div>
+    </Link>
   )
 }
 
-export {FeedsWidget6}
+export {FeedsWidget}

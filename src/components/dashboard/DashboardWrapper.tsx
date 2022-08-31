@@ -4,7 +4,6 @@ import {PageTitle} from 'src/layout/core'
 import {
   MixedWidget2,
   MixedWidget10,
-  MixedWidget11,
   ListsWidget2,
   ListsWidget3,
   ListsWidget4,
@@ -14,6 +13,7 @@ import {
   TablesWidget10,
   MixedWidget8,
 } from 'src/components/partials/widgets'
+import {MixChart} from '../chart/MixChart'
 
 const DashboardPage: FC = () => (
   <>
@@ -36,7 +36,7 @@ const DashboardPage: FC = () => (
           chartColor='primary'
           chartHeight='150px'
         />
-        <MixedWidget11
+        <MixChart
           className='card-xxl-stretch-50 mb-5 mb-xl-8'
           chartColor='primary'
           chartHeight='175px'

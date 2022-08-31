@@ -23,9 +23,12 @@ export function Login() {
   const [kaikasAddress, setKaikasAddress] = useRecoilState(kaikasAddressState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
 
+  console.log(selectedWallet)
+
   useEffect(() => {}, [setKaikasAddress])
 
   const metamaskConnectHandler = () => {
+    setSelectedWallet('metamask')
     if (active) {
       return
     }
@@ -34,7 +37,6 @@ export function Login() {
       window.open('https://metamask.io/download.html')
     })
     setMetamaskAddress(String(account))
-    setSelectedWallet('metamask')
   }
 
   const kaikasConnectHandler = async () => {
@@ -92,7 +94,6 @@ export function Login() {
     } else {
       alert('지갑을 연결해 주세요.')
     }
-    setLoading(false)
   }
 
   return (
@@ -158,7 +159,7 @@ export function Login() {
         <button
           type='submit'
           className='btn btn-lg btn-primary w-100 mb-5'
-          disabled={!selectedWallet || !(account || kaikasAddress)}
+          disabled={!selectedWallet || !(account || kaikasAddress) || loading}
         >
           {!loading && <span className='indicator-label'>Continue</span>}
           {loading && (

@@ -4,6 +4,21 @@ import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
 import {AsideMenuItem} from './AsideMenuItem'
 import {AsideMenuUser} from './AsideMenuUser'
 
+const testNFT = [
+  {
+    thumbnail:
+      'https://lh3.googleusercontent.com/ViAAKgvW8myVK4OI0unEqIXGTttbHAPLB_A9vXXMXKbF2UagBhgC97ru_7OXtFzA7Q0ULD7UhrEt5yipH0DhunbRXjfqclG0VRo_tg=s168',
+    contract: '0x928267e7db3d173898553ff593a78719bb16929f',
+    name: 'Kepler-452b',
+  },
+  {
+    thumbnail:
+      'https://lh3.googleusercontent.com/nMgnwb1bFrEqQ65XaDMar4G3Zcp_o7Z0aduvc1C6THtiGBMvPbgq1KTa29dVFGIXfiwISIgqQXzYIqIisA7psvoLYxdr0UpT2lO4FA=s168',
+    contract: '0xe7e78910446a0bff06f560b02f103f8a42e4a694',
+    name: 'Klay Weasel',
+  },
+]
+
 export function AsideMenuMain() {
   const currentWallet = sessionStorage.getItem('CONNECT')
   const currentUser = sessionStorage.getItem('WALLET_ADDRESS')
@@ -31,28 +46,32 @@ export function AsideMenuMain() {
       <AsideMenuItem to='/nft/add' title='Add NFT' icon='/media/icons/duotune/coding/cod001.svg' />
 
       <AsideMenuItemWithSub
-        to='/nft/colletions'
+        to='/nft/collections'
         title='Collections'
         fontIcon='bi-archive'
         icon='/media/icons/duotune/general/gen022.svg'
       >
-        <AsideMenuItemWithSub
-          to='/nft/colletions/weasel'
-          title='Weasel'
-          icon='/media/icons/duotune/coding/cod002.svg'
-        >
-          <AsideMenuItem to='/nft/colletions/weasel/holders' title='Holders' hasBullet={true} />
-          <AsideMenuItem to='/nft/colletions/weasel/event' title='Event' hasBullet={true} />
-        </AsideMenuItemWithSub>
-
-        <AsideMenuItemWithSub
-          to='/nft/colletions/kepler'
-          title='Kepler'
-          icon='/media/icons/duotune/coding/cod003.svg'
-        >
-          <AsideMenuItem to='/nft/colletions/weasel/holders' title='Holders' hasBullet={true} />
-          <AsideMenuItem to='/nft/colletions/weasel/event' title='Event' hasBullet={true} />
-        </AsideMenuItemWithSub>
+        {testNFT.map((nft) => {
+          return (
+            <AsideMenuItemWithSub
+              to={`/nft/collections/${nft.contract}`}
+              title={nft.name}
+              // icon='/media/icons/duotune/coding/cod002.svg'
+              url={nft.thumbnail}
+            >
+              <AsideMenuItem
+                to={`/nft/collections/${nft.contract}/holders`}
+                title='Holders'
+                hasBullet={true}
+              />
+              <AsideMenuItem
+                to={`/nft/collections/${nft.contract}/event`}
+                title='Event'
+                hasBullet={true}
+              />
+            </AsideMenuItemWithSub>
+          )
+        })}
       </AsideMenuItemWithSub>
 
       <div className='menu-item'>

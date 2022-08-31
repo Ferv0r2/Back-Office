@@ -27,4 +27,13 @@ npm install --legacy-peer-deps
 - Add `/src/_metronic/layout/aside/AsideMenuMain.tsx` -> `<AsideMenuItemWithSub>`
 - Add `/src/_metronic/layout/header/MenuInner.tsx` -> `<MenuInnerWithSub>`
 
+### testNFT Object
+
+- Add `/src/app/pages/AddProjectPage.tsx`
+- Add `/src/app/routing/PrivateRoutes.tsx`
+
+### Custom colors
+
+- Modify `src\assets\sass\core\components\_variables.scss`
+
 [Link](https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469)
