@@ -1,4 +1,4 @@
-# Admin Dashboard Theme
+# Back Office
 
 ---
 
@@ -47,7 +47,7 @@ npm install --legacy-peer-deps
 "scripts" {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test
+    "test": "react-app-rewired test"
 }
 ```
 
