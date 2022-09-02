@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx'
+import {Fragment} from 'react'
 import {useLocation} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import {KTSVG, toAbsoluteUrl} from 'src/utils'
@@ -16,7 +17,7 @@ export function HeaderWrapper() {
     link += `/${path}`
 
     return (
-      <ol key={path} className='breadcrumb text-muted fs-6 fw-bold'>
+      <Fragment key={path}>
         {index !== navigator.length - 1 ? (
           <li className='d-none d-md-flex breadcrumb-item pe-3'>
             <Link to={index === 0 ? '/dashboard' : link} className='pe-3'>
@@ -26,7 +27,7 @@ export function HeaderWrapper() {
         ) : (
           <li className='d-none d-md-flex breadcrumb-item pe-3 text-muted'>{path.toUpperCase()}</li>
         )}
-      </ol>
+      </Fragment>
     )
   })
 
@@ -77,7 +78,7 @@ export function HeaderWrapper() {
           {/* begin::Navbar */}
           {header.left === 'menu' && (
             <div className='d-flex align-items-stretch' id='kt_header_nav'>
-              {breadcrumb}
+              <ol className='breadcrumb text-muted fs-6 fw-bold'>{breadcrumb}</ol>
             </div>
           )}
 

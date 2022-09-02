@@ -6,6 +6,10 @@ import {toAbsoluteUrl} from 'src/utils'
 /* Wallet */
 import {useWeb3React} from '@web3-react/core'
 import {injected} from 'src/components/blockchain/web3'
+import caver from 'src/components/blockchain/caver'
+
+/* API */
+import {AuthNonceAPI, AuthTokenAPI} from 'src/api'
 
 /* State */
 import {useRecoilState, useSetRecoilState} from 'recoil'
@@ -17,11 +21,12 @@ import {
 } from 'src/components/states/walletState'
 
 export function Login() {
-  const {account, active, activate} = useWeb3React()
+  const {account, chainId, active, activate} = useWeb3React()
   const [loading, setLoading] = useState(false)
   const setAuth = useSetRecoilState(userAuthState)
   const setMetamaskAddress = useSetRecoilState(metamaskAddressState)
   const [kaikasAddress, setKaikasAddress] = useRecoilState(kaikasAddressState)
+  const [kaikasNetwork, setKaikasNetwork] = useState('')
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
 
   useEffect(() => {}, [setKaikasAddress])
@@ -78,6 +83,7 @@ export function Login() {
     if (klaytn === undefined) return
 
     klaytn.on('networkChanged', () => alert(`${klaytn.networkVersion} 네트워크로 변경되었습니다.`))
+    setKaikasNetwork(klaytn.networkVersion)
   }
 
   const setAuthHandler = async () => {
@@ -95,25 +101,24 @@ export function Login() {
     setLoading(false)
   }
 
-  const testBtn = async() => {
-    await axios.post(`${process.env.REACT_APP_HOST_API_URL}/api/auth/klaytn/prepare`,
-        {
-          headers: {
-            "Authorization": process.env.REACT_APP_AXIOS_HEADERS_TOKEN
-          }
-        }).then(res => res.data)
+  const testBtn = async () => {
+    const nonceAPI = await AuthNonceAPI()
+    const sig = await caver.klay.sign(nonceAPI, kaikasAddress?.toLowerCase())
 
-    await axios.post(`${process.env.REACT_APP_HOST_API_URL}/api/auth/klaytn/prepare`,
-        {
-          headers: {
-            "Authorization": process.env.REACT_APP_AXIOS_HEADERS_TOKEN
-          }
-        }).then(res => res.data)
+    const authAPI = await AuthTokenAPI({
+      nonce: nonceAPI,
+      wallet: kaikasAddress,
+      chain_id: kaikasNetwork,
+      signature: sig,
+    })
+    console.log(authAPI)
   }
 
   return (
     <form className='form w-100' onSubmit={setAuthHandler} noValidate id='kt_login_signin_form'>
-      <button type="button" onClick={testBtn}>엄청난 버튼</button>
+      <button type='button' onClick={testBtn}>
+        엄청난 버튼
+      </button>
       {/* begin::Heading */}
       <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>Sign In</h1>

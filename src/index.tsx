@@ -34,6 +34,10 @@ const getLibrary = (provider: any) => {
   return library
 }
 
+;(window as any).global = window
+// @ts-ignore
+window.Buffer = window.Buffer || require('buffer').Buffer
+
 const queryClient = new QueryClient()
 const container = document.getElementById('root')
 if (container) {
