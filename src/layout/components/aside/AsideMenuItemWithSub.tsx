@@ -2,7 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import {useLocation} from 'react-router'
 import {checkIsActive, KTSVG, WithChildren} from 'src/utils'
-import {useLayout} from '../../core'
+import {useLayout} from 'src/layout/core'
 
 interface Props {
   to: string

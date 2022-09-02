@@ -13,13 +13,13 @@ const AuthLayout = () => {
   }, [])
 
   return (
-    <div className='bg-gradient d-flex flex-column flex-column-fluid'>
+    <div className='d-flex flex-column flex-column-fluid'>
       {/* begin::Content */}
       <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
         {/* begin::Logo */}
         <div className='d-flex mb-12 align-items-center'>
           <img alt='Logo' src={toAbsoluteUrl('/media/logos/favicon.ico')} className='h-45px' />
-          <h1 className='display-6 m-3'>METAONNER</h1>
+          <h2 className='display-6 m-3'>METAONNER</h2>
         </div>
         {/* end::Logo */}
         {/* begin::Wrapper */}

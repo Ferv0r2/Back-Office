@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useState} from 'react'
 import {FeedsWidget} from 'src/components/feed/FeedsWidget'
 
 const testNFT = [
@@ -12,6 +12,7 @@ const testNFT = [
     holders: 1883,
     totalSupply: 58380,
     homepage: 'https://kepler-452b.net',
+    eventCount: 2,
   },
   {
     thumbnail:
@@ -22,25 +23,45 @@ const testNFT = [
     symbol: 'KWL',
     holders: 152,
     totalSupply: 1104,
+    eventCount: 1,
   },
 ]
 
 const AddProjectPage: FC = () => {
+  const [contract, setContract] = useState('')
+
   const addContractHandler = () => {
-    alert('추가됨')
+    if (contract.trim().length === 0) {
+      alert('Contract 주소를 입력해 주세요.')
+      setContract('')
+      return
+    } else if (contract.trim().slice(0, 2) !== '0x' || contract.trim().length !== 42) {
+      alert('잘못된 주소입니다. 다시 입력해 주세요.')
+      setContract('')
+      return
+    }
+
+    alert('ok')
+    setContract('')
+  }
+
+  const getInputHandler = (e: any) => {
+    setContract(e.target.value)
   }
 
   return (
-    <div>
+    <>
       <form className='row mb-10'>
-        <div className='col-4'>
-          <label htmlFor='contractAddress' className='required form-label'>
+        <div className='col-9 col-md-4'>
+          <label htmlFor='contractAddress' className='p-2 required form-label'>
             Contract Address
           </label>
           <input
             type='text'
             className='form-control'
             id='contractAddress'
+            value={contract}
+            onChange={getInputHandler}
             placeholder='0x00000000..'
           />
         </div>
@@ -57,10 +78,10 @@ const AddProjectPage: FC = () => {
       <div className='separator border-white my-10' />
       <div className='row'>
         {testNFT.map((nft) => (
-          <FeedsWidget className='col-5 m-4' nft={nft} />
+          <FeedsWidget key={nft.contract} className='col-11 col-md-5 m-4' nft={nft} />
         ))}
       </div>
-    </div>
+    </>
   )
 }
 

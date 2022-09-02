@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {KTSVG} from 'src/utils'
 import {Link} from 'react-router-dom'
 
 interface Props {
@@ -13,16 +12,17 @@ interface Props {
     holders: number
     totalSupply: number
     homepage?: string
+    eventCount: number
   }
 }
 
 const FeedsWidget: React.FC<Props> = ({className, nft}) => {
   return (
-    <Link className={`card ${className}`} to={`/nft/collections/${nft.name}`}>
+    <div className={`card ${className}`}>
       {/* begin::Body */}
       <div className='card-body pb-0'>
         {/* begin::Header */}
-        <div className='d-flex align-items-center mb-5'>
+        <div className='d-flex align-items-center mb-5 overflow-hidden'>
           {/* begin::User */}
           <div className='d-flex align-items-center flex-grow-1'>
             {/* begin::Avatar */}
@@ -32,9 +32,14 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
             {/* end::Avatar */}
 
             {/* begin::Info */}
-            <div className='d-flex flex-column'>
-              <p className='mb-1 text-gray-800 text-hover-primary fs-6 fw-bold'>{nft.name}</p>
-
+            <div
+              className='d-flex flex-column'
+              style={{
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              <p className='mb-1 text-gray-800 fs-6 fw-bold'>{nft.name}</p>
               <span className='text-gray-400 fw-semibold'>{nft.contract}</span>
             </div>
             {/* end::Info */}
@@ -44,33 +49,38 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
         {/* end::Header */}
 
         {/* begin::Post */}
-        <div className='mb-5'>
+        <div className='p-4'>
           {/* begin::Text */}
-          <p className='text-gray-800 fw-normal mb-5'>
+          {/* <p className='text-gray-800 fw-normal mb-5'>
             Outlines keep you honest. They stop you from indulging in poorly thought-out metaphors
             about driving and keep you focused on the overall structure of your post
-          </p>
-          {/* end::Text */}
-
-          {/* begin::Toolbar */}
-          <div className='d-flex align-items-center mb-5'>
-            <a
-              href='#'
-              className='btn btn-sm btn-light btn-color-muted btn-active-light-success px-4 py-2 me-4'
-            >
-              <KTSVG path='/media/icons/duotune/communication/com012.svg' className='svg-icon-2' />
-              120
-            </a>
-
-            <a
-              href='#'
-              className='btn btn-sm btn-light btn-color-muted btn-active-light-danger px-4 py-2'
-            >
-              <KTSVG path='/media/icons/duotune/general/gen030.svg' className='svg-icon-2' />
-              15
-            </a>
+          </p> */}
+          <div className='d-md-flex d-block gap-12'>
+            <div className='d-flex'>
+              <div className='fw-bolder'>
+                <ol className='p-0'>Name</ol>
+                <ol className='p-0'>Symbol</ol>
+                <ol className='p-0'>Total supply</ol>
+              </div>
+              <div>
+                <ol>{nft.name}</ol>
+                <ol>{nft.symbol}</ol>
+                <ol>{nft.totalSupply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+              </div>
+            </div>
+            <div className='d-flex'>
+              <div className='fw-bolder'>
+                <ol className='p-0'>Holders</ol>
+                <ol className='p-0'>Event count</ol>
+              </div>
+              <div>
+                <ol>{nft.holders.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+                <ol>{nft.eventCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+              </div>
+            </div>
           </div>
-          {/* end::Toolbar */}
+
+          {/* end::Text */}
         </div>
         {/* end::Post */}
 
@@ -78,31 +88,28 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
         <div className='separator mb-4'></div>
         {/* end::Separator */}
 
-        {/* begin::Reply input */}
-        <form className='position-relative mb-6'>
-          <textarea
-            className='form-control border-0 p-0 pe-10 resize-none min-h-25px'
-            rows={1}
-            placeholder='Reply..'
-          ></textarea>
+        {/* begin::Footer */}
+        <div className='d-flex justify-content-between align-items-center mb-6'>
+          <a
+            href={nft.homepage}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-dark text-hover-primary text-'
+          >
+            {nft.homepage}
+          </a>
 
-          <div className='position-absolute top-0 end-0 me-n5'>
-            <span className='btn btn-icon btn-sm btn-active-color-primary pe-0 me-2'>
-              <KTSVG
-                path='/media/icons/duotune/communication/com008.svg'
-                className='svg-icon-3 mb-3'
-              />
-            </span>
-
-            <span className='btn btn-icon btn-sm btn-active-color-primary ps-0'>
-              <KTSVG path='/media/icons/duotune/general/gen018.svg' className='svg-icon-2 mb-3' />
-            </span>
-          </div>
-        </form>
-        {/* edit::Reply input */}
+          <Link
+            to={`/nft/collections/${nft.contract}`}
+            className='btn btn-sm btn-active-color-primary pe-0 me-2'
+          >
+            See More
+          </Link>
+        </div>
+        {/* edit::Footer */}
       </div>
       {/* end::Body */}
-    </Link>
+    </div>
   )
 }
 

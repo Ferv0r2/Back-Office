@@ -1,7 +1,7 @@
 import {FC} from 'react'
 import clsx from 'clsx'
 import {KTSVG, WithChildren} from 'src/utils'
-import {useLayout} from '../../core'
+import {useLayout} from 'src/layout/core'
 
 type Props = {
   title: string
@@ -14,20 +14,15 @@ const AsideMenuUser: FC<Props & WithChildren> = ({children, title, icon, fontIco
   const {aside} = config
 
   return (
-    <div className='menu-item pb-6'>
-      <div
-        className={clsx(
-          'without-subs px-8 py-4 rounded',
-          !aside.minimized && 'border border-light mx-7'
-        )}
-      >
+    <div className='menu-item menu-user pb-6'>
+      <div className='without-subs px-8 py-4 rounded border border-light mx-7'>
         {icon && aside.menuIcon === 'svg' && (
           <span className='menu-icon'>
             <KTSVG path={icon} className='svg-icon-2' />
           </span>
         )}
-        {fontIcon && aside.menuIcon === 'font' && <i className={clsx('bi fs-3', fontIcon)}></i>}
-        <span className={clsx('menu-wallet-title px-6 text-light')}>{title}</span>
+        {fontIcon && aside.menuIcon === 'font' && <i className={clsx('bi fs-3', fontIcon)} />}
+        <span className='menu-wallet-title px-6 text-light'>{title}</span>
         {children}
       </div>
     </div>

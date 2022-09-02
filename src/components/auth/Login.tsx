@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import clsx from 'clsx'
+import axios from 'axios'
 import {toAbsoluteUrl} from 'src/utils'
 
 /* Wallet */
@@ -14,6 +15,7 @@ import {
   metamaskAddressState,
   selectedWalletState,
 } from 'src/components/states/walletState'
+import {setAuthToken} from 'src/utils/setAuthToken'
 
 export function Login() {
   const {account, active, activate} = useWeb3React()
@@ -40,8 +42,8 @@ export function Login() {
   }
 
   const kaikasConnectHandler = async () => {
-    loadAccountInfo()
-    setNetworkInfo()
+    await loadAccountInfo()
+    await setNetworkInfo()
     setSelectedWallet('kaikas')
   }
 
@@ -82,9 +84,32 @@ export function Login() {
     klaytn.on('networkChanged', () => alert(`${klaytn.networkVersion} 네트워크로 변경되었습니다.`))
   }
 
-  const setAuthHandler = () => {
+  const setAuthHandler = async () => {
     setLoading(true)
     if (selectedWallet && (account || kaikasAddress)) {
+      // axios
+      //   .post(`http://metaoneer.bad-bot.shop:9700/api/auth/user/`, {
+      //     wallet: '0x33365F518A0F333365b7FF53BEAbf1F5b1247b5C',
+      //     contract: '0x928267e7db3d173898553ff593a78719bb16929f',
+      //   })
+      //   .then((response) => {
+      //     //get token from response
+      //     const token = response.data.token
+
+      //     //set JWT token to local
+      //     localStorage.setItem('token', token)
+
+      //     //set token to axios common header
+      //     setAuthToken(token)
+
+      //     console.log(token)
+      //     console.log(response)
+      //   })
+      //   .catch((err) => {
+      //     setLoading(false)
+      //     console.log(err)
+      //   })
+
       sessionStorage.setItem('CONNECT', selectedWallet)
       sessionStorage.setItem(
         'WALLET_ADDRESS',
@@ -94,6 +119,7 @@ export function Login() {
     } else {
       alert('지갑을 연결해 주세요.')
     }
+    setLoading(false)
   }
 
   return (
@@ -111,7 +137,7 @@ export function Login() {
           type='button'
           onClick={metamaskConnectHandler}
           className={clsx(
-            'btn btn-flex flex-center btn-light btn-lg w-100 py-6 mb-5',
+            'btn btn-flex flex-center fs-6 fs-md-5 btn-light btn-lg w-100 py-6 mb-5',
             selectedWallet === 'metamask' && 'ribbon ribbon-end ribbon-clip'
           )}
         >
@@ -135,7 +161,7 @@ export function Login() {
           type='button'
           onClick={kaikasConnectHandler}
           className={clsx(
-            'btn btn-flex flex-center btn-light btn-lg w-100 py-6 mb-5',
+            'btn btn-flex flex-center fs-6 fs-md-5 btn-light btn-lg w-100 py-6 mb-5',
             selectedWallet === 'kaikas' && 'ribbon ribbon-end ribbon-clip'
           )}
         >

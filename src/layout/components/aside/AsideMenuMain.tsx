@@ -3,6 +3,7 @@ import {KTSVG} from 'src/utils'
 import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
 import {AsideMenuItem} from './AsideMenuItem'
 import {AsideMenuUser} from './AsideMenuUser'
+import {Fragment} from 'react'
 
 const testNFT = [
   {
@@ -53,23 +54,26 @@ export function AsideMenuMain() {
       >
         {testNFT.map((nft) => {
           return (
-            <AsideMenuItemWithSub
-              to={`/nft/collections/${nft.contract}`}
-              title={nft.name}
-              // icon='/media/icons/duotune/coding/cod002.svg'
-              url={nft.thumbnail}
-            >
-              <AsideMenuItem
-                to={`/nft/collections/${nft.contract}/holders`}
-                title='Holders'
-                hasBullet={true}
-              />
-              <AsideMenuItem
-                to={`/nft/collections/${nft.contract}/event`}
-                title='Event'
-                hasBullet={true}
-              />
-            </AsideMenuItemWithSub>
+            <Fragment key={nft.contract}>
+              <AsideMenuItemWithSub
+                to={`/nft/collections/${nft.contract}`}
+                title={nft.name}
+                // icon='/media/icons/duotune/coding/cod002.svg'
+                url={nft.thumbnail}
+                hasBullet={!nft.thumbnail && true}
+              >
+                <AsideMenuItem
+                  to={`/nft/collections/${nft.contract}/holders`}
+                  title='Holders'
+                  hasBullet={true}
+                />
+                <AsideMenuItem
+                  to={`/nft/collections/${nft.contract}/event`}
+                  title='Event'
+                  hasBullet={true}
+                />
+              </AsideMenuItemWithSub>
+            </Fragment>
           )
         })}
       </AsideMenuItemWithSub>

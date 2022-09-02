@@ -4,7 +4,6 @@ import {useLocation} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import {KTSVG, toAbsoluteUrl} from 'src/utils'
 import {useLayout} from '../../core'
-import {DefaultTitle} from './page-title/DefaultTitle'
 import {Topbar} from './Topbar'
 
 export function HeaderWrapper() {
@@ -17,17 +16,17 @@ export function HeaderWrapper() {
     link += `/${path}`
 
     return (
-      <>
+      <ol key={path} className='breadcrumb text-muted fs-6 fw-bold'>
         {index !== navigator.length - 1 ? (
-          <li className='breadcrumb-item pe-3'>
+          <li className='d-none d-md-flex breadcrumb-item pe-3'>
             <Link to={index === 0 ? '/dashboard' : link} className='pe-3'>
               {index === 0 ? 'HOME' : path.toUpperCase()}
             </Link>
           </li>
         ) : (
-          <li className='breadcrumb-item pe-3 text-muted'>{path.toUpperCase()}</li>
+          <li className='d-none d-md-flex breadcrumb-item pe-3 text-muted'>{path.toUpperCase()}</li>
         )}
-      </>
+      </ol>
     )
   })
 
@@ -59,11 +58,7 @@ export function HeaderWrapper() {
         {!aside.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
             <Link to='/dashboard' className='d-lg-none'>
-              <img
-                alt='Logo'
-                src={toAbsoluteUrl('/media/logos/default-small.svg')}
-                className='h-30px'
-              />
+              <img alt='Logo' src={toAbsoluteUrl('/media/logos/favicon.ico')} className='h-30px' />
             </Link>
           </div>
         )}
@@ -72,11 +67,7 @@ export function HeaderWrapper() {
         {aside.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
             <Link to='/' className='d-lg-none'>
-              <img
-                alt='Logo'
-                src={toAbsoluteUrl('/media/logos/default-small.svg')}
-                className='h-30px'
-              />
+              <img alt='Logo' src={toAbsoluteUrl('/media/logos/favicon.ico')} className='h-30px' />
             </Link>
           </div>
         )}
@@ -86,13 +77,7 @@ export function HeaderWrapper() {
           {/* begin::Navbar */}
           {header.left === 'menu' && (
             <div className='d-flex align-items-stretch' id='kt_header_nav'>
-              <ol className='breadcrumb text-muted fs-6 fw-bold'>{breadcrumb}</ol>
-            </div>
-          )}
-
-          {header.left === 'page-title' && (
-            <div className='d-flex align-items-center' id='kt_header_nav'>
-              <DefaultTitle />
+              {breadcrumb}
             </div>
           )}
 

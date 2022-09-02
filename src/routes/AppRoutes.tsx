@@ -7,7 +7,7 @@
 
 import {FC} from 'react'
 import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
-import {PrivateRoutes} from 'src/routing/PrivateRoutes'
+import {PrivateRoutes} from 'src/routes/PrivateRoutes'
 import {ErrorsPage} from 'src/pages/ErrorsPage'
 import {AuthPage} from 'src/pages/AuthPage'
 import {App} from 'src/App'

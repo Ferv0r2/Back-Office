@@ -3,7 +3,7 @@
 import {FC, useRef} from 'react'
 import {Link} from 'react-router-dom'
 import clsx from 'clsx'
-import {useLayout} from '../../core'
+import {useLayout} from 'src/layout/core'
 import {KTSVG, toAbsoluteUrl} from 'src/utils'
 import {AsideMenu} from './AsideMenu'
 
@@ -42,7 +42,7 @@ const AsideDefault: FC = () => {
               className='h-25px logo'
               src={toAbsoluteUrl('/media/logos/favicon.ico')}
             />
-            <h4 className='m-3 text-light'>METAONNER</h4>
+            <h4 className='menu-title m-3 text-light'>METAONNER</h4>
           </div>
         </Link>
         {/* end::Logo */}

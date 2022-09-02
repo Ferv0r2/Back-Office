@@ -1,4 +1,4 @@
-import {lazy, FC, Suspense} from 'react'
+import {lazy, FC, Suspense, Fragment} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from 'src/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
@@ -47,14 +47,14 @@ const PrivateRoutes = () => {
         <Route path='nft/collections' element={<AddProjectPage />} />
         {testNFT.map((nft) => {
           return (
-            <>
+            <Fragment key={nft.contract}>
               <Route path={`nft/collections/${nft.contract}`} element={<NFTDetailPage />} />
               <Route
                 path={`nft/collections/${nft.contract}/holders`}
                 element={<NFTHoldersPage />}
               />
               <Route path={`nft/collections/${nft.contract}/event`} element={<NFTEventPage />} />
-            </>
+            </Fragment>
           )
         })}
 

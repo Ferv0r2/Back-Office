@@ -11,10 +11,11 @@ import {ReactQueryDevtools} from 'react-query/devtools'
 import 'src/assets/sass/style.scss'
 import 'src/assets/sass/plugins.scss'
 import 'src/assets/sass/style.react.scss'
-import {AppRoutes} from 'src/routing/AppRoutes'
+import {AppRoutes} from 'src/routes/AppRoutes'
 import {Web3ReactProvider} from '@web3-react/core'
 import {Web3Provider} from '@ethersproject/providers'
 import {RecoilRoot} from 'recoil'
+import {setAuthToken} from './utils/setAuthToken'
 
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
@@ -32,6 +33,11 @@ Chart.register(...registerables)
 const getLibrary = (provider: any) => {
   const library = new Web3Provider(provider, 'any')
   return library
+}
+
+const token = localStorage.getItem('token')
+if (token) {
+  setAuthToken(token)
 }
 
 const queryClient = new QueryClient()

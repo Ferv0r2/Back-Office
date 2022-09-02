@@ -31,9 +31,24 @@ npm install --legacy-peer-deps
 
 - Add `/src/app/pages/AddProjectPage.tsx`
 - Add `/src/app/routing/PrivateRoutes.tsx`
+- Add `/src/layout/components/aside/AsideMenuMain.tsx`
 
 ### Custom colors
 
-- Modify `src\assets\sass\core\components\_variables.scss`
+- Modify `src/assets/sass/core/components/_variables.scss`
+
+### Webpack config overrides
+
+- Install `npm install -D react-app-rewired`
+- Add `config-overrides.js`
+- Modify `scripts`
+
+```js
+"scripts" {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test
+}
+```
 
 [Link](https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469)
