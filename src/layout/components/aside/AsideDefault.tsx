@@ -79,7 +79,7 @@ const AsideDefault: FC = () => {
         <a
           target='_blank'
           className='btn btn-custom btn-primary w-100'
-          href={process.env.REACT_APP_PREVIEW_DOCS_URL}
+          href={process.env.REACT_APP_DOCS_URL}
           data-bs-toggle='tooltip'
           data-bs-trigger='hover'
           data-bs-dismiss-='click'

@@ -111,7 +111,7 @@ export function AsideMenuMain() {
         <a
           target='_blank'
           className='menu-link'
-          href={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
+          href={process.env.REACT_APP_DOCS_URL + '/docs/changelog'}
         >
           <span className='menu-icon'>
             <KTSVG path='/media/icons/duotune/general/gen005.svg' className='svg-icon-2' />

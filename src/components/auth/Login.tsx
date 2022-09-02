@@ -15,7 +15,6 @@ import {
   metamaskAddressState,
   selectedWalletState,
 } from 'src/components/states/walletState'
-import {setAuthToken} from 'src/utils/setAuthToken'
 
 export function Login() {
   const {account, active, activate} = useWeb3React()
@@ -24,8 +23,6 @@ export function Login() {
   const setMetamaskAddress = useSetRecoilState(metamaskAddressState)
   const [kaikasAddress, setKaikasAddress] = useRecoilState(kaikasAddressState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
-
-  console.log(selectedWallet)
 
   useEffect(() => {}, [setKaikasAddress])
 
@@ -58,7 +55,6 @@ export function Login() {
           setAccountInfo()
         })
       } catch (error) {
-        // console.log(error);
         console.log('User denied account access')
       }
     } else {
@@ -87,29 +83,6 @@ export function Login() {
   const setAuthHandler = async () => {
     setLoading(true)
     if (selectedWallet && (account || kaikasAddress)) {
-      // axios
-      //   .post(`http://metaoneer.bad-bot.shop:9700/api/auth/user/`, {
-      //     wallet: '0x33365F518A0F333365b7FF53BEAbf1F5b1247b5C',
-      //     contract: '0x928267e7db3d173898553ff593a78719bb16929f',
-      //   })
-      //   .then((response) => {
-      //     //get token from response
-      //     const token = response.data.token
-
-      //     //set JWT token to local
-      //     localStorage.setItem('token', token)
-
-      //     //set token to axios common header
-      //     setAuthToken(token)
-
-      //     console.log(token)
-      //     console.log(response)
-      //   })
-      //   .catch((err) => {
-      //     setLoading(false)
-      //     console.log(err)
-      //   })
-
       sessionStorage.setItem('CONNECT', selectedWallet)
       sessionStorage.setItem(
         'WALLET_ADDRESS',
@@ -122,8 +95,25 @@ export function Login() {
     setLoading(false)
   }
 
+  const testBtn = async() => {
+    await axios.post(`${process.env.REACT_APP_HOST_API_URL}/api/auth/klaytn/prepare`,
+        {
+          headers: {
+            "Authorization": process.env.REACT_APP_AXIOS_HEADERS_TOKEN
+          }
+        }).then(res => res.data)
+
+    await axios.post(`${process.env.REACT_APP_HOST_API_URL}/api/auth/klaytn/prepare`,
+        {
+          headers: {
+            "Authorization": process.env.REACT_APP_AXIOS_HEADERS_TOKEN
+          }
+        }).then(res => res.data)
+  }
+
   return (
     <form className='form w-100' onSubmit={setAuthHandler} noValidate id='kt_login_signin_form'>
+      <button type="button" onClick={testBtn}>엄청난 버튼</button>
       {/* begin::Heading */}
       <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>Sign In</h1>
