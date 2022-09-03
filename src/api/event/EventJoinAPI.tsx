@@ -3,7 +3,7 @@ import {IEventJoinAPI} from '../APIModels'
 
 export async function EventJoinAPI(args: IEventJoinAPI) {
   const request = await axios
-    .post(`${process.env.REACT_APP_HOST_API_URL}/api/event/${args.event_id}`, {
+    .post(`${process.env.REACT_APP_HOST_API_URL}/api/${args.nft_address}/event/${args.event_id}`, {
       headers: {
         Authorization: args.jwt,
       },

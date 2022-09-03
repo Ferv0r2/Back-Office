@@ -23,7 +23,7 @@ const AuthLayout = () => {
         </div>
         {/* end::Logo */}
         {/* begin::Wrapper */}
-        <div className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto'>
+        <div className='w-md-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto'>
           <Outlet />
         </div>
         {/* end::Wrapper */}

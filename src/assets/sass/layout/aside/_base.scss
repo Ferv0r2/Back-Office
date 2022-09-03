@@ -162,8 +162,7 @@
           }
 
           .menu-title {
-            opacity: 0;
-            transition: opacity get($aside-config, transition-speed) ease;
+            display: none;
           }
         }
 

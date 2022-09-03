@@ -1,7 +1,7 @@
 import axios from 'axios'
-import {INFTDetailAPI} from '../APIModels'
+import {INFTBaseAPI} from '../APIModels'
 
-export async function NFTDetailAPI(arg: INFTDetailAPI) {
+export async function NFTDetailAPI(arg: INFTBaseAPI) {
   const request = await axios
     .get(`${process.env.REACT_APP_HOST_API_URL}/api/nft${arg.nft_address}`, {
       headers: {

@@ -51,7 +51,7 @@ const AsideDefault: FC = () => {
         {aside.minimize && (
           <div
             id='kt_aside_toggle'
-            className='btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle'
+            className='block btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle'
             data-kt-toggle='true'
             data-kt-toggle-state='active'
             data-kt-toggle-target='body'

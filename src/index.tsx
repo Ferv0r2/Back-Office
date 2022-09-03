@@ -15,7 +15,6 @@ import {AppRoutes} from 'src/routes/AppRoutes'
 import {Web3ReactProvider} from '@web3-react/core'
 import {Web3Provider} from '@ethersproject/providers'
 import {RecoilRoot} from 'recoil'
-
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -33,10 +32,6 @@ const getLibrary = (provider: any) => {
   const library = new Web3Provider(provider, 'any')
   return library
 }
-
-;(window as any).global = window
-// @ts-ignore
-window.Buffer = window.Buffer || require('buffer').Buffer
 
 const queryClient = new QueryClient()
 const container = document.getElementById('root')

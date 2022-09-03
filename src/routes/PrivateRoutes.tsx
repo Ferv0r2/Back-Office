@@ -1,11 +1,8 @@
-import {lazy, FC, Suspense, Fragment} from 'react'
+import {Fragment} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from 'src/layout/MasterLayout'
-import TopBarProgress from 'react-topbar-progress-indicator'
 import {DashboardWrapper} from 'src/components/dashboard/DashboardWrapper'
 import {AddProjectPage} from 'src/pages/AddProjectPage'
-import {getCSSVariableValue} from 'src/assets/ts/_utils'
-import {WithChildren} from 'src/utils'
 import NFTDetailPage from 'src/pages/NFTDetailPage'
 import NFTHoldersPage from 'src/pages/NFTHoldersPage'
 import NFTEventPage from 'src/pages/NFTEventPage'
@@ -42,88 +39,27 @@ const PrivateRoutes = () => {
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
-        <Route path='nft/*' element={<Navigate to='/nft/add' />} />
-        <Route path='nft/add' element={<AddProjectPage />} />
+        <Route path='nft/*' element={<Navigate to='/nft/management' />} />
+        <Route path='nft/management' element={<AddProjectPage />} />
         <Route path='nft/collections' element={<AddProjectPage />} />
+        <Route
+          path='nft/collections/*'
+          element={<Navigate to={`/nft/${testNFT[0].contract}/holders`} />}
+        />
         {testNFT.map((nft) => {
           return (
             <Fragment key={nft.contract}>
-              <Route path={`nft/collections/${nft.contract}`} element={<NFTDetailPage />} />
-              <Route
-                path={`nft/collections/${nft.contract}/holders`}
-                element={<NFTHoldersPage />}
-              />
-              <Route path={`nft/collections/${nft.contract}/event`} element={<NFTEventPage />} />
+              <Route path={`nft/${nft.contract}`} element={<NFTDetailPage />} />
+              <Route path={`nft/${nft.contract}/holders`} element={<NFTHoldersPage />} />
+              <Route path={`nft/${nft.contract}/event`} element={<NFTEventPage />} />
             </Fragment>
           )
         })}
-
-        {/* Lazy Modules */}
-        {/* <Route
-          path='crafted/pages/profile/*'
-          element={
-            <SuspensedView>
-              <ProfilePage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='crafted/pages/wizards/*'
-          element={
-            <SuspensedView>
-              <WizardsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='crafted/widgets/*'
-          element={
-            <SuspensedView>
-              <WidgetsPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='crafted/account/*'
-          element={
-            <SuspensedView>
-              <AccountPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='apps/chat/*'
-          element={
-            <SuspensedView>
-              <ChatPage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='apps/user-management/*'
-          element={
-            <SuspensedView>
-              <UsersPage />
-            </SuspensedView>
-          }
-        /> */}
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
     </Routes>
   )
 }
-
-// const SuspensedView: FC<WithChildren> = ({children}) => {
-//   const baseColor = getCSSVariableValue('--kt-primary')
-//   TopBarProgress.config({
-//     barColors: {
-//       '0': baseColor,
-//     },
-//     barThickness: 1,
-//     shadowBlur: 5,
-//   })
-//   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
-// }
 
 export {PrivateRoutes}

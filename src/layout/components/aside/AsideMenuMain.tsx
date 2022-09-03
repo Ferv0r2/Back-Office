@@ -44,7 +44,11 @@ export function AsideMenuMain() {
         </div>
       </div>
 
-      <AsideMenuItem to='/nft/add' title='Add NFT' icon='/media/icons/duotune/coding/cod001.svg' />
+      <AsideMenuItem
+        to='/nft/management'
+        title='NFT Management'
+        icon='/media/icons/duotune/coding/cod001.svg'
+      />
 
       <AsideMenuItemWithSub
         to='/nft/collections'
@@ -56,22 +60,17 @@ export function AsideMenuMain() {
           return (
             <Fragment key={nft.contract}>
               <AsideMenuItemWithSub
-                to={`/nft/collections/${nft.contract}`}
+                to={`/nft/${nft.contract}`}
                 title={nft.name}
-                // icon='/media/icons/duotune/coding/cod002.svg'
                 url={nft.thumbnail}
                 hasBullet={!nft.thumbnail && true}
               >
                 <AsideMenuItem
-                  to={`/nft/collections/${nft.contract}/holders`}
+                  to={`/nft/${nft.contract}/holders`}
                   title='Holders'
                   hasBullet={true}
                 />
-                <AsideMenuItem
-                  to={`/nft/collections/${nft.contract}/event`}
-                  title='Event'
-                  hasBullet={true}
-                />
+                <AsideMenuItem to={`/nft/${nft.contract}/event`} title='Event' hasBullet={true} />
               </AsideMenuItemWithSub>
             </Fragment>
           )
@@ -87,7 +86,7 @@ export function AsideMenuMain() {
       <AsideMenuItem
         to='/event/create'
         icon='/media/icons/duotune/general/gen051.svg'
-        title='Create Event'
+        title='Event Management'
         fontIcon='bi-layers'
       />
 

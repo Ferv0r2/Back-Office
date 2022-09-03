@@ -1,22 +1,71 @@
 export interface IAuthTokenAPI {
-  chain_id: string
+  chain_id: number
   nonce: string
   wallet: string
   signature: string
 }
 
-export interface IEventViewAPI {
+export interface INFTBaseAPI {
   jwt: string
-  event_id: number
+  nft_address: string
 }
 
-export interface IEventJoinAPI {
+export interface INFTCreateAPI extends INFTBaseAPI {
+  wallet: string
+  contract: string
+}
+
+export interface INFTModifyAPI extends INFTBaseAPI {
+  homepage: string
+  thumnail: string
+}
+
+export interface INFTTokenDetailAPI extends INFTBaseAPI {
+  token_id: number
+  id: number
+  attributes: string[]
+}
+
+export interface INFTHolderDetailAPI extends INFTBaseAPI {
+  wallet_address: string
+}
+
+export interface IEventBaseAPI {
   jwt: string
   event_id: number
+  nft_address: string
+}
+
+export interface IEventJoinAPI extends IEventBaseAPI {
   event_item_id: number
 }
 
-export interface INFTDetailAPI {
-  jwt: string
-  nft_address: string
+export interface IEventCreateAPI extends INFTBaseAPI {
+  start_dt: Date
+  end_dt: Date
+  content: string
+  items: IEvent[]
+}
+
+export interface IEvent {
+  login_discord?: IEventItem
+  login_twitter?: IEventItem
+  connect_wallet?: IEventItem
+  twitter_follow?: IEventItem
+  twitter_retweet?: IEventItem
+  click_link?: IEventItem
+  click_callback_link?: IEventItem
+  nft_hold?: IEventItem
+}
+
+export interface IEventItem {
+  title: string
+  point: number
+  type?: string
+  type_id?: string
+  type_url?: string
+  type_icon?: string
+  type_contract?: string
+  callback_url?: string
+  count?: number
 }

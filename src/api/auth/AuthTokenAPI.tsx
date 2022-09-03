@@ -7,9 +7,9 @@ export async function AuthTokenAPI(args: IAuthTokenAPI) {
       headers: {
         Authorization: process.env.REACT_APP_AXIOS_HEADERS_TOKEN,
       },
+      chain_id: args.chain_id,
       nonce: args.nonce,
       wallet: args.wallet,
-      chain_id: args.chain_id,
       signature: args.signature,
     })
     .then((res) => res.data)

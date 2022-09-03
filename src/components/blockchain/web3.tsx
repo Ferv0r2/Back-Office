@@ -1,2 +1,10 @@
-import {InjectedConnector} from '@web3-react/injected-connector'
-export const injected = new InjectedConnector({})
+import Web3 from 'web3'
+
+declare global {
+  interface Window {
+    ethereum: any
+  }
+}
+
+const web3 = new Web3(window.ethereum)
+export default web3

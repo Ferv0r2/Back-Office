@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react'
 import clsx from 'clsx'
-import axios from 'axios'
 import {toAbsoluteUrl} from 'src/utils'
 
 /* Wallet */
 import {useWeb3React} from '@web3-react/core'
-import {injected} from 'src/components/blockchain/web3'
+import {injected} from 'src/components/blockchain/metamask'
 import caver from 'src/components/blockchain/caver'
+import web3 from 'src/components/blockchain/web3'
 
 /* API */
 import {AuthNonceAPI, AuthTokenAPI} from 'src/api'
@@ -88,37 +88,49 @@ export function Login() {
 
   const setAuthHandler = async () => {
     setLoading(true)
-    if (selectedWallet && (account || kaikasAddress)) {
-      sessionStorage.setItem('CONNECT', selectedWallet)
-      sessionStorage.setItem(
-        'WALLET_ADDRESS',
-        selectedWallet === 'metamask' ? String(account) : String(kaikasAddress)
-      )
-      setAuth(true)
-    } else {
+    if (!selectedWallet) {
       alert('지갑을 연결해 주세요.')
+      setLoading(false)
+      return
     }
-    setLoading(false)
-  }
 
-  const testBtn = async () => {
     const nonceAPI = await AuthNonceAPI()
-    const sig = await caver.klay.sign(nonceAPI, kaikasAddress?.toLowerCase())
+    let sign, authAPI
+    if (selectedWallet === 'metamask' && account) {
+      // sign = await web3.eth.sign(nonceAPI), account.toLowerCase())
+      sign = await web3.eth.sign(String(web3.utils.sha3(nonceAPI)), account.toLowerCase())
+      authAPI = await AuthTokenAPI({
+        nonce: nonceAPI,
+        wallet: account,
+        chain_id: Number(chainId),
+        signature: sign,
+      })
+      console.log('METAMASK', authAPI)
+    }
 
-    const authAPI = await AuthTokenAPI({
-      nonce: nonceAPI,
-      wallet: kaikasAddress,
-      chain_id: kaikasNetwork,
-      signature: sig,
-    })
-    console.log(authAPI)
+    if (selectedWallet === 'kaikas' && kaikasAddress) {
+      sign = await caver.klay.sign(nonceAPI, kaikasAddress.toLowerCase())
+      authAPI = await AuthTokenAPI({
+        nonce: nonceAPI,
+        wallet: kaikasAddress,
+        chain_id: Number(kaikasNetwork),
+        signature: sign,
+      })
+      console.log('KAIKAS', authAPI)
+    }
+
+    localStorage.setItem('ACCESS_TOKEN', authAPI)
+    sessionStorage.setItem('CONNECT', selectedWallet)
+    sessionStorage.setItem(
+      'WALLET_ADDRESS',
+      selectedWallet === 'metamask' ? String(account) : String(kaikasAddress)
+    )
+    setAuth(true)
+    window.location.href = '/'
   }
 
   return (
-    <form className='form w-100' onSubmit={setAuthHandler} noValidate id='kt_login_signin_form'>
-      <button type='button' onClick={testBtn}>
-        엄청난 버튼
-      </button>
+    <form className='form w-100' noValidate id='kt_login_signin_form'>
       {/* begin::Heading */}
       <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>Sign In</h1>
@@ -178,7 +190,8 @@ export function Login() {
         {/* end::Kaikas */}
 
         <button
-          type='submit'
+          type='button'
+          onClick={setAuthHandler}
           className='btn btn-lg btn-primary w-100 mb-5'
           disabled={!selectedWallet || !(account || kaikasAddress) || loading}
         >

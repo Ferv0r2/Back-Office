@@ -1,5 +1,3 @@
-export * from './layout/search/Search'
-export * from './layout/SearchModal'
 export * from './layout/InboxCompose'
 export * from './layout/activity-drawer/ActivityDrawer'
 export * from './layout/user-menu/UserMenu'

@@ -55,5 +55,15 @@ npm install --legacy-peer-deps
 
 - Add `src/api/*`
 
+### Modify Label
+
+- `Add nft` => `NFT Management`
+- `Create Event` => `Event Management`
+
+### script: Remove source during run
+
+- Windows => `npm run winStart`
+- Linux => `npm start`
+
 [API-Link](https://github.com/Metaoneer-Club/metaoneer-kgf2-backend/tree/master/src/routes)
 [Theme-Link](https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469)

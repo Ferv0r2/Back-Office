@@ -11,7 +11,9 @@ const Logout = ({toggleBtnClass}: Props) => {
 
   const logoutHandler = () => {
     setAuth(false)
+    localStorage.removeItem('ACCESS_TOKEN')
     sessionStorage.removeItem('CONNECT')
+    sessionStorage.removeItem('WALLET_ADDRESS')
     document.location.reload()
   }
 
