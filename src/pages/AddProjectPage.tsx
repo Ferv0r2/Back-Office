@@ -1,4 +1,5 @@
 import {FC, useState} from 'react'
+import {NFTCreateAPI} from 'src/api'
 import {FeedsWidget} from 'src/components/feed/FeedsWidget'
 
 const testNFT = [
@@ -30,7 +31,7 @@ const testNFT = [
 const AddProjectPage: FC = () => {
   const [contract, setContract] = useState('')
 
-  const addContractHandler = () => {
+  const addContractHandler = async () => {
     if (contract.trim().length === 0) {
       alert('Contract 주소를 입력해 주세요.')
       setContract('')
@@ -41,7 +42,14 @@ const AddProjectPage: FC = () => {
       return
     }
 
-    alert('ok')
+    const account = sessionStorage.getItem('WALLET_ADDRESS')
+
+    const addContractAPI = await NFTCreateAPI({
+      contract: contract,
+      wallet: String(account),
+    })
+
+    alert(addContractAPI)
     setContract('')
   }
 
@@ -51,28 +59,30 @@ const AddProjectPage: FC = () => {
 
   return (
     <>
-      <form className='row mb-10'>
-        <div className='col-9 col-md-4'>
-          <label htmlFor='contractAddress' className='p-2 required form-label'>
-            Contract Address
-          </label>
-          <input
-            type='text'
-            className='form-control'
-            id='contractAddress'
-            value={contract}
-            onChange={getInputHandler}
-            placeholder='0x00000000..'
-          />
-        </div>
-        <div className='col-auto align-self-end'>
-          <button
-            type='button'
-            onClick={addContractHandler}
-            className='btn btn-sm btn-primary mb-1'
-          >
-            Add
-          </button>
+      <form>
+        <div className='row'>
+          <div className='col-9 col-md-4'>
+            <label htmlFor='contractAddress' className='form-label p-2 required form-label'>
+              Contract Address
+            </label>
+            <input
+              type='text'
+              className='form-control'
+              id='contractAddress'
+              value={contract}
+              onChange={getInputHandler}
+              placeholder='0x00000000..'
+            />
+          </div>
+          <div className='col-auto align-self-end'>
+            <button
+              type='button'
+              onClick={addContractHandler}
+              className='btn btn-sm btn-primary mb-1'
+            >
+              Add
+            </button>
+          </div>
         </div>
       </form>
       <div className='separator border-white my-10' />

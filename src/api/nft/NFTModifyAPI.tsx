@@ -3,10 +3,7 @@ import {INFTModifyAPI} from '../APIModels'
 
 export async function NFTModifyAPI(args: INFTModifyAPI) {
   const request = await axios
-    .put(`${process.env.REACT_APP_HOST_API_URL}/api/nft/${args.nft_address}`, {
-      headers: {
-        Authorization: args.jwt,
-      },
+    .put(`/api/nft/${args.nft_address}`, {
       homepage: args.homepage,
       thumnail: args.thumnail,
     })

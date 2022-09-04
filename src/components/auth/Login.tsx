@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import clsx from 'clsx'
 import {toAbsoluteUrl} from 'src/utils'
 
@@ -28,8 +28,6 @@ export function Login() {
   const [kaikasAddress, setKaikasAddress] = useRecoilState(kaikasAddressState)
   const [kaikasNetwork, setKaikasNetwork] = useState('')
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
-
-  useEffect(() => {}, [setKaikasAddress])
 
   const metamaskConnectHandler = () => {
     setSelectedWallet('metamask')
@@ -119,7 +117,7 @@ export function Login() {
       console.log('KAIKAS', authAPI)
     }
 
-    localStorage.setItem('ACCESS_TOKEN', authAPI)
+    localStorage.setItem('ACCESS_TOKEN', authAPI.token)
     sessionStorage.setItem('CONNECT', selectedWallet)
     sessionStorage.setItem(
       'WALLET_ADDRESS',

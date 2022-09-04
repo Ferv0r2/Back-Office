@@ -15,6 +15,7 @@ import {AppRoutes} from 'src/routes/AppRoutes'
 import {Web3ReactProvider} from '@web3-react/core'
 import {Web3Provider} from '@ethersproject/providers'
 import {RecoilRoot} from 'recoil'
+import axios from 'axios'
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -31,6 +32,12 @@ Chart.register(...registerables)
 const getLibrary = (provider: any) => {
   const library = new Web3Provider(provider, 'any')
   return library
+}
+
+const token = localStorage.getItem('ACCESS_TOKEN')
+axios.defaults.baseURL = process.env.REACT_APP_HOST_API_URL
+axios.defaults.headers.common = {
+  Authorization: token ? String(token) : String(process.env.REACT_APP_HOST_API_URL),
 }
 
 const queryClient = new QueryClient()

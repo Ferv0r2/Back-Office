@@ -1,13 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import {KTSVG} from 'src/utils'
-import {Dropdown1} from '../../content/dropdown/Dropdown1'
 
 type Props = {
   className: string
 }
 
-const ListsWidget6: React.FC<Props> = ({className}) => {
+const ItemList: React.FC<Props> = ({className}) => {
   return (
     <div className='card card-xl-stretch mb-5 mb-xl-8'>
       {/* begin::Header */}
@@ -24,7 +23,6 @@ const ListsWidget6: React.FC<Props> = ({className}) => {
           >
             <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
           </button>
-          <Dropdown1 />
           {/* end::Menu */}
         </div>
       </div>
@@ -117,4 +115,4 @@ const ListsWidget6: React.FC<Props> = ({className}) => {
   )
 }
 
-export {ListsWidget6}
+export {ItemList}

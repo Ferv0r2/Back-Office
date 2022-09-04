@@ -1,19 +1,30 @@
-// @ts-nocheck
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSSVariableValue} from 'src/assets/ts/_utils'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
+import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
+  chartColor: string
   chartHeight: string
-  backGroundColor: string
 }
 
-const MixedWidget13: React.FC<Props> = ({className, backGroundColor, chartHeight}) => {
+const LineChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
+  const refreshChart = () => {
+    if (!chartRef.current) {
+      return
+    }
+
+    const chart = new ApexCharts(chartRef.current, chartOptions(chartColor, chartHeight))
+    if (chart) {
+      chart.render()
+    }
+
+    return chart
+  }
 
   useEffect(() => {
     const chart = refreshChart()
@@ -26,65 +37,40 @@ const MixedWidget13: React.FC<Props> = ({className, backGroundColor, chartHeight
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, mode])
 
-  const refreshChart = () => {
-    if (!chartRef.current) {
-      return
-    }
-
-    const chart = new ApexCharts(chartRef.current, chartOptions(chartHeight))
-    if (chart) {
-      chart.render()
-    }
-
-    return chart
-  }
-
   return (
-    <div
-      className={`card ${className} theme-dark-bg-body`}
-      style={{backgroundColor: backGroundColor}}
-    >
+    <div className={`card ${className}`}>
       {/* begin::Body */}
-      <div className='card-body d-flex flex-column'>
-        {/* begin::Wrapper */}
-        <div className='d-flex flex-column flex-grow-1'>
-          {/* begin::Title                    */}
-          <a href='#' className='text-dark text-hover-primary fw-bolder fs-3'>
-            Earnings
-          </a>
-          {/* end::Title */}
-
-          <div
-            ref={chartRef}
-            className='mixed-widget-13-chart'
-            style={{height: chartHeight, minHeight: chartHeight}}
-          ></div>
-        </div>
-        {/* end::Wrapper */}
-
+      <div className='card-body d-flex flex-column p-0'>
         {/* begin::Stats */}
-        <div className='pt-5'>
-          {/* begin::Symbol */}
-          <span className='text-dark fw-bolder fs-2x lh-0'>$</span>
-          {/* end::Symbol */}
+        <div className='flex-grow-1 card-p pb-0'>
+          <div className='d-flex flex-stack flex-wrap'>
+            <div className='me-2'>
+              <a href='#' className='text-dark text-hover-primary fw-bold fs-3'>
+                Generate Reports
+              </a>
 
-          {/* begin::Number */}
-          <span className='text-dark fw-bolder fs-3x me-2 lh-0'>560</span>
-          {/* end::Number */}
+              <div className='text-muted fs-7 fw-semibold'>Finance and accounting reports</div>
+            </div>
 
-          {/* begin::Text */}
-          <span className='text-dark fw-bolder fs-6 lh-0'>+ 28% this week</span>
-          {/* end::Text */}
+            <div className={`fw-bold fs-3 text-${chartColor}`}>$24,500</div>
+          </div>
         </div>
         {/* end::Stats */}
+
+        {/* begin::Chart */}
+        <div ref={chartRef} className='mixed-widget-7-chart card-rounded-bottom'></div>
+        {/* end::Chart */}
       </div>
+      {/* end::Body */}
     </div>
   )
 }
 
-const chartOptions = (chartHeight: string): ApexOptions => {
+const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
   const labelColor = getCSSVariableValue('--kt-gray-800')
-  const strokeColor = getCSSVariableValue('--kt-gray-300') as string
+  const strokeColor = getCSSVariableValue('--kt-gray-300')
+  const baseColor = getCSSVariableValue('--kt-' + chartColor)
+  const lightColor = getCSSVariableValue('--kt-' + chartColor + '-light')
 
   return {
     series: [
@@ -93,15 +79,6 @@ const chartOptions = (chartHeight: string): ApexOptions => {
         data: [15, 25, 15, 40, 20, 50],
       },
     ],
-    grid: {
-      show: false,
-      padding: {
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-      },
-    },
     chart: {
       fontFamily: 'inherit',
       type: 'area',
@@ -124,18 +101,14 @@ const chartOptions = (chartHeight: string): ApexOptions => {
       enabled: false,
     },
     fill: {
-      type: 'gradient',
-      gradient: {
-        opacityFrom: 0.4,
-        opacityTo: 0,
-        stops: [20, 120, 120, 120],
-      },
+      type: 'solid',
+      opacity: 1,
     },
     stroke: {
       curve: 'smooth',
       show: true,
       width: 3,
-      colors: ['#FFFFFF'],
+      colors: [baseColor],
     },
     xaxis: {
       categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
@@ -162,12 +135,7 @@ const chartOptions = (chartHeight: string): ApexOptions => {
         },
       },
       tooltip: {
-        enabled: true,
-        formatter: undefined,
-        offsetY: 0,
-        style: {
-          fontSize: '12px',
-        },
+        enabled: false,
       },
     },
     yaxis: {
@@ -212,13 +180,13 @@ const chartOptions = (chartHeight: string): ApexOptions => {
         },
       },
     },
-    colors: ['#ffffff'],
+    colors: [lightColor],
     markers: {
-      colors: [labelColor],
-      strokeColor: [strokeColor],
+      colors: [lightColor],
+      strokeColors: [baseColor],
       strokeWidth: 3,
     },
   }
 }
 
-export {MixedWidget13}
+export {LineChart}

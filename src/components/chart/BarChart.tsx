@@ -2,7 +2,7 @@
 import React, {useEffect, useRef} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSSVariableValue} from 'src/assets/ts/_utils'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
+import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
@@ -10,7 +10,7 @@ type Props = {
   chartHeight: string
 }
 
-const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight}) => {
+const BarChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -40,78 +40,72 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight}) =>
   return (
     <div className={`card ${className}`}>
       {/* begin::Body */}
-      <div className='card-body d-flex flex-column p-0'>
-        {/* begin::Stats */}
-        <div className='flex-grow-1 card-p pb-0'>
-          <div className='d-flex flex-stack flex-wrap'>
-            <div className='me-2'>
-              <a href='#' className='text-dark text-hover-primary fw-bold fs-3'>
-                Generate Reports
-              </a>
+      <div className='card-body p-0 d-flex justify-content-between flex-column overflow-hidden'>
+        {/* begin::Hidden */}
+        <div className='d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3'>
+          <div className='me-2'>
+            <span className='fw-bold text-gray-800 d-block fs-3'>Sales</span>
 
-              <div className='text-muted fs-7 fw-semibold'>Finance and accounting reports</div>
-            </div>
-
-            <div className={`fw-bold fs-3 text-${chartColor}`}>$24,500</div>
+            <span className='text-gray-400 fw-semibold'>Oct 8 - Oct 26 2021</span>
           </div>
+
+          <div className={`fw-bold fs-3 text-${chartColor}`}>$15,300</div>
         </div>
-        {/* end::Stats */}
+        {/* end::Hidden */}
 
         {/* begin::Chart */}
-        <div ref={chartRef} className='mixed-widget-7-chart card-rounded-bottom'></div>
+        <div ref={chartRef} className='mixed-widget-10-chart'></div>
         {/* end::Chart */}
       </div>
-      {/* end::Body */}
     </div>
   )
 }
 
 const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
-  const labelColor = getCSSVariableValue('--kt-gray-800')
-  const strokeColor = getCSSVariableValue('--kt-gray-300')
+  const labelColor = getCSSVariableValue('--kt-gray-500')
+  const borderColor = getCSSVariableValue('--kt-gray-200')
+  const secondaryColor = getCSSVariableValue('--kt-gray-300')
   const baseColor = getCSSVariableValue('--kt-' + chartColor)
-  const lightColor = getCSSVariableValue('--kt-' + chartColor + '-light')
 
   return {
     series: [
       {
         name: 'Net Profit',
-        data: [15, 25, 15, 40, 20, 50],
+        data: [50, 60, 70, 80, 60, 50, 70, 60],
+      },
+      {
+        name: 'Revenue',
+        data: [50, 60, 70, 80, 60, 50, 70, 60],
       },
     ],
     chart: {
       fontFamily: 'inherit',
-      type: 'area',
+      type: 'bar',
       height: chartHeight,
       toolbar: {
         show: false,
       },
-      zoom: {
-        enabled: false,
-      },
-      sparkline: {
-        enabled: true,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '50%',
+        borderRadius: 5,
       },
     },
-    plotOptions: {},
     legend: {
       show: false,
     },
     dataLabels: {
       enabled: false,
     },
-    fill: {
-      type: 'solid',
-      opacity: 1,
-    },
     stroke: {
-      curve: 'smooth',
       show: true,
-      width: 3,
-      colors: [baseColor],
+      width: 2,
+      colors: ['transparent'],
     },
     xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
       axisBorder: {
         show: false,
       },
@@ -119,35 +113,22 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
         show: false,
       },
       labels: {
-        show: false,
         style: {
           colors: labelColor,
           fontSize: '12px',
         },
-      },
-      crosshairs: {
-        show: false,
-        position: 'front',
-        stroke: {
-          color: strokeColor,
-          width: 1,
-          dashArray: 3,
-        },
-      },
-      tooltip: {
-        enabled: false,
       },
     },
     yaxis: {
-      min: 0,
-      max: 60,
       labels: {
-        show: false,
         style: {
           colors: labelColor,
           fontSize: '12px',
         },
       },
+    },
+    fill: {
+      type: 'solid',
     },
     states: {
       normal: {
@@ -176,17 +157,24 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
       },
       y: {
         formatter: function (val) {
-          return '$' + val + ' thousands'
+          return '$' + val + ' revenue'
         },
       },
     },
-    colors: [lightColor],
-    markers: {
-      colors: [lightColor],
-      strokeColors: [baseColor],
-      strokeWidth: 3,
+    colors: [baseColor, secondaryColor],
+    grid: {
+      padding: {
+        top: 10,
+      },
+      borderColor: borderColor,
+      strokeDashArray: 4,
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
     },
   }
 }
 
-export {MixedWidget10}
+export {BarChart}

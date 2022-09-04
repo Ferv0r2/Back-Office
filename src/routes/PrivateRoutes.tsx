@@ -1,7 +1,7 @@
 import {Fragment} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from 'src/layout/MasterLayout'
-import {DashboardWrapper} from 'src/components/dashboard/DashboardWrapper'
+import {DashboardPage} from 'src/pages/DashboardPage'
 import {AddProjectPage} from 'src/pages/AddProjectPage'
 import NFTDetailPage from 'src/pages/NFTDetailPage'
 import NFTHoldersPage from 'src/pages/NFTHoldersPage'
@@ -38,7 +38,7 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='dashboard' element={<DashboardPage />} />
         <Route path='nft/*' element={<Navigate to='/nft/management' />} />
         <Route path='nft/management' element={<AddProjectPage />} />
         <Route path='nft/collections' element={<AddProjectPage />} />
