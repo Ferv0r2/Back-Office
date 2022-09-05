@@ -19,13 +19,13 @@ export function HeaderWrapper() {
     return (
       <Fragment key={path}>
         {index !== navigator.length - 1 ? (
-          <li className='d-none d-md-flex breadcrumb-item pe-3'>
+          <li className='d-none d-lg-flex breadcrumb-item pe-3'>
             <Link to={index === 0 ? '/dashboard' : link} className='pe-3'>
               {index === 0 ? 'HOME' : path.toUpperCase()}
             </Link>
           </li>
         ) : (
-          <li className='d-none d-md-flex breadcrumb-item pe-3 text-muted'>{path.toUpperCase()}</li>
+          <li className='d-none d-lg-flex breadcrumb-item pe-3 text-muted'>{path.toUpperCase()}</li>
         )}
       </Fragment>
     )

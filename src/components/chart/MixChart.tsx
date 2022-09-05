@@ -43,8 +43,7 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
       {/* begin::Beader */}
       <div className='card-header border-0 py-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Trends</span>
-
+          <span className='card-label fw-bold fs-3 mb-1'>Trend Item</span>
           <span className='text-muted fw-semibold fs-7'>Latest trends</span>
         </h3>
 
@@ -67,7 +66,7 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
       {/* begin::Body */}
       <div className='card-body d-flex flex-column'>
         {/* begin::Chart */}
-        <div ref={chartRef} className='mixed-widget-5-chart card-rounded-top'></div>
+        <div ref={chartRef} className='card-rounded-top' />
         {/* end::Chart */}
 
         {/* begin::Items */}
@@ -80,7 +79,7 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('/media/svg/brand-logos/plurk.svg')}
+                    src={toAbsoluteUrl('/media/svg/social-logos/twitter.svg')}
                     alt=''
                     className='h-50'
                   />
@@ -91,16 +90,16 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               {/* begin::Title */}
               <div>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Top Authors
+                  Follow Twitter
                 </a>
-                <div className='fs-7 text-muted fw-semibold mt-1'>Ricky Hunt, Sandra Trepp</div>
+                <div className='fs-7 text-muted fw-semibold mt-1'>Follow @OOO on Twitter</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-semibold py-4 px-3'>+162</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -113,7 +112,7 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('/media/svg/brand-logos/figma-1.svg')}
+                    src={toAbsoluteUrl('/media/svg/social-logos/twitter.svg')}
                     alt=''
                     className='h-50'
                   />
@@ -124,16 +123,16 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               {/* begin::Title */}
               <div>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Top Sales
+                  Retweet Twitter
                 </a>
-                <div className='fs-7 text-muted fw-semibold mt-1'>PitStop Emails</div>
+                <div className='fs-7 text-muted fw-semibold mt-1'>Retweet @OOO on Twitter</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-semibold py-4 px-3'>+125</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -146,7 +145,7 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               <div className='symbol symbol-50px me-3'>
                 <div className='symbol-label bg-light'>
                   <img
-                    src={toAbsoluteUrl('/media/svg/brand-logos/vimeo.svg')}
+                    src={toAbsoluteUrl('/media/svg/social-logos/youtube.svg')}
                     alt=''
                     className='h-50'
                   />
@@ -157,17 +156,17 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               {/* begin::Title */}
               <div className='py-1'>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Top Engagement
+                  Visit Youtube
                 </a>
 
-                <div className='fs-7 text-muted fw-semibold mt-1'>KT.com</div>
+                <div className='fs-7 text-muted fw-semibold mt-1'>Visit OOO on Youtube</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-semibold py-4 px-3'>+112</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}

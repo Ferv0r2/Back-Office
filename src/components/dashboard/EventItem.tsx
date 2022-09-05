@@ -18,7 +18,7 @@ const EventItem: React.FC<Props> = ({eventItem}) => {
       <span
         className={clsx(
           'bullet bullet-vertical h-40px',
-          eventItem.id % 2 === 0 ? 'bg-danger' : 'bg-primary'
+          eventItem.id % 2 === 0 ? 'bg-warning' : 'bg-success'
         )}
       ></span>
       <div className='flex-grow-1 mx-5'>
@@ -30,7 +30,7 @@ const EventItem: React.FC<Props> = ({eventItem}) => {
       <span
         className={clsx(
           'badge fs-8 fw-bold',
-          eventItem.id % 2 === 0 ? 'badge-light-danger' : 'badge-light-primary'
+          eventItem.id % 2 === 0 ? 'badge-light-warning' : 'badge-light-success'
         )}
       >
         {eventItem.startDate || eventItem.endDate}

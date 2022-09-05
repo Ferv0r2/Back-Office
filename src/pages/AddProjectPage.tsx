@@ -61,7 +61,7 @@ const AddProjectPage: FC = () => {
     <>
       <form>
         <div className='row'>
-          <div className='col-9 col-md-4'>
+          <div className='col-9 col-md-5 mx-auto mx-lg-0 mx-sm-8'>
             <label htmlFor='contractAddress' className='form-label p-2 required form-label'>
               Contract Address
             </label>
@@ -88,7 +88,11 @@ const AddProjectPage: FC = () => {
       <div className='separator border-white my-10' />
       <div className='row'>
         {testNFT.map((nft) => (
-          <FeedsWidget key={nft.contract} className='col-11 col-md-5 m-4' nft={nft} />
+          <FeedsWidget
+            key={nft.contract}
+            className='col-11 col-md-5 mx-lg-4 mx-auto m-4'
+            nft={nft}
+          />
         ))}
       </div>
     </>

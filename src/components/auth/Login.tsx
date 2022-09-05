@@ -53,7 +53,7 @@ export function Login() {
     if (klaytn) {
       try {
         await klaytn.enable()
-        setAccountInfo()
+        await setAccountInfo()
         klaytn.on('accountsChanged', () => {
           setAccountInfo()
         })

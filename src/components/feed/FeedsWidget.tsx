@@ -55,7 +55,7 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
             Outlines keep you honest. They stop you from indulging in poorly thought-out metaphors
             about driving and keep you focused on the overall structure of your post
           </p> */}
-          <div className='d-md-flex d-block gap-12'>
+          <div className='d-lg-flex d-block gap-12'>
             <div className='d-flex'>
               <div className='fw-bolder'>
                 <ol className='p-0'>Name</ol>

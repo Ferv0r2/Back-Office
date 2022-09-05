@@ -4,7 +4,7 @@ import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSSVariableValue} from 'src/assets/ts/_utils'
 import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
 
-type Props = {
+interface Props {
   className: string
   chartColor: string
   chartHeight: string
@@ -44,12 +44,10 @@ const BarChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
         {/* begin::Hidden */}
         <div className='d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3'>
           <div className='me-2'>
-            <span className='fw-bold text-gray-800 d-block fs-3'>Sales</span>
+            <span className='fw-bold text-gray-800 d-block fs-3'>Attend Event</span>
 
-            <span className='text-gray-400 fw-semibold'>Oct 8 - Oct 26 2021</span>
+            <span className='text-gray-400 fw-semibold'>Last 6 Months</span>
           </div>
-
-          <div className={`fw-bold fs-3 text-${chartColor}`}>$15,300</div>
         </div>
         {/* end::Hidden */}
 
@@ -71,11 +69,11 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
     series: [
       {
         name: 'Net Profit',
-        data: [50, 60, 70, 80, 60, 50, 70, 60],
+        data: [60, 70, 80, 60, 50, 70],
       },
       {
         name: 'Revenue',
-        data: [50, 60, 70, 80, 60, 50, 70, 60],
+        data: [60, 70, 80, 60, 50, 70],
       },
     ],
     chart: {
@@ -105,7 +103,7 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: ['Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
       axisBorder: {
         show: false,
       },
