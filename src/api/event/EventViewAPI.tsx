@@ -3,7 +3,7 @@ import {IEventBaseAPI} from '../APIModels'
 
 export async function EventViewAPI(args: IEventBaseAPI) {
   const request = await axios
-    .get(`/api/nft/${args.nft_address}/event/${args.event_id}`, {})
+    .get(`/api/project/${args.pid}/event/${args.eid}`, {})
     .then((res) => res.data)
 
   return request

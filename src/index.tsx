@@ -34,10 +34,10 @@ const getLibrary = (provider: any) => {
   return library
 }
 
-const token = localStorage.getItem('ACCESS_TOKEN')
+const token = sessionStorage.getItem('ACCESS_TOKEN')
 axios.defaults.baseURL = process.env.REACT_APP_HOST_API_URL
 axios.defaults.headers.common = {
-  Authorization: token ? String(token) : String(process.env.REACT_APP_HOST_API_URL),
+  Authorization: token ? `JWT ${String(token)}` : String(process.env.REACT_APP_AXIOS_HEADERS_TOKEN),
 }
 
 const queryClient = new QueryClient()

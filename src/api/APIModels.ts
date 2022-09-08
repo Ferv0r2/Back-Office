@@ -6,35 +6,39 @@ export interface IAuthTokenAPI {
 }
 
 export interface INFTBaseAPI {
-  nft_address: string
+  pid: string
 }
 
 export interface INFTCreateAPI {
   wallet: string
   contract: string
+  chain_id: number
+  interface: string
+  thumbnail?: string
+  homepage?: string
 }
 
 export interface INFTModifyAPI {
-  nft_address: string
+  pid: string
   homepage: string
   thumnail: string
 }
 
 export interface INFTTokenDetailAPI {
-  nft_address: string
+  pid: string
   token_id: number
   id: number
   attributes: string[]
 }
 
 export interface INFTHolderDetailAPI {
-  nft_address: string
+  pid: string
   wallet_address: string
 }
 
 export interface IEventBaseAPI {
-  event_id: number
-  nft_address: string
+  eid: number
+  pid: string
 }
 
 export interface IEventJoinAPI extends IEventBaseAPI {
@@ -42,7 +46,7 @@ export interface IEventJoinAPI extends IEventBaseAPI {
 }
 
 export interface IEventCreateAPI {
-  nft_address: string
+  pid: string
   start_dt: Date
   end_dt: Date
   content: string

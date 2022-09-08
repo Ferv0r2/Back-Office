@@ -3,7 +3,7 @@ import {INFTModifyAPI} from '../APIModels'
 
 export async function NFTModifyAPI(args: INFTModifyAPI) {
   const request = await axios
-    .put(`/api/nft/${args.nft_address}`, {
+    .put(`/api/project/${args.pid}`, {
       homepage: args.homepage,
       thumnail: args.thumnail,
     })

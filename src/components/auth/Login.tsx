@@ -117,7 +117,7 @@ export function Login() {
       console.log('KAIKAS', authAPI)
     }
 
-    localStorage.setItem('ACCESS_TOKEN', authAPI.token)
+    sessionStorage.setItem('ACCESS_TOKEN', authAPI.token)
     sessionStorage.setItem('CONNECT', selectedWallet)
     sessionStorage.setItem(
       'WALLET_ADDRESS',

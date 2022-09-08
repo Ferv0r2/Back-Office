@@ -3,7 +3,7 @@ import {IEventCreateAPI} from '../APIModels'
 
 export async function EventCreateAPI(args: IEventCreateAPI) {
   const request = await axios
-    .post(`/api/nft/${args.nft_address}/event`, {
+    .post(`/api/project/${args.pid}/event`, {
       start_dt: args.start_dt,
       end_dt: args.end_dt,
       content: args.content,
