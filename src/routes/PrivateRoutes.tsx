@@ -2,10 +2,11 @@ import {Fragment} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from 'src/layout/MasterLayout'
 import {DashboardPage} from 'src/pages/DashboardPage'
-import {AddProjectPage} from 'src/pages/AddProjectPage'
+import AddProjectPage from 'src/pages/AddProjectPage'
 import NFTDetailPage from 'src/pages/NFTDetailPage'
 import NFTHoldersPage from 'src/pages/NFTHoldersPage'
 import NFTEventPage from 'src/pages/NFTEventPage'
+import AddEventPage from 'src/pages/AddEventPage'
 
 const testNFT = [
   {
@@ -55,6 +56,7 @@ const PrivateRoutes = () => {
             </Fragment>
           )
         })}
+        <Route path='event/management' element={<AddEventPage />} />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

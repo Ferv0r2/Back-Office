@@ -84,7 +84,7 @@ export function AsideMenuMain() {
       </div>
 
       <AsideMenuItem
-        to='/event/create'
+        to='/event/management'
         icon='/media/icons/duotune/general/gen051.svg'
         title='Event Management'
         fontIcon='bi-layers'

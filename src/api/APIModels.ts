@@ -10,7 +10,7 @@ export interface INFTBaseAPI {
 }
 
 export interface INFTCreateAPI {
-  wallet: string
+  wallet?: string
   contract: string
   chain_id: number
   interface: string

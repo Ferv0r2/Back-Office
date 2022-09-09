@@ -1,52 +1,37 @@
 import {atom} from 'recoil'
 
-const userAuthState = atom({
-  key: 'userAuthState',
+export interface WalletTypes {
+  address: string
+  balance: number
+  network: number
+}
+
+const authState = atom<boolean>({
+  key: 'authState',
   default: false,
 })
 
-const selectedWalletState = atom({
+const selectedWalletState = atom<string>({
   key: 'selectedWalletState',
   default: '',
 })
 
-const metamaskAddressState = atom({
-  key: 'metamaskAddressState',
-  default: '',
+const metamaskState = atom<WalletTypes>({
+  key: 'metamaskState',
+  default: {
+    address: '',
+    balance: 0,
+    network: 8217,
+  },
 })
 
-const metamaskBalanceState = atom({
-  key: 'metamaskBalanceState',
-  default: 0,
+const kaikasState = atom<WalletTypes>({
+  key: 'kaikasState',
+  default: {
+    address: '',
+    balance: 0,
+    network: 8217,
+  },
 })
 
-const metamaskNetworkState = atom({
-  key: 'metamaskNetworkState',
-  default: '',
-})
-
-const kaikasAddressState = atom({
-  key: 'kaikasAddressState',
-  default: '',
-})
-
-const kaikasBalanceState = atom({
-  key: 'kaikasBalanceState',
-  default: 0,
-})
-
-const kaikasNetworkState = atom({
-  key: 'kaikasNetworkState',
-  default: '',
-})
-
-export {
-  userAuthState,
-  selectedWalletState,
-  metamaskAddressState,
-  metamaskBalanceState,
-  metamaskNetworkState,
-  kaikasAddressState,
-  kaikasBalanceState,
-  kaikasNetworkState,
-}
+export {authState, selectedWalletState, metamaskState, kaikasState}

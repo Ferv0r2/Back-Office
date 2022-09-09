@@ -42,14 +42,7 @@ const AddProjectPage: FC = () => {
       return
     }
 
-    console.log('인증받은 jwt : ' + sessionStorage.getItem('ACCESS_TOKEN'))
-    console.log('기본 jwt : ' + process.env.REACT_APP_AXIOS_HEADERS_TOKEN)
-    console.log('contract : ' + contract)
-    const account = sessionStorage.getItem('WALLET_ADDRESS')
-    console.log('연결 지갑 : ' + String(account))
-
     const addContractAPI = await NFTCreateAPI({
-      wallet: String(account),
       chain_id: 8217,
       contract: contract,
       interface: 'kip17',
@@ -105,4 +98,4 @@ const AddProjectPage: FC = () => {
   )
 }
 
-export {AddProjectPage}
+export default AddProjectPage

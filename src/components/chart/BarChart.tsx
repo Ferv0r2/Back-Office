@@ -1,30 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef} from 'react'
+import {KTSVG} from 'src/utils'
 import ApexCharts, {ApexOptions} from 'apexcharts'
-import {getCSSVariableValue} from 'src/assets/ts/_utils'
+import {getCSS, getCSSVariableValue} from 'src/assets/ts/_utils'
 import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
 
-interface Props {
+type Props = {
   className: string
-  chartColor: string
-  chartHeight: string
 }
 
-const BarChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
+const BarChart: React.FC<Props> = ({className}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
-  const refreshChart = () => {
-    if (!chartRef.current) {
-      return
-    }
-
-    const chart = new ApexCharts(chartRef.current, chartOptions(chartColor, chartHeight))
-    if (chart) {
-      chart.render()
-    }
-
-    return chart
-  }
 
   useEffect(() => {
     const chart = refreshChart()
@@ -34,36 +21,69 @@ const BarChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
         chart.destroy()
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, mode])
+
+  const refreshChart = () => {
+    if (!chartRef.current) {
+      return
+    }
+
+    const height = parseInt(getCSS(chartRef.current, 'height'))
+
+    const chart = new ApexCharts(chartRef.current, getChartOptions(height))
+    if (chart) {
+      chart.render()
+    }
+
+    return chart
+  }
 
   return (
     <div className={`card ${className}`}>
-      {/* begin::Body */}
-      <div className='card-body p-0 d-flex justify-content-between flex-column overflow-hidden'>
-        {/* begin::Hidden */}
-        <div className='d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3'>
-          <div className='me-2'>
-            <span className='fw-bold text-gray-800 d-block fs-3'>Attend Event</span>
+      {/* begin::Header */}
+      <div className='card-header border-0 pt-5'>
+        {/* begin::Title */}
+        <h3 className='card-title align-items-start flex-column'>
+          <span className='card-label fw-bold fs-3 mb-1'>Event Attendance</span>
 
-            <span className='text-gray-400 fw-semibold'>Last 6 Months</span>
-          </div>
+          <span className='text-muted fw-semibold fs-7'>Recent 6 months</span>
+        </h3>
+        {/* end::Title */}
+
+        {/* begin::Toolbar */}
+        <div className='card-toolbar'>
+          {/* begin::Menu */}
+          <button
+            type='button'
+            className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
+            data-kt-menu-trigger='click'
+            data-kt-menu-placement='bottom-end'
+            data-kt-menu-flip='top-end'
+          >
+            <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
+          </button>
+          {/* end::Menu */}
         </div>
-        {/* end::Hidden */}
+        {/* end::Toolbar */}
+      </div>
+      {/* end::Header */}
 
+      {/* begin::Body */}
+      <div className='card-body'>
         {/* begin::Chart */}
-        <div ref={chartRef} className='mixed-widget-10-chart'></div>
+        <div ref={chartRef} id='kt_charts_widget_1_chart' style={{height: '350px'}} />
         {/* end::Chart */}
       </div>
+      {/* end::Body */}
     </div>
   )
 }
 
-const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
+function getChartOptions(height: number): ApexOptions {
   const labelColor = getCSSVariableValue('--kt-gray-500')
   const borderColor = getCSSVariableValue('--kt-gray-200')
+  const baseColor = getCSSVariableValue('--kt-primary')
   const secondaryColor = getCSSVariableValue('--kt-gray-300')
-  const baseColor = getCSSVariableValue('--kt-' + chartColor)
 
   return {
     series: [
@@ -79,7 +99,7 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
     chart: {
       fontFamily: 'inherit',
       type: 'bar',
-      height: chartHeight,
+      height: height,
       toolbar: {
         show: false,
       },

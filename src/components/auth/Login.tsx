@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import clsx from 'clsx'
 import {toAbsoluteUrl} from 'src/utils'
 
@@ -14,54 +14,72 @@ import {AuthNonceAPI, AuthTokenAPI} from 'src/api'
 /* State */
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {
-  userAuthState,
-  kaikasAddressState,
-  metamaskAddressState,
+  metamaskState,
+  kaikasState,
   selectedWalletState,
+  authState,
 } from 'src/components/states/walletState'
 
 export function Login() {
   const {account, chainId, active, activate} = useWeb3React()
   const [loading, setLoading] = useState(false)
-  const setAuth = useSetRecoilState(userAuthState)
-  const setMetamaskAddress = useSetRecoilState(metamaskAddressState)
-  const [kaikasAddress, setKaikasAddress] = useRecoilState(kaikasAddressState)
-  const [kaikasNetwork, setKaikasNetwork] = useState('')
+  const setAuth = useSetRecoilState(authState)
+  const setMetamaskWallet = useSetRecoilState(metamaskState)
+  const [kaikasWallet, setKaikasAddress] = useRecoilState(kaikasState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
 
-  const metamaskConnectHandler = () => {
-    setSelectedWallet('metamask')
+  useEffect(() => {
+    const setup = async () => {
+      await loadMetamaskInfo()
+    }
+    setup()
+  }, [activate])
+
+  const metamaskConnectHandler = async () => {
     if (active) {
+      setSelectedWallet('metamask')
       return
     }
 
     activate(injected, (err) => {
+      alert('메타마스크 지갑이 필요합니다.')
       window.open('https://metamask.io/download.html')
+      return
     })
-    setMetamaskAddress(String(account))
+
+    setSelectedWallet('metamask')
+  }
+
+  const loadMetamaskInfo = async () => {
+    if (account) {
+      let metamaskBalance = await web3.eth.getBalance(String(account))
+      metamaskBalance = Number(caver.utils.fromPeb(metamaskBalance, 'KLAY')).toFixed(2)
+
+      setMetamaskWallet({
+        address: String(account),
+        balance: Number(metamaskBalance),
+        network: Number(chainId),
+      })
+    }
   }
 
   const kaikasConnectHandler = async () => {
-    await loadAccountInfo()
-    await setNetworkInfo()
+    await loadKaikasInfo()
     setSelectedWallet('kaikas')
   }
 
-  const loadAccountInfo = async () => {
+  const loadKaikasInfo = async () => {
     const {klaytn} = window
 
     if (klaytn) {
       try {
         await klaytn.enable()
         await setAccountInfo()
-        klaytn.on('accountsChanged', () => {
-          setAccountInfo()
-        })
       } catch (error) {
         console.log('User denied account access')
       }
     } else {
-      console.log('Non-Kaikas browser detected. You should consider trying Kaikas!')
+      alert('카이카스 지갑이 필요합니다.')
       window.open(
         'https://chrome.google.com/webstore/detail/kaikas/jblndlipeogpafnldhgmapagcccfchpi?hl=ko'
       )
@@ -70,18 +88,16 @@ export function Login() {
 
   const setAccountInfo = async () => {
     const {klaytn} = window
-    if (klaytn === undefined) return
 
     const kaikasAddr = klaytn.selectedAddress
-    setKaikasAddress(kaikasAddr)
-  }
+    let kaikasBalance = await caver.klay.getBalance(kaikasAddr)
+    kaikasBalance = Number(caver.utils.fromPeb(kaikasBalance, 'KLAY')).toFixed(2)
 
-  const setNetworkInfo = async () => {
-    const {klaytn} = window
-    if (klaytn === undefined) return
-
-    klaytn.on('networkChanged', () => alert(`${klaytn.networkVersion} 네트워크로 변경되었습니다.`))
-    setKaikasNetwork(klaytn.networkVersion)
+    setKaikasAddress({
+      address: kaikasAddr,
+      balance: Number(kaikasBalance),
+      network: klaytn.networkVersion,
+    })
   }
 
   const setAuthHandler = async () => {
@@ -94,37 +110,44 @@ export function Login() {
 
     const nonceAPI = await AuthNonceAPI()
     let sign, authAPI
-    if (selectedWallet === 'metamask' && account) {
-      // sign = await web3.eth.sign(nonceAPI), account.toLowerCase())
-      sign = await web3.eth.sign(String(web3.utils.sha3(nonceAPI)), account.toLowerCase())
-      authAPI = await AuthTokenAPI({
-        nonce: nonceAPI,
-        wallet: account,
-        chain_id: Number(chainId),
-        signature: sign,
-      })
-      console.log('METAMASK', authAPI)
-    }
 
-    if (selectedWallet === 'kaikas' && kaikasAddress) {
-      sign = await caver.klay.sign(nonceAPI, kaikasAddress.toLowerCase())
-      authAPI = await AuthTokenAPI({
-        nonce: nonceAPI,
-        wallet: kaikasAddress,
-        chain_id: Number(kaikasNetwork),
-        signature: sign,
-      })
-      console.log('KAIKAS', authAPI)
+    try {
+      if (selectedWallet === 'metamask' && account) {
+        sign = await web3.eth.sign(nonceAPI, account.toLowerCase())
+        authAPI = await AuthTokenAPI({
+          nonce: nonceAPI,
+          wallet: account,
+          chain_id: Number(chainId),
+          signature: String(sign),
+        })
+        console.log('METAMASK', authAPI)
+      }
+
+      if (selectedWallet === 'kaikas' && kaikasWallet.address) {
+        sign = await caver.klay.sign(nonceAPI, kaikasWallet.address.toLowerCase())
+        authAPI = await AuthTokenAPI({
+          nonce: nonceAPI,
+          wallet: kaikasWallet.address,
+          chain_id: Number(kaikasWallet.network),
+          signature: String(sign),
+        })
+        console.log('KAIKAS', authAPI)
+      }
+    } catch (err) {
+      alert('서명이 취소되었습니다.')
+      setLoading(false)
+      return
     }
 
     sessionStorage.setItem('ACCESS_TOKEN', authAPI.token)
     sessionStorage.setItem('CONNECT', selectedWallet)
     sessionStorage.setItem(
       'WALLET_ADDRESS',
-      selectedWallet === 'metamask' ? String(account) : String(kaikasAddress)
+      selectedWallet === 'metamask' ? String(account) : String(kaikasWallet.address)
     )
+    console.log(selectedWallet)
     setAuth(true)
-    window.location.href = '/'
+    setLoading(false)
   }
 
   return (
@@ -181,9 +204,9 @@ export function Login() {
             src={toAbsoluteUrl('/media/svg/brand-logos/kaikas.svg')}
             className='h-20px me-3'
           />
-          {kaikasAddress
-            ? kaikasAddress.replace(kaikasAddress.substring(6, 36), '...')
-            : 'Continue with Kaikas'}
+          {(kaikasWallet.address &&
+            kaikasWallet.address.replace(kaikasWallet.address.substring(6, 36), '...')) ||
+            'Continue with Kaikas'}
         </button>
         {/* end::Kaikas */}
 
@@ -191,7 +214,7 @@ export function Login() {
           type='button'
           onClick={setAuthHandler}
           className='btn btn-lg btn-primary w-100 mb-5'
-          disabled={!selectedWallet || !(account || kaikasAddress) || loading}
+          disabled={!selectedWallet || !(account || kaikasWallet.address) || loading}
         >
           {!loading && <span className='indicator-label'>Continue</span>}
           {loading && (

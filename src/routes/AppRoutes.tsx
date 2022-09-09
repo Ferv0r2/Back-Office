@@ -11,6 +11,8 @@ import {PrivateRoutes} from 'src/routes/PrivateRoutes'
 import {ErrorsPage} from 'src/pages/ErrorsPage'
 import {AuthPage} from 'src/pages/AuthPage'
 import {App} from 'src/App'
+import {useRecoilValue} from 'recoil'
+import {authState} from 'src/components/states/walletState'
 
 /**
  * Base URL of the website.
@@ -19,7 +21,7 @@ import {App} from 'src/App'
  */
 
 const AppRoutes: FC = () => {
-  const currentAuth = sessionStorage.getItem('CONNECT')
+  const currentAuth = useRecoilValue(authState)
 
   return (
     <BrowserRouter basename='/'>
