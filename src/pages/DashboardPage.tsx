@@ -53,7 +53,7 @@ const DashboardPage: FC = () => {
         <div className='col-md-10 col-xxl-4 mx-auto'>
           <QuickMenu
             className='card-xxl-stretch mb-xl-8'
-            balance={selectWallet === 'meatamask' ? metamaskWallet.balance : kaikasWallet.balance}
+            balance={selectWallet === 'metamask' ? metamaskWallet.balance : kaikasWallet.balance}
           />
         </div>
         <div className='col-md-10 col-xxl-4 mx-auto pt-sm-0 pt-4'>

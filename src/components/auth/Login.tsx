@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import clsx from 'clsx'
 import {toAbsoluteUrl} from 'src/utils'
 
@@ -25,27 +25,22 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const setAuth = useSetRecoilState(authState)
   const setMetamaskWallet = useSetRecoilState(metamaskState)
-  const [kaikasWallet, setKaikasAddress] = useRecoilState(kaikasState)
+  const [kaikasWallet, setKaikasWallet] = useRecoilState(kaikasState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
-
-  useEffect(() => {
-    const setup = async () => {
-      await loadMetamaskInfo()
-    }
-    setup()
-  }, [activate])
 
   const metamaskConnectHandler = async () => {
     if (active) {
       setSelectedWallet('metamask')
       return
     }
-
-    activate(injected, (err) => {
-      alert('메타마스크 지갑이 필요합니다.')
-      window.open('https://metamask.io/download.html')
-      return
-    })
+    await loadMetamaskInfo()
+    activate(injected)
+      .then(async () => await loadMetamaskInfo())
+      .catch((err) => {
+        alert('메타마스크 지갑이 필요합니다.')
+        window.open('https://metamask.io/download.html')
+        return
+      })
 
     setSelectedWallet('metamask')
   }
@@ -74,9 +69,12 @@ export function Login() {
     if (klaytn) {
       try {
         await klaytn.enable()
-        await setAccountInfo()
+        setKaikasAccount()
+        klaytn.on('accountsChanged', () => {
+          setKaikasAccount()
+        })
       } catch (error) {
-        console.log('User denied account access')
+        console.log(error)
       }
     } else {
       alert('카이카스 지갑이 필요합니다.')
@@ -86,14 +84,14 @@ export function Login() {
     }
   }
 
-  const setAccountInfo = async () => {
+  const setKaikasAccount = async () => {
     const {klaytn} = window
 
     const kaikasAddr = klaytn.selectedAddress
-    let kaikasBalance = await caver.klay.getBalance(kaikasAddr)
+    let kaikasBalance = kaikasAddr ? await caver.klay.getBalance(kaikasAddr) : 0
     kaikasBalance = Number(caver.utils.fromPeb(kaikasBalance, 'KLAY')).toFixed(2)
 
-    setKaikasAddress({
+    setKaikasWallet({
       address: kaikasAddr,
       balance: Number(kaikasBalance),
       network: klaytn.networkVersion,
@@ -205,7 +203,7 @@ export function Login() {
             className='h-20px me-3'
           />
           {(kaikasWallet.address &&
-            kaikasWallet.address.replace(kaikasWallet.address.substring(6, 36), '...')) ||
+            kaikasWallet.address?.replace(kaikasWallet.address.substring(6, 36), '...')) ||
             'Continue with Kaikas'}
         </button>
         {/* end::Kaikas */}
