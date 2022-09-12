@@ -1,19 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {CollectionTypes} from '../states/nftState'
+import {toAbsoluteUrl} from 'src/utils'
 
 interface Props {
   className: string
-  nft: {
-    thumbnail?: string
-    contract: string
-    name: string
-    symbol: string
-    holders: number
-    totalSupply: number
-    homepage?: string
-    eventCount: number
-  }
+  nft: CollectionTypes
 }
 
 const FeedsWidget: React.FC<Props> = ({className, nft}) => {
@@ -27,7 +20,7 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
           <div className='d-flex align-items-center flex-grow-1'>
             {/* begin::Avatar */}
             <div className='symbol symbol-45px me-5'>
-              <img src={nft.thumbnail} alt='icon' />
+              <img src={nft.thumbnail || toAbsoluteUrl('/media/avatars/blank.png')} alt='icon' />
             </div>
             {/* end::Avatar */}
 
@@ -65,7 +58,7 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
               <div>
                 <ol>{nft.name}</ol>
                 <ol>{nft.symbol}</ol>
-                <ol>{nft.totalSupply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+                <ol>{nft.total_supply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
               </div>
             </div>
             <div className='d-flex'>
@@ -74,8 +67,12 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
                 <ol className='p-0'>Event count</ol>
               </div>
               <div>
-                <ol>{nft.holders.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
-                <ol>{nft.eventCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+                <ol>{nft.holder_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+                <ol>
+                  {nft.event_count
+                    ? nft.event_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    : 0}
+                </ol>
               </div>
             </div>
           </div>

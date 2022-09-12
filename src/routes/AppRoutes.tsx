@@ -11,8 +11,7 @@ import {PrivateRoutes} from 'src/routes/PrivateRoutes'
 import {ErrorsPage} from 'src/pages/ErrorsPage'
 import {AuthPage} from 'src/pages/AuthPage'
 import {App} from 'src/App'
-import {useRecoilValue} from 'recoil'
-import {authState} from 'src/components/states/walletState'
+import useAuth from 'src/hooks/useAuth'
 
 /**
  * Base URL of the website.
@@ -21,7 +20,7 @@ import {authState} from 'src/components/states/walletState'
  */
 
 const AppRoutes: FC = () => {
-  const currentAuth = useRecoilValue(authState)
+  const currentAuth = useAuth()
 
   return (
     <BrowserRouter basename='/'>

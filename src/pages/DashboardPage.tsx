@@ -60,7 +60,7 @@ const DashboardPage: FC = () => {
           <ItemList className='card-xxl-stretch mb-xl-8' />
         </div>
         <div className='col-md-10 col-xxl-4 mx-auto'>
-          <BarChart className='card-xxl-stretch-60 mb-5 mb-xl-8' />
+          <BarChart className='card-xxl-stretch-75 mb-5 mb-xl-8' />
         </div>
       </div>
       {/* end::Row */}

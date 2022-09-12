@@ -5,12 +5,7 @@ export interface IAuthTokenAPI {
   signature: string
 }
 
-export interface INFTBaseAPI {
-  pid: string
-}
-
 export interface INFTCreateAPI {
-  wallet?: string
   contract: string
   chain_id: number
   interface: string

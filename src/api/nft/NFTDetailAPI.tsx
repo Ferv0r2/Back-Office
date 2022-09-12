@@ -1,8 +1,7 @@
 import axios from 'axios'
-import {INFTBaseAPI} from '../APIModels'
 
-export async function NFTDetailAPI(arg: INFTBaseAPI) {
-  const request = await axios.get(`/api/project/${arg.pid}`, {}).then((res) => res.data)
+export async function NFTDetailAPI(pid: string) {
+  const request = await axios.get(`/api/project/${pid}`, {}).then((res) => res.data)
 
   return request
 }

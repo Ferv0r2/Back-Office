@@ -5,7 +5,7 @@ import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from 'src/assets/ts/_utils'
 import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
 
-type Props = {
+interface Props {
   className: string
 }
 
@@ -99,7 +99,7 @@ function getChartOptions(height: number): ApexOptions {
     chart: {
       fontFamily: 'inherit',
       type: 'bar',
-      height: height,
+      height: height * 0.6,
       toolbar: {
         show: false,
       },

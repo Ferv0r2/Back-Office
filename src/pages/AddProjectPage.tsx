@@ -1,34 +1,10 @@
 import {FC, useState} from 'react'
-import {NFTCreateAPI} from 'src/api'
+import {NFTCreateAPI, NFTDeleteAPI} from 'src/api'
 import {FeedsWidget} from 'src/components/feed/FeedsWidget'
-
-const testNFT = [
-  {
-    thumbnail:
-      'https://lh3.googleusercontent.com/ViAAKgvW8myVK4OI0unEqIXGTttbHAPLB_A9vXXMXKbF2UagBhgC97ru_7OXtFzA7Q0ULD7UhrEt5yipH0DhunbRXjfqclG0VRo_tg=s168',
-    contract: '0x928267e7db3d173898553ff593a78719bb16929f',
-    name: 'Kepler-452b',
-    interface: 'KIP17',
-    symbol: 'K452',
-    holders: 1883,
-    totalSupply: 58380,
-    homepage: 'https://kepler-452b.net',
-    eventCount: 2,
-  },
-  {
-    thumbnail:
-      'https://lh3.googleusercontent.com/nMgnwb1bFrEqQ65XaDMar4G3Zcp_o7Z0aduvc1C6THtiGBMvPbgq1KTa29dVFGIXfiwISIgqQXzYIqIisA7psvoLYxdr0UpT2lO4FA=s168',
-    contract: '0xe7e78910446a0bff06f560b02f103f8a42e4a694',
-    name: 'Klay Weasel',
-    interface: 'KIP17',
-    symbol: 'KWL',
-    holders: 152,
-    totalSupply: 1104,
-    eventCount: 1,
-  },
-]
+import useCollection from 'src/hooks/useCollection'
 
 const AddProjectPage: FC = () => {
+  const {isLoading, collections} = useCollection()
   const [contract, setContract] = useState('')
 
   const addContractHandler = async () => {
@@ -42,14 +18,20 @@ const AddProjectPage: FC = () => {
       return
     }
 
-    const addContractAPI = await NFTCreateAPI({
-      chain_id: 8217,
-      contract: contract,
-      interface: 'kip17',
-    })
+    let addContractAPI
+    try {
+      addContractAPI = await NFTCreateAPI({
+        chain_id: 8217,
+        contract: contract,
+        interface: 'kip17',
+      })
+    } catch (err) {
+      alert('이미 등록했거나 Owner 권한이 없습니다.')
+      return
+    }
 
-    alert(addContractAPI)
     setContract('')
+    console.log(addContractAPI)
   }
 
   const getInputHandler = (e: any) => {
@@ -86,13 +68,18 @@ const AddProjectPage: FC = () => {
       </form>
       <div className='separator border-white my-10' />
       <div className='row'>
-        {testNFT.map((nft) => (
-          <FeedsWidget
-            key={nft.contract}
-            className='col-11 col-md-5 mx-lg-4 mx-auto m-4'
-            nft={nft}
-          />
-        ))}
+        {isLoading && <p className='fs-5'>Loading...</p>}
+        {!isLoading && collections?.length !== 0 ? (
+          collections?.map((nft) => (
+            <FeedsWidget
+              key={'feed' + nft.contract}
+              className='col-11 col-md-5 py-3 mx-lg-4 mx-auto m-4'
+              nft={nft}
+            />
+          ))
+        ) : (
+          <p className='fs-5'>등록한 NFT가 없습니다.</p>
+        )}
       </div>
     </>
   )
