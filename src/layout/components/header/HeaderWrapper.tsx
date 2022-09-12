@@ -4,17 +4,16 @@ import {Fragment} from 'react'
 import {useLocation} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import {KTSVG, toAbsoluteUrl} from 'src/utils'
-import {useLayout} from '../../core'
+import {useLayout} from 'src/layout/core'
 import {Topbar} from './Topbar'
-
 export function HeaderWrapper() {
   const {config, classes, attributes} = useLayout()
   const {header, aside} = config
   const navigator = useLocation().pathname.split('/')
 
+  let link = ''
   const breadcrumb = navigator.map((path, index) => {
-    let link = ''
-    link += `/${path}`
+    link += `${path}/`
 
     return (
       <Fragment key={path}>

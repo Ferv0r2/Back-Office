@@ -14,26 +14,26 @@ export interface INFTCreateAPI {
 }
 
 export interface INFTModifyAPI {
-  pid: string
+  pid: number
   homepage: string
-  thumnail: string
+  thumbnail: string
 }
 
 export interface INFTTokenDetailAPI {
-  pid: string
+  pid: number
   token_id: number
   id: number
   attributes: string[]
 }
 
 export interface INFTHolderDetailAPI {
-  pid: string
+  pid: number
   wallet_address: string
 }
 
 export interface IEventBaseAPI {
   eid: number
-  pid: string
+  pid: number
 }
 
 export interface IEventJoinAPI extends IEventBaseAPI {
@@ -41,7 +41,7 @@ export interface IEventJoinAPI extends IEventBaseAPI {
 }
 
 export interface IEventCreateAPI {
-  pid: string
+  pid: number
   start_dt: Date
   end_dt: Date
   content: string

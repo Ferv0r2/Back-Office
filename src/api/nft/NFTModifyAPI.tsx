@@ -3,9 +3,9 @@ import {INFTModifyAPI} from '../APIModels'
 
 export async function NFTModifyAPI(args: INFTModifyAPI) {
   const request = await axios
-    .put(`/api/project/${args.pid}`, {
+    .post(`/api/project/${args.pid}`, {
       homepage: args.homepage,
-      thumnail: args.thumnail,
+      thumbnail: args.thumbnail,
     })
     .then((res) => res.data.authorizationUrl)
 

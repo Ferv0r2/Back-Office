@@ -1,92 +1,101 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {CollectionTypes} from '../states/nftState'
-import {toAbsoluteUrl} from 'src/utils'
+import {KTSVG, toAbsoluteUrl} from 'src/utils'
+import {Dropdown} from '../dropdown/Dropdown'
+import clsx from 'clsx'
 
 interface Props {
   className: string
   nft: CollectionTypes
+  mode?: string
 }
 
-const FeedsWidget: React.FC<Props> = ({className, nft}) => {
+const FeedsWidget: React.FC<Props> = ({className, nft, mode}) => {
+  const navigate = useNavigate()
+
   return (
-    <div className={`card ${className}`}>
-      {/* begin::Body */}
-      <div className='card-body pb-0'>
-        {/* begin::Header */}
-        <div className='d-flex align-items-center mb-5 overflow-hidden'>
-          {/* begin::User */}
-          <div className='d-flex align-items-center flex-grow-1'>
-            {/* begin::Avatar */}
-            <div className='symbol symbol-45px me-5'>
-              <img src={nft.thumbnail || toAbsoluteUrl('/media/avatars/blank.png')} alt='icon' />
-            </div>
-            {/* end::Avatar */}
+    <div className={clsx(`card card-custom shadow py-3 ${className}`, mode && 'fs-5 ps-8 pt-10')}>
+      {/* begin::Header */}
+      <div
+        className={clsx(
+          'position-relative card-header px-sm-11 px-3 pt-4 d-flex align-items-center mb-5 overflow-hidden',
+          'pb-6'
+        )}
+      >
+        {/* begin::User */}
+        <div className='d-flex align-items-center w- flex-grow-1'>
+          {/* begin::Avatar */}
+          <div className={clsx('symbol me-5', mode ? 'symbol-60px' : 'symbol-45px')}>
+            <img src={nft.thumbnail || toAbsoluteUrl('/media/avatars/blank.png')} alt='icon' />
+          </div>
+          {/* end::Avatar */}
 
-            {/* begin::Info */}
-            <div
-              className='d-flex flex-column'
-              style={{
-                whiteSpace: 'nowrap',
-                textOverflow: 'ellipsis',
-              }}
+          {/* begin::Info */}
+          <div className='d-flex flex-column'>
+            <p className={clsx('mb-1 text-gray-800 fw-bold', mode ? 'fs-3' : 'fs-6')}>{nft.name}</p>
+            <span className='text-gray-400 fw-semibold'>{nft.contract}</span>
+          </div>
+          {/* end::Info */}
+        </div>
+
+        {mode && (
+          <div className='card-toolbar'>
+            <button
+              type='button'
+              className='btn btn-color-muted btn-active-light-primary fs-6'
+              data-kt-menu-trigger='click'
+              data-kt-menu-placement='bottom-end'
+              data-kt-menu-flip='top-end'
             >
-              <p className='mb-1 text-gray-800 fs-6 fw-bold'>{nft.name}</p>
-              <span className='text-gray-400 fw-semibold'>{nft.contract}</span>
-            </div>
-            {/* end::Info */}
+              <KTSVG path='/media/icons/duotune/art/art005.svg' className='svg-icon-2 me-2' />
+              Edit
+            </button>
+            <Dropdown id={nft.id} />
           </div>
-          {/* end::User */}
-        </div>
-        {/* end::Header */}
-
-        {/* begin::Post */}
-        <div className='p-4'>
-          {/* begin::Text */}
-          {/* <p className='text-gray-800 fw-normal mb-5'>
-            Outlines keep you honest. They stop you from indulging in poorly thought-out metaphors
-            about driving and keep you focused on the overall structure of your post
-          </p> */}
-          <div className='d-lg-flex d-block gap-12'>
-            <div className='d-flex'>
-              <div className='fw-bolder'>
-                <ol className='p-0'>Name</ol>
-                <ol className='p-0'>Symbol</ol>
-                <ol className='p-0'>Total supply</ol>
-              </div>
-              <div>
-                <ol>{nft.name}</ol>
-                <ol>{nft.symbol}</ol>
-                <ol>{nft.total_supply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
-              </div>
+        )}
+        {/* end::User */}
+      </div>
+      {/* end::Header */}
+      {/* begin::Body */}
+      <div className='card-body mx-4'>
+        <div className={clsx('d-lg-flex d-block ', mode ? 'gap-20 lh-xl' : 'gap-20')}>
+          <div className={clsx('d-flex', mode && 'min-w-300px')}>
+            <div className='fw-bolder'>
+              <ol className='p-0'>Name</ol>
+              <ol className='p-0'>Symbol</ol>
+              <ol className='p-0'>Total supply</ol>
             </div>
-            <div className='d-flex'>
-              <div className='fw-bolder'>
-                <ol className='p-0'>Holders</ol>
-                <ol className='p-0'>Event count</ol>
-              </div>
-              <div>
-                <ol>{nft.holder_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
-                <ol>
-                  {nft.event_count
-                    ? nft.event_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                    : 0}
-                </ol>
-              </div>
+            <div>
+              <ol>{nft.name}</ol>
+              <ol>{nft.symbol}</ol>
+              <ol>{nft.total_supply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
             </div>
           </div>
-
-          {/* end::Text */}
+          <div className='d-flex'>
+            <div className='fw-bolder'>
+              <ol className='p-0'>Holders</ol>
+              <ol className='p-0'>Event count</ol>
+              {mode && <ol className='p-0'>Official Site</ol>}
+            </div>
+            <div>
+              <ol>{nft.holder_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+              <ol>
+                {nft.event_count
+                  ? nft.event_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                  : 0}
+              </ol>
+              {mode && <ol>{nft.homepage || ''}</ol>}
+            </div>
+          </div>
         </div>
-        {/* end::Post */}
-
-        {/* begin::Separator */}
-        <div className='separator mb-4'></div>
-        {/* end::Separator */}
-
-        {/* begin::Footer */}
-        <div className='d-flex justify-content-between align-items-center mb-6'>
+      </div>
+      {/* end::Body */}
+      {mode ? (
+        ''
+      ) : (
+        <div className='card-footer d-flex justify-content-between align-items-center py-3'>
           <a
             href={nft.homepage}
             target='_blank'
@@ -96,16 +105,17 @@ const FeedsWidget: React.FC<Props> = ({className, nft}) => {
             {nft.homepage}
           </a>
 
-          <Link
-            to={`/nft/collections/${nft.contract}`}
+          <button
+            type='button'
+            onClick={() => {
+              navigate(`/nft/${nft.contract}/home`)
+            }}
             className='btn btn-sm btn-active-color-primary pe-0 me-2'
           >
             See More
-          </Link>
+          </button>
         </div>
-        {/* edit::Footer */}
-      </div>
-      {/* end::Body */}
+      )}
     </div>
   )
 }

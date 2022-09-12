@@ -5,7 +5,7 @@ import {useLocation} from 'react-router'
 import {checkIsActive, KTSVG, WithChildren} from 'src/utils'
 import {useLayout} from 'src/layout/core'
 
-type Props = {
+interface Props {
   to: string
   title: string
   icon?: string

@@ -111,7 +111,7 @@ export function Login() {
 
     try {
       if (selectedWallet === 'metamask' && account) {
-        sign = await web3.eth.sign(nonceAPI, account.toLowerCase())
+        sign = await web3.eth.sign(nonceAPI, account.toLowerCase()).catch(() => setLoading(false))
         authAPI = await AuthTokenAPI({
           nonce: nonceAPI,
           wallet: account,
@@ -122,7 +122,9 @@ export function Login() {
       }
 
       if (selectedWallet === 'kaikas' && kaikasWallet.address) {
-        sign = await caver.klay.sign(nonceAPI, kaikasWallet.address.toLowerCase())
+        sign = await caver.klay
+          .sign(nonceAPI, kaikasWallet.address.toLowerCase())
+          .catch(() => setLoading(false))
         authAPI = await AuthTokenAPI({
           nonce: nonceAPI,
           wallet: kaikasWallet.address,

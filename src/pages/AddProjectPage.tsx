@@ -1,5 +1,5 @@
 import {FC, useState} from 'react'
-import {NFTCreateAPI, NFTDeleteAPI} from 'src/api'
+import {NFTCreateAPI} from 'src/api'
 import {FeedsWidget} from 'src/components/feed/FeedsWidget'
 import useCollection from 'src/hooks/useCollection'
 
@@ -32,6 +32,7 @@ const AddProjectPage: FC = () => {
 
     setContract('')
     console.log(addContractAPI)
+    alert(`${addContractAPI.name} NFT 등록이 완료되었습니다.`)
   }
 
   const getInputHandler = (e: any) => {
@@ -72,8 +73,8 @@ const AddProjectPage: FC = () => {
         {!isLoading && collections?.length !== 0 ? (
           collections?.map((nft) => (
             <FeedsWidget
-              key={'feed' + nft.contract}
-              className='col-11 col-md-5 py-3 mx-lg-4 mx-auto m-4'
+              key={nft.contract}
+              className='col-11 col-md-5 mx-lg-4 mx-auto m-4'
               nft={nft}
             />
           ))

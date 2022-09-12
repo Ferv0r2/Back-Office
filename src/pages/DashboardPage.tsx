@@ -88,4 +88,4 @@ const DashboardPage: FC = () => {
   )
 }
 
-export {DashboardPage}
+export default DashboardPage
