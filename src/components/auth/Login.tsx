@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import clsx from 'clsx'
 import {toAbsoluteUrl} from 'src/utils'
 
@@ -27,6 +27,16 @@ export function Login() {
   const setMetamaskWallet = useSetRecoilState(metamaskState)
   const [kaikasWallet, setKaikasWallet] = useRecoilState(kaikasState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
+
+  useEffect(() => {
+    const {klaytn} = window
+    if (klaytn === undefined) return
+
+    klaytn.on('accountsChanged', () => {
+      setKaikasAccount()
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setKaikasWallet])
 
   const metamaskConnectHandler = async () => {
     if (active) {
@@ -107,6 +117,7 @@ export function Login() {
     }
 
     const nonceAPI = await AuthNonceAPI()
+    console.log(nonceAPI)
     let sign, authAPI
 
     try {

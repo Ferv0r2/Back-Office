@@ -19,7 +19,7 @@ const AuthLayout = () => {
         {/* begin::Logo */}
         <div className='d-flex mb-12 align-items-center'>
           <img alt='Logo' src={toAbsoluteUrl('/media/logos/favicon.ico')} className='h-45px' />
-          <h2 className='display-6 m-3'>METAONNER</h2>
+          <h2 className='display-6 m-3'>METAONEER</h2>
         </div>
         {/* end::Logo */}
         {/* begin::Wrapper */}
