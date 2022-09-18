@@ -60,6 +60,11 @@ $grays-dark: (
 // Custom colors
 $gradient: linear-gradient(45deg, #d9afd9, #97d9e1) !default;
 
+// SemiWhite colors
+$semiwhite: $white !default;
+$semiwhite-active: #67696b !default;
+$semiwhite-dark: $gray-100-dark !default;
+
 // Bootstrap contextual colors
 // Primary colors
 $primary: #3699ff !default;
@@ -128,6 +133,7 @@ $dark-inverse-dark: $gray-100-dark !default;
 // Contextual colors
 $theme-colors: (
   'white': $white,
+  'semiwhite': $semiwhite,
   // custom color type
   'light': $light,
   'primary': $primary,
@@ -143,10 +149,12 @@ $theme-colors-dark: (
   'dark': $dark-dark,
   'light': $light-dark,
   'secondary': $secondary-dark,
+  'semiwhite': $semiwhite-dark,
 ) !default;
 
 // Contextual active state colors
 $theme-active-colors: (
+  'semiwhite': $semiwhite-active,
   'primary': $primary-active,
   'secondary': $secondary-active,
   'light': $light-active,
@@ -637,7 +645,7 @@ $font-sizes: (
   // 68.25px
   5hx: $font-size-base * 5.5,
   // 71.5px
-  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,
+  5tx: $font-size-base * 5.75 // 74.75px,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ) !default;
 
 $headings-font-weight: 600 !default;

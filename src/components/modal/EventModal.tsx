@@ -2,7 +2,7 @@
 import React, {FC} from 'react'
 import {KTSVG, toAbsoluteUrl} from 'src/utils'
 
-const InviteUsers: FC = () => {
+const EventModal: FC = () => {
   const users = [
     {
       avatar: '/media/avatars/300-6.jpg',
@@ -109,7 +109,7 @@ const InviteUsers: FC = () => {
   ]
 
   return (
-    <div className='modal fade' id='add_event' aria-hidden='true'>
+    <div className='modal fade' id='kt_modal_invite_friends' aria-hidden='true'>
       <div className='modal-dialog mw-650px'>
         <div className='modal-content'>
           <div className='modal-header pb-0 border-0 justify-content-end'>
@@ -225,4 +225,4 @@ const InviteUsers: FC = () => {
   )
 }
 
-export {InviteUsers}
+export {EventModal}
