@@ -66,17 +66,17 @@ const TokenList: FC<Props> = ({className}: Props) => {
           </table>
           <ul className='pagination py-4'>
             <li className='page-item previous disabled'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 <i className='previous'></i>
               </a>
             </li>
             <li className='page-item active'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 1
               </a>
             </li>
             <li className='page-item next disabled'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 <i className='next'></i>
               </a>
             </li>
@@ -121,22 +121,22 @@ const TokenList: FC<Props> = ({className}: Props) => {
           </table>
           <ul className='pagination py-4'>
             <li className='page-item previous disabled'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 <i className='previous'></i>
               </a>
             </li>
             <li className='page-item active'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 1
               </a>
             </li>
             <li className='page-item'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 2
               </a>
             </li>
             <li className='page-item next disabled'>
-              <a href='#' className='page-link'>
+              <a href='/' className='page-link'>
                 <i className='next'></i>
               </a>
             </li>

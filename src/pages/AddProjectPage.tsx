@@ -6,6 +6,7 @@ import useCollection from 'src/hooks/useCollection'
 const AddProjectPage: FC = () => {
   const {isLoading, collections} = useCollection()
   const [contract, setContract] = useState('')
+  const [addLoading, setAddLoading] = useState(false)
 
   const addContractHandler = async () => {
     if (contract.trim().length === 0) {
@@ -17,6 +18,7 @@ const AddProjectPage: FC = () => {
       setContract('')
       return
     }
+    setAddLoading(true)
 
     let addContractAPI
     try {
@@ -31,8 +33,8 @@ const AddProjectPage: FC = () => {
     }
 
     setContract('')
-    console.log(addContractAPI)
     alert(`${addContractAPI.name} NFT 등록이 완료되었습니다.`)
+    setAddLoading(false)
   }
 
   const getInputHandler = (e: any) => {
@@ -60,9 +62,14 @@ const AddProjectPage: FC = () => {
             <button
               type='button'
               onClick={addContractHandler}
-              className='btn btn-sm btn-primary mb-1'
+              className='btn btn-sm btn-primary mb-1 '
+              data-kt-indicator={addLoading && 'on'}
             >
-              Add
+              <span className='indicator-label'>Submit</span>
+              <span className='indicator-progress'>
+                Please wait...{' '}
+                <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+              </span>
             </button>
           </div>
         </div>

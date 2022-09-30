@@ -40,9 +40,6 @@ const Dropdown = ({id}: Props) => {
     setHomepage(e.target.value)
   }
 
-  console.log(thumbnail)
-  console.log(homepage)
-
   return (
     <div className='menu menu-sub menu-sub-dropdown w-250px w-md-300px' data-kt-menu='true'>
       <div className='px-7 py-5'>

@@ -19,6 +19,10 @@ const EventMenu: React.FC<Props> = ({className}) => {
           <span className='card-label fw-bold text-dark'>Event Menu</span>
           <span className='text-muted mt-1 fw-semibold fs-7'>Social Items</span>
         </h3>
+        <KTSVG
+          path='/media/icons/duotune/ecommerce/ecm005.svg'
+          className='svg-icon-muted svg-icon-2hx'
+        />
       </div>
       {/* end::Header */}
 
