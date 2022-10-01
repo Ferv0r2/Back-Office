@@ -29,6 +29,7 @@ const AddProjectPage: FC = () => {
       })
     } catch (err) {
       alert('이미 등록했거나 Owner 권한이 없습니다.')
+      setAddLoading(false)
       return
     }
 
@@ -63,6 +64,7 @@ const AddProjectPage: FC = () => {
               type='button'
               onClick={addContractHandler}
               className='btn btn-sm btn-primary mb-1 '
+              disabled={addLoading}
               data-kt-indicator={addLoading && 'on'}
             >
               <span className='indicator-label'>Submit</span>
