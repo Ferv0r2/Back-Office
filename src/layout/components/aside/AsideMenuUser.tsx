@@ -14,7 +14,7 @@ const AsideMenuUser: FC<Props & WithChildren> = ({children, title, icon, fontIco
 
   return (
     <div className='menu-item menu-user pb-6'>
-      <div className='align-items-center px-8 py-4 rounded border border-light mx-7'>
+      <div className='d-flex align-items-center px-8 py-4 rounded border border-light mx-7'>
         {icon && aside.menuIcon === 'svg' && (
           <span className='menu-icon'>
             <KTSVG path={icon} className='svg-icon-2' />

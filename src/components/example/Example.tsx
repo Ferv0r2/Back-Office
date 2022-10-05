@@ -25,4 +25,4 @@ const Example: FC<Props> = ({nft}) => {
   )
 }
 
-export default Example
+export {Example}
