@@ -6,7 +6,7 @@ import AddProjectPage from 'src/pages/AddProjectPage'
 import NFTDetailPage from 'src/pages/NFTDetailPage'
 import NFTHomePage from 'src/pages/NFTHomePage'
 import NFTEventPage from 'src/pages/NFTEventPage'
-import AddEventPage from 'src/pages/AddEventPage'
+import CreateEventPage from 'src/pages/CreateEventPage'
 import useCollection from 'src/hooks/useCollection'
 
 const PrivateRoutes = () => {
@@ -36,7 +36,7 @@ const PrivateRoutes = () => {
               </Fragment>
             )
           })}
-        <Route path='event/management' element={<AddEventPage />} />
+        <Route path='event/create' element={<CreateEventPage />} />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

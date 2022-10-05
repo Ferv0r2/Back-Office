@@ -1,11 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, {MouseEventHandler} from 'react'
 import {KTSVG} from 'src/utils'
 import {useRecoilState} from 'recoil'
 import {basketState} from 'src/components/states/eventState'
 
 interface Props {
   className?: string
+  isReady: boolean
+  isContinue: boolean
+  continueHandler: MouseEventHandler<HTMLButtonElement>
+  backHandler: MouseEventHandler<HTMLButtonElement>
 }
 
 const setColor = (sns: string) => {
@@ -18,7 +22,13 @@ const setColor = (sns: string) => {
   }
 }
 
-const EventBasket: React.FC<Props> = ({className}) => {
+const EventBasket: React.FC<Props> = ({
+  className,
+  isReady,
+  isContinue,
+  continueHandler,
+  backHandler,
+}) => {
   const [eventBasket, setEventBasket] = useRecoilState(basketState)
 
   const resetHandler = () => {
@@ -65,7 +75,7 @@ const EventBasket: React.FC<Props> = ({className}) => {
                       {event.sns}
                     </span>
                   </div>
-                  <select className='form-select w-200px' aria-label='Select Option'>
+                  <select className='form-select cursor-pointer w-200px' aria-label='Select Option'>
                     {event.options.map((option) => (
                       <option key={Math.random()} className='fw-semibold' value={option}>
                         {option}
@@ -81,13 +91,26 @@ const EventBasket: React.FC<Props> = ({className}) => {
             )}
           </div>
 
-          {eventBasket.length > 0 && (
+          {eventBasket.length > 0 && !isContinue && (
             <div className='float-end py-8 me-4'>
               <button onClick={resetHandler} className='btn btn-light-danger me-3' type='button'>
                 Reset
               </button>
-              <button className='btn btn-primary' type='button'>
+              <button
+                onClick={continueHandler}
+                disabled={!isReady}
+                className='btn btn-primary'
+                type='button'
+              >
                 Continue
+              </button>
+            </div>
+          )}
+
+          {isContinue && (
+            <div className='float-end py-8 me-4'>
+              <button onClick={backHandler} className='btn btn-light-danger me-3' type='button'>
+                Cancel
               </button>
             </div>
           )}

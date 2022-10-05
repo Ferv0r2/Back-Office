@@ -225,15 +225,14 @@ export function Login() {
           type='button'
           onClick={setAuthHandler}
           className='btn btn-lg btn-primary w-100 mb-5'
+          data-kt-indicator={loading && 'on'}
           disabled={!selectedWallet || !(account || kaikasWallet.address) || loading}
         >
-          {!loading && <span className='indicator-label'>Continue</span>}
-          {loading && (
-            <span className='indicator-progress' style={{display: 'block'}}>
-              Please wait...
-              <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-            </span>
-          )}
+          <span className='indicator-label'>Continue</span>
+          <span className='indicator-progress'>
+            Please wait...{' '}
+            <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+          </span>
         </button>
       </div>
       {/* end::Action */}

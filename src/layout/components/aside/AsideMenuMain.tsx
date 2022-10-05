@@ -70,17 +70,15 @@ export function AsideMenuMain() {
       </div>
 
       <AsideMenuItem
-        to='/event/management'
-        icon='/media/icons/duotune/general/gen051.svg'
-        title='Event Management'
-        fontIcon='bi-layers'
+        to='/event/create'
+        icon='/media/icons/duotune/general/gen017.svg'
+        title='Event Create'
       />
 
       <AsideMenuItemWithSub
         to='/event/status'
         title='Event Status'
-        icon='/media/icons/duotune/communication/com006.svg'
-        fontIcon='bi-person'
+        icon='/media/icons/duotune/general/gen032.svg'
       >
         <AsideMenuItem to='/event/status/live' title='Live' hasBullet={true} />
         <AsideMenuItem to='/event/status/end' title='End' hasBullet={true} />
