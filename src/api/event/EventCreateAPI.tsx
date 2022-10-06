@@ -4,10 +4,11 @@ import {IEventCreateAPI} from '../APIModels'
 export async function EventCreateAPI(args: IEventCreateAPI) {
   const request = await axios
     .post(`/api/project/${args.pid}/event`, {
+      title: args.title,
+      content: args.content,
       start_dt: args.start_dt,
       end_dt: args.end_dt,
-      content: args.content,
-      items: args.items,
+      metadata: args.metadata,
     })
     .then((res) => res.data)
 

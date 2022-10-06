@@ -24,7 +24,7 @@ export function Login() {
   const {account, chainId, active, activate} = useWeb3React()
   const [loading, setLoading] = useState(false)
   const setAuth = useSetRecoilState(authState)
-  const setMetamaskWallet = useSetRecoilState(metamaskState)
+  const [metamaskWallet, setMetamaskWallet] = useRecoilState(metamaskState)
   const [kaikasWallet, setKaikasWallet] = useRecoilState(kaikasState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
 
@@ -155,6 +155,14 @@ export function Login() {
     sessionStorage.setItem(
       'WALLET_ADDRESS',
       selectedWallet === 'metamask' ? String(account) : String(kaikasWallet.address)
+    )
+    sessionStorage.setItem(
+      'WALLET_NETWORK',
+      selectedWallet === 'metamask' ? String(chainId) : String(kaikasWallet.network)
+    )
+    sessionStorage.setItem(
+      'WALLET_BALANCE',
+      selectedWallet === 'metamask' ? String(metamaskWallet.balance) : String(kaikasWallet.balance)
     )
     console.log(selectedWallet)
     setAuth(true)

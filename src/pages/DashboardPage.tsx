@@ -5,8 +5,6 @@ import {BarChart} from 'src/components/chart/BarChart'
 import {MixChart} from 'src/components/chart/MixChart'
 import {ItemList} from 'src/components/dashboard/ItemList'
 import {QuickMenu} from 'src/components/dashboard/QuickMenu'
-import {useRecoilValue} from 'recoil'
-import {kaikasState, metamaskState, selectedWalletState} from 'src/components/states/walletState'
 
 const testEvent = [
   {
@@ -42,10 +40,6 @@ const testEvent = [
 ]
 
 const DashboardPage: FC = () => {
-  const selectWallet = useRecoilValue(selectedWalletState)
-  const metamaskWallet = useRecoilValue(metamaskState)
-  const kaikasWallet = useRecoilValue(kaikasState)
-
   return (
     <>
       {/* begin::Row */}
@@ -53,7 +47,7 @@ const DashboardPage: FC = () => {
         <div className='col-md-10 col-xxl-4 mx-auto'>
           <QuickMenu
             className='card-xxl-stretch mb-xl-8'
-            balance={selectWallet === 'metamask' ? metamaskWallet.balance : kaikasWallet.balance}
+            balance={Number(sessionStorage.getItem('WALLET_BALANCE'))}
           />
         </div>
         <div className='col-md-10 col-xxl-4 mx-auto pt-sm-0 pt-4'>

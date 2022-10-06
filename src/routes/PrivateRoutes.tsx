@@ -37,6 +37,9 @@ const PrivateRoutes = () => {
             )
           })}
         <Route path='event/create' element={<CreateEventPage />} />
+        <Route path='event/live' element={<CreateEventPage />} />
+        <Route path='event/end' element={<CreateEventPage />} />
+        <Route path='event/*' element={<Navigate to='/event/create' />} />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

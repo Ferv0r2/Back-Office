@@ -46,7 +46,7 @@ const AddProjectPage: FC = () => {
     <>
       <form>
         <div className='row'>
-          <div className='col-9 col-md-5 mx-auto mx-lg-0 mx-sm-8'>
+          <div className='col-11 col-md-5 mx-auto mx-lg-0 mx-sm-8'>
             <label htmlFor='contractAddress' className='form-label p-2 required form-label'>
               Contract Address
             </label>
@@ -59,7 +59,7 @@ const AddProjectPage: FC = () => {
               placeholder='0x00000000..'
             />
           </div>
-          <div className='col-auto align-self-end'>
+          <div className='col-11 col-md-auto d-flex justify-content-end mt-4 mt-md-0 mx-auto mx-md-0 align-self-end'>
             <button
               type='button'
               onClick={addContractHandler}

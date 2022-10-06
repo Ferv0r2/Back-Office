@@ -42,31 +42,34 @@ export interface IEventJoinAPI extends IEventBaseAPI {
 
 export interface IEventCreateAPI {
   pid: number
+  title: string
+  content: string
   start_dt: Date
   end_dt: Date
+  metadata: IEventItem
+}
+
+export interface IEventModifyAPI extends IEventBaseAPI {
+  title: string
   content: string
-  items: IEvent[]
 }
 
 export interface IEvent {
-  login_discord?: IEventItem
-  login_twitter?: IEventItem
-  connect_wallet?: IEventItem
-  twitter_follow?: IEventItem
-  twitter_retweet?: IEventItem
-  click_link?: IEventItem
-  click_callback_link?: IEventItem
-  nft_hold?: IEventItem
+  event_id?: number
+  title: string
+  content: string
+  point: number
+  type: string
+  metadata: IEventItem
 }
 
 export interface IEventItem {
-  title: string
-  point: number
-  type?: string
-  type_id?: string
-  type_url?: string
-  type_icon?: string
-  type_contract?: string
-  callback_url?: string
-  count?: number
+  login_discord?: string
+  login_twitter?: string
+  connect_wallet?: string
+  twitter_follow?: string
+  twitter_retweet?: string
+  click_link?: string
+  click_callback_link?: string
+  nft_hold?: string
 }

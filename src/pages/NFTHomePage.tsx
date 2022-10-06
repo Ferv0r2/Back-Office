@@ -10,8 +10,8 @@ const NFTHomePage = ({nft}: Props) => {
   return (
     <>
       <div className='row gy-8 pb-8'>
-        <FeedsWidget className='col-10 mx-auto' nft={nft} mode='detail' />
-        <TokenList className='col-10 mx-auto' />
+        <FeedsWidget className='col-11 col-md-9 mx-auto' nft={nft} mode='detail' />
+        <TokenList className='col-11 col-md-9 mx-auto' />
       </div>
     </>
   )

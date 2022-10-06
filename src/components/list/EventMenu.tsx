@@ -34,7 +34,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'g2',
+                id: 'f1',
                 sns: 'Facebook',
                 options: ['Visit'],
               },
@@ -62,7 +62,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'g2',
+                id: 'f2',
                 sns: 'Instagram',
                 options: ['Visit'],
               },
@@ -90,7 +90,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'g2',
+                id: 'f3',
                 sns: 'Twitter',
                 options: ['Like', 'Follow', 'Retweet'],
               },
@@ -118,7 +118,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'g2',
+                id: 'f4',
                 sns: 'Youtube',
                 options: ['Visit'],
               },
@@ -148,7 +148,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'g2',
+                id: 'f5',
                 sns: 'Discord',
                 options: ['Check holder', 'Role'],
               },

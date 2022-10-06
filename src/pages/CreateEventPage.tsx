@@ -1,20 +1,27 @@
 import {FC, useState, useEffect} from 'react'
-import {useRecoilValue} from 'recoil'
-import {Example} from 'src/components/example/Example'
+import {useRecoilValue, useSetRecoilState} from 'recoil'
+import {Example} from 'src/components/event/Example'
 import {EventBasket} from 'src/components/list/EventBasket'
 import {EventMenu} from 'src/components/list/EventMenu'
+import {resultState} from 'src/components/states/eventState'
 import {collectionState} from 'src/components/states/nftState'
 import {KTSVG} from 'src/utils'
 
 const CreateEventPage: FC = () => {
   const collections = useRecoilValue(collectionState)
-  const [currentNFT, setCurrentNFT] = useState(collections[0].name)
+  const setResult = useSetRecoilState(resultState)
+  const [currentNFT, setCurrentNFT] = useState('')
   const [isReady, setIsReady] = useState(false)
   const [isContinue, setIsContinue] = useState(false)
   const [isAnimate, setIsAnimate] = useState(false)
 
   useEffect(() => {
-    collections.length > 0 ? setIsReady(true) : setIsReady(false)
+    if (collections.length > 0) {
+      setCurrentNFT(collections[0].name)
+      setIsReady(true)
+    } else {
+      setIsReady(false)
+    }
   }, [collections, setIsReady])
 
   const continueHandler = () => {
@@ -27,6 +34,7 @@ const CreateEventPage: FC = () => {
 
   const backHandler = () => {
     setIsContinue(false)
+    setResult([])
   }
 
   return (
@@ -50,7 +58,7 @@ const CreateEventPage: FC = () => {
                   {isReady ? (
                     <select
                       onChange={(e) => setCurrentNFT(e.target.value)}
-                      value={currentNFT}
+                      defaultValue={currentNFT}
                       className='cursor-pointer form-select'
                       aria-label='Select Option'
                     >
@@ -99,97 +107,6 @@ const CreateEventPage: FC = () => {
             <Example nft={currentNFT} />
           </div>
         )}
-
-        <>
-        <div className='accordion' id='kt_accordion_1'>
-<div className='accordion-item'>
-  <h2 className='accordion-header' id='kt_accordion_1_header_1'>
-    <button
-      className='accordion-button fs-4 fw-bold collapsed'
-      type='button'
-      data-bs-toggle='collapse'
-      data-bs-target='#kt_accordion_1_body_1'
-      aria-expanded='false'
-      aria-controls='kt_accordion_1_body_1'
-    >
-      Accordion Item #1
-    </button>
-  </h2>
-  <div
-    id='kt_accordion_1_body_1'
-    className='accordion-collapse collapse'
-    aria-labelledby='kt_accordion_1_header_1'
-    data-bs-parent='#kt_accordion_1'
-  >
-    <div className='accordion-body'>
-      <form>
-        <input className=''/>
-      </form>
-    </div>
-  </div>
-</div>
-<div className='accordion-item'>
-  <h2 className='accordion-header' id='kt_accordion_1_header_2'>
-    <button
-      className='accordion-button fs-4 fw-bold collapsed'
-      type='button'
-      data-bs-toggle='collapse'
-      data-bs-target='#kt_accordion_1_body_2'
-      aria-expanded='false'
-      aria-controls='kt_accordion_1_body_2'
-    >
-      Accordion Item #2
-    </button>
-  </h2>
-  <div
-    id='kt_accordion_1_body_2'
-    className='accordion-collapse collapse'
-    aria-labelledby='kt_accordion_1_header_2'
-    data-bs-parent='#kt_accordion_1'
-  >
-    <div className='accordion-body'>
-      <strong>This is the second item's accordion body.</strong>It is hidden by
-      default, until the collapse plugin adds the appropriate classes that we use to
-      style each element. These classes control the overall appearance, as well as the
-      showing and hiding via CSS transitions. You can modify any of this with custom
-      CSS or overriding our default variables. It's also worth noting that just about
-      any HTML can go within the
-      <code>.accordion-body</code>, though the transition does limit overflow.
-    </div>
-  </div>
-</div>
-<div className='accordion-item'>
-  <h2 className='accordion-header' id='kt_accordion_1_header_3'>
-    <button
-      className='accordion-button fs-4 fw-bold collapsed'
-      type='button'
-      data-bs-toggle='collapse'
-      data-bs-target='#kt_accordion_1_body_3'
-      aria-expanded='false'
-      aria-controls='kt_accordion_1_body_3'
-    >
-      Accordion Item #3
-    </button>
-  </h2>
-  <div
-    id='kt_accordion_1_body_3'
-    className='accordion-collapse collapse'
-    aria-labelledby='kt_accordion_1_header_3'
-    data-bs-parent='#kt_accordion_1'
-  >
-    <div className='accordion-body'>
-      <strong>This is the third item's accordion body.</strong>It is hidden by
-      default, until the collapse plugin adds the appropriate classes that we use to
-      style each element. These classes control the overall appearance, as well as the
-      showing and hiding via CSS transitions. You can modify any of this with custom
-      CSS or overriding our default variables. It's also worth noting that just about
-      any HTML can go within the
-      <code>.accordion-body</code>, though the transition does limit overflow.
-    </div>
-  </div>
-</div>
-</div>
-        </>
       </div>
     </>
   )

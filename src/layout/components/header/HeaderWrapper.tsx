@@ -16,7 +16,7 @@ export function HeaderWrapper() {
     link += `${path}/`
 
     return (
-      <Fragment key={path}>
+      <Fragment key={path + index}>
         {index !== navigator.length - 1 ? (
           <li className='d-none d-lg-flex breadcrumb-item pe-3'>
             <Link to={index === 0 ? '/dashboard' : link} className='pe-3'>

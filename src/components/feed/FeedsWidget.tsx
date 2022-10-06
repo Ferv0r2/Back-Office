@@ -64,7 +64,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
           )}
         >
           {/* begin::User */}
-          <div className='d-flex align-items-center w- flex-grow-1'>
+          <div className='d-block d-md-flex align-items-center'>
             {/* begin::Avatar */}
             <div className={clsx('symbol me-5', mode ? 'symbol-60px' : 'symbol-45px')}>
               <img src={nft.thumbnail || toAbsoluteUrl('/media/avatars/blank.png')} alt='icon' />
@@ -72,20 +72,23 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
             {/* end::Avatar */}
 
             {/* begin::Info */}
-            <div className='d-flex flex-column'>
+            <div className='d-flex flex-column pt-4 pt-md-0'>
               <p className={clsx('mb-1 text-gray-800 fw-bold', mode ? 'fs-3' : 'fs-6')}>
                 {nft.name}
               </p>
-              <span className='text-gray-400 fw-semibold'>{nft.contract}</span>
+              <span className='d-none d-md-inline text-gray-400 fw-semibold'>{nft.contract}</span>
+              <span className='d-inline d-md-none text-gray-400 fw-semibold'>
+                {nft.contract.replace(nft.contract.substring(6, 36), '...')}
+              </span>
             </div>
             {/* end::Info */}
           </div>
 
           {mode && (
-            <div className='card-toolbar'>
+            <div className='d-flex card-toolbar mb-auto'>
               <button
                 type='button'
-                className='btn btn-color-muted btn-active-light-primary fs-6'
+                className='btn btn-sm btn-md-md btn-color-muted btn-active-light-primary fs-6'
                 data-kt-menu-trigger='click'
                 data-kt-menu-placement='bottom-end'
                 data-kt-menu-flip='top-end'
@@ -106,13 +109,13 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
         </div>
         {/* end::Header */}
         {/* begin::Body */}
-        <div className='card-body mx-4'>
+        <div className={clsx('card-body', mode ? 'mx-0 mx-md-4 fs-6' : 'mx-4')}>
           <div className={clsx('d-lg-flex d-block ', mode ? 'gap-20 lh-xl' : 'gap-20')}>
             <div className={clsx('d-flex', mode && 'min-w-300px')}>
               <div className='fw-bolder'>
-                <ol className='p-0'>Name</ol>
-                <ol className='p-0'>Symbol</ol>
-                <ol className='p-0'>Total supply</ol>
+                <ol className={clsx('p-0', mode && 'pe-4')}>Name</ol>
+                <ol className={clsx('p-0', mode && 'pe-4')}>Symbol</ol>
+                <ol className={clsx('p-0', mode && 'pe-4')}>Total supply</ol>
               </div>
               <div>
                 <ol>{nft.name}</ol>
@@ -122,9 +125,9 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
             </div>
             <div className='d-flex'>
               <div className='fw-bolder'>
-                <ol className='p-0'>Holders</ol>
-                <ol className='p-0'>Event count</ol>
-                {mode && <ol className='p-0'>Official Site</ol>}
+                <ol className={clsx('p-0', mode && 'pe-4')}>Holders</ol>
+                <ol className={clsx('p-0', mode && 'pe-4')}>Event count</ol>
+                {mode && <ol className={clsx('p-0', mode && 'pe-4')}>Official Site</ol>}
               </div>
               <div>
                 <ol>{nft.holder_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>

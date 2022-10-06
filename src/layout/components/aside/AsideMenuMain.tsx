@@ -76,12 +76,12 @@ export function AsideMenuMain() {
       />
 
       <AsideMenuItemWithSub
-        to='/event/status'
+        to='/event/live'
         title='Event Status'
         icon='/media/icons/duotune/general/gen032.svg'
       >
-        <AsideMenuItem to='/event/status/live' title='Live' hasBullet={true} />
-        <AsideMenuItem to='/event/status/end' title='End' hasBullet={true} />
+        <AsideMenuItem to='/event/live' title='Live' hasBullet={true} />
+        <AsideMenuItem to='/event/end' title='End' hasBullet={true} />
       </AsideMenuItemWithSub>
 
       <div className='menu-item'>

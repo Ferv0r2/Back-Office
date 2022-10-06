@@ -6,20 +6,25 @@ interface EventItem {
   options: string[]
 }
 
+interface ResultItem {
+  title: string
+  content: string
+  point: number
+}
+
 const basketState = atom<EventItem[]>({
   key: 'basketState',
-  default: [
-    {
-      id: 'f1',
-      sns: 'Facebook',
-      options: ['Visit'],
-    },
-    {
-      id: 'f2',
-      sns: 'Discord',
-      options: ['Check holder', 'Role'],
-    },
-  ],
+  default: [],
 })
 
-export {basketState}
+const itemOptionState = atom({
+  key: 'itemOptionState',
+  default: new Map(),
+})
+
+const resultState = atom<ResultItem[]>({
+  key: 'resultState',
+  default: [],
+})
+
+export {basketState, itemOptionState, resultState}

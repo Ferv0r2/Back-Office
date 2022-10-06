@@ -3,9 +3,17 @@ export * from 'src/api/auth/AuthNonceAPI'
 export * from 'src/api/auth/AuthTokenAPI'
 
 /* Event */
+export * from 'src/api/event/EventListAPI'
 export * from 'src/api/event/EventCreateAPI'
-export * from 'src/api/event/EventViewAPI'
+export * from 'src/api/event/EventModifyAPI'
+export * from 'src/api/event/EventDeleteAPI'
+export * from 'src/api/event/EventDetailAPI'
 export * from 'src/api/event/EventJoinAPI'
+
+/* Event Item */
+export * from 'src/api/eventItem/EventItemCreateAPI'
+export * from 'src/api/eventItem/EventItemModifyAPI'
+export * from 'src/api/eventItem/EventItemDeleteAPI'
 
 /* NFT */
 export * from 'src/api/nft/NFTListAPI'
