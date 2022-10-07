@@ -7,6 +7,7 @@ interface EventItem {
 }
 
 interface ResultItem {
+  id: string
   title: string
   content: string
   point: number
@@ -27,4 +28,14 @@ const resultState = atom<ResultItem[]>({
   default: [],
 })
 
-export {basketState, itemOptionState, resultState}
+const eventTitleState = atom<string>({
+  key: 'eventTitleState',
+  default: '',
+})
+
+const eventContentState = atom<string>({
+  key: 'eventContentState',
+  default: '',
+})
+
+export {basketState, itemOptionState, resultState, eventTitleState, eventContentState}

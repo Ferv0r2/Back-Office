@@ -36,7 +36,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
               {
                 id: 'f1',
                 sns: 'Facebook',
-                options: ['Visit'],
+                options: ['Link'],
               },
             ])
           }}
@@ -52,7 +52,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
           </div>
           <div className='d-flex flex-column'>
             <span className='text-dark text-hover-primary fs-6 fw-bold'>Facebook</span>
-            <span className='text-muted fw-semibold'>Visit</span>
+            <span className='text-muted fw-semibold'>Link</span>
           </div>
         </div>
         {/* end::Item */}
@@ -64,7 +64,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
               {
                 id: 'f2',
                 sns: 'Instagram',
-                options: ['Visit'],
+                options: ['Link'],
               },
             ])
           }}
@@ -80,7 +80,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
           </div>
           <div className='d-flex flex-column'>
             <span className='text-dark text-hover-info fs-6 fw-bold'>Instagram</span>
-            <span className='text-muted fw-semibold'>Visit</span>
+            <span className='text-muted fw-semibold'>Link</span>
           </div>
         </div>
         {/* end::Item */}
@@ -120,7 +120,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
               {
                 id: 'f4',
                 sns: 'Youtube',
-                options: ['Visit'],
+                options: ['Link'],
               },
             ])
           }}
@@ -138,7 +138,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             <a href='#' className='text-dark text-hover-danger fs-6 fw-bold'>
               Youtube
             </a>
-            <span className='text-muted fw-semibold'>Visit</span>
+            <span className='text-muted fw-semibold'>Link</span>
           </div>
         </div>
         {/* end::Item */}

@@ -1,35 +1,38 @@
-import {FC, useState} from 'react'
+import {FC, useState, useEffect, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../list/EventBasket'
-import {basketState, resultState} from '../states/eventState'
+import {basketState, eventContentState, eventTitleState, resultState} from '../states/eventState'
 
 interface Props {
   nft: string
 }
 
-// const getCurrentDate = () => {
-//   let date = new Date()
-//   let currentDate = new Intl.DateTimeFormat('kr').format(date)
-//   return currentDate
-// }
-
 const Example: FC<Props> = ({nft}) => {
   const navigate = useNavigate()
+  const contentRef = useRef<HTMLDivElement>(null)
   const [resultItem, setResultItem] = useRecoilState(resultState)
+  const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
+  const [eventContent, setEventContent] = useRecoilState(eventContentState)
   const setBasketItem = useSetRecoilState(basketState)
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
 
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.innerHTML = eventContent
+    }
+  }, [eventContent])
+
   const submitHandler = async () => {
     if (!startDate || !endDate) {
-      alert('Select a Start Date & End Date')
+      alert('시작날짜와 종료날짜를 모두 선택해 주세요.')
       return
     }
 
     if (new Date(startDate) > new Date(endDate)) {
-      alert('The End Date must be greater than the Start Date')
+      alert('종료날짜는 시작날짜보다 커야 합니다.')
       return
     }
 
@@ -37,6 +40,8 @@ const Example: FC<Props> = ({nft}) => {
 
     setResultItem([])
     setBasketItem([])
+    setEventTitle('')
+    setEventContent('')
     navigate('/dashboard')
   }
 
@@ -65,28 +70,30 @@ const Example: FC<Props> = ({nft}) => {
             <div className='text-muted'>Days Left</div>
           </div>
         </div>
-        <div className='card-body card-scroll h-400px'>
-          {resultItem.length > 0 &&
-            resultItem.map((item, index) => (
-              <div className='row g-4 py-1 align-items-center'>
-                <div className='col-2'>
-                  <div className='symbol symbol-50px'>
-                    <span className={`symbol-label bg-light-${setColor(item.title)}`}>
-                      <KTSVG
-                        path={`/media/svg/social-logos/${item.title}.svg`}
-                        className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
-                      />
+        <div className='card-body p-0 card-scroll'>
+          <div className='d-flex align-items-center justify-content-center border-bottom text-center h-80px'>
+            <h2>{eventTitle || 'Example Title'}</h2>
+          </div>
+          <div ref={contentRef} className='ql w-100 border-bottom p-8 text-break min-h-100px' />
+          <div className='card-body mx-1 p-0 min-h-200px'>
+            {resultItem.length > 0 &&
+              resultItem.map((item, index) => (
+                <div className='d-flex px-6 py-4 align-items-center border-bottom justify-content-between'>
+                  <div className={`bg-light-${setColor(item.title)}`}>
+                    <KTSVG
+                      path={`/media/svg/social-logos/${item.title}.svg`}
+                      className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
+                    />
+                  </div>
+                  <div className='text-wrap w-75 px-4'>{item.content || 'Example Content'}</div>
+                  <div className='d-flex justify-content-center'>
+                    <span className={`badge px-6 py-4 fs-8 badge-light-${setColor(item.title)}`}>
+                      + {item.point}
                     </span>
                   </div>
                 </div>
-                <div className='col-8'>{item.content}</div>
-                <div className='col-2'>
-                  <span className={`badge px-6 py-4 fs-8 badge-light-${setColor(item.title)}`}>
-                    + {item.point}
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))}
+          </div>
         </div>
         <div className='card-footer'>
           <div className='text-muted'>Powered by Metaoneer</div>
@@ -110,7 +117,12 @@ const Example: FC<Props> = ({nft}) => {
               className='cursor-pointer form-control text-center'
             />
           </div>
-          <button onClick={submitHandler} type='button' className='btn btn-primary'>
+          <button
+            onClick={submitHandler}
+            disabled={!eventTitle || !eventContent || resultItem.length <= 0}
+            type='button'
+            className='btn btn-primary'
+          >
             Submit
           </button>
         </div>

@@ -2,8 +2,15 @@
 import {FC, useEffect, useRef, MouseEventHandler} from 'react'
 import {KTSVG} from 'src/utils'
 import {useRecoilState, useSetRecoilState} from 'recoil'
-import {basketState, itemOptionState, resultState} from 'src/components/states/eventState'
-import InputComponent from '../event/InputComponent'
+import {
+  basketState,
+  eventContentState,
+  eventTitleState,
+  itemOptionState,
+  resultState,
+} from 'src/components/states/eventState'
+import {Editor} from '../editor/Editor'
+import {InputComponent} from '../event/InputComponent'
 
 interface Props {
   className?: string
@@ -34,8 +41,10 @@ const EventBasket: FC<Props> = ({
 }) => {
   const [eventBasket, setEventBasket] = useRecoilState(basketState)
   const [optionMap, setOptionMap] = useRecoilState(itemOptionState)
+  const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
   const setResult = useSetRecoilState(resultState)
-  const animateDivRef = useRef<HTMLDivElement | null>(null)
+  const setEventContent = useSetRecoilState(eventContentState)
+  const animateEventRef = useRef<HTMLDivElement | null>(null)
   const animateBtnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
@@ -52,13 +61,13 @@ const EventBasket: FC<Props> = ({
       const animates = ['animate__animated', 'animate__fadeIn', 'animate__faster']
 
       for (let animate of animates) {
-        animateDivRef.current?.classList.add(animate)
+        animateEventRef.current?.classList.add(animate)
         animateBtnRef.current?.classList.add(animate)
       }
 
       setTimeout(() => {
         for (let animate of animates) {
-          animateDivRef.current?.classList.remove(animate)
+          animateEventRef.current?.classList.remove(animate)
           animateBtnRef.current?.classList.remove(animate)
         }
       }, 300)
@@ -68,6 +77,8 @@ const EventBasket: FC<Props> = ({
   const resetHandler = () => {
     setEventBasket([])
     setResult([])
+    setEventTitle('')
+    setEventContent('')
     setOptionMap(new Map())
   }
 
@@ -88,12 +99,27 @@ const EventBasket: FC<Props> = ({
         {/* end::Header */}
 
         {/* begin::Body */}
-        <div className='card-body p-4'>
-          <div
-            ref={animateDivRef}
-            className='accordion h-500px overflow-auto'
-            id='basket_accordion'
-          >
+        <div ref={animateEventRef} className='card-body card-scroll h-550px  p-4'>
+          {isContinue ? (
+            <div className='px-2 pb-4'>
+              <div className='pb-4'>
+                <label className='form-label required px-2'>Event Title</label>
+                <input
+                  type='text'
+                  value={eventTitle}
+                  onChange={(e) => setEventTitle(e.target.value)}
+                  className='form-control'
+                  name='title'
+                  placeholder='Example Title'
+                />
+              </div>
+              <Editor />
+            </div>
+          ) : (
+            ''
+          )}
+
+          <div className='accordion px-2' id='basket_accordion'>
             {eventBasket?.length ? (
               eventBasket.map((event, i) => {
                 const key = (Math.random() * 100000000).toFixed(0)
@@ -160,7 +186,11 @@ const EventBasket: FC<Props> = ({
                         data-bs-parent='#basket_accordion'
                       >
                         <div className='accordion-body'>
-                          <InputComponent sns={event.sns} option={optionMap.get(i)} />
+                          <InputComponent
+                            id={`i${key}`}
+                            sns={event.sns}
+                            option={optionMap.get(i)}
+                          />
                         </div>
                       </div>
                     ) : (
@@ -186,42 +216,43 @@ const EventBasket: FC<Props> = ({
               </div>
             )}
           </div>
-
-          {eventBasket.length > 0 && !isContinue && (
-            <div className='float-end py-8 me-4'>
-              <button
-                type='button'
-                onClick={resetHandler}
-                className='btn btn-light-danger me-3'
-                disabled={isAnimate}
-              >
-                Reset
-              </button>
-              <button
-                type='button'
-                onClick={continueHandler}
-                disabled={!isReady || isAnimate}
-                className='btn btn-primary'
-              >
-                Continue
-              </button>
-            </div>
-          )}
-
-          {isContinue && (
-            <div className={`float-end py-8 me-4`}>
-              <button
-                ref={animateBtnRef}
-                onClick={backHandler}
-                className='btn btn-light-danger me-3'
-                type='button'
-              >
-                Cancel
-              </button>
-            </div>
-          )}
         </div>
         {/* end::Body */}
+        {eventBasket.length > 0 && (
+          <div className='card-footer'>
+            <div className='float-end me-4'>
+              {!isContinue ? (
+                <>
+                  <button
+                    type='button'
+                    onClick={resetHandler}
+                    className='btn btn-light-danger me-3'
+                    disabled={isAnimate}
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type='button'
+                    onClick={continueHandler}
+                    disabled={!isReady || isAnimate}
+                    className='btn btn-primary'
+                  >
+                    Continue
+                  </button>
+                </>
+              ) : (
+                <button
+                  ref={animateBtnRef}
+                  onClick={backHandler}
+                  className='btn btn-light-danger me-3'
+                  type='button'
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   )

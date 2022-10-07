@@ -1,38 +1,51 @@
-import React, {FC, useState} from 'react'
+import {FC, useState} from 'react'
 import {useRecoilState} from 'recoil'
 import {resultState} from '../states/eventState'
 
 interface Props {
+  id: string
   sns: string
   option: string
 }
 
-const InputComponent: FC<Props> = ({sns, option}) => {
+const InputComponent: FC<Props> = ({id, sns, option}) => {
   const [isResult, setResult] = useRecoilState(resultState)
   const [isConfirm, setIsConfirm] = useState(false)
   const [inputs, setInputs] = useState({
+    id: id,
     title: sns,
     content: '',
     point: 0,
   })
 
-  const {content, point} = inputs // 비구조화 할당을 통해 값 추출
+  const {content, point} = inputs
 
   const onChange = (e: any) => {
-    const {name, value} = e.target // 우선 e.target 에서 name 과 value 를 추출
+    const {name, value} = e.target
+
     setInputs({
-      ...inputs, // 기존의 input 객체를 복사한 뒤
-      [name]: value, // name 키를 가진 값을 value 로 설정
+      ...inputs,
+      [name]: value,
     })
   }
 
   const confirmHandler = (e: any) => {
+    if (!content) {
+      alert('내용을 입력해 주세요.')
+      return
+    }
+
+    if (point <= 0) {
+      alert('포인트는 0보다 커야 합니다.')
+      return
+    }
+
     setResult([...isResult, inputs])
     setIsConfirm(true)
   }
 
-  const editHandler = (e: any) => {
-    setResult([])
+  const editHandler = () => {
+    setResult(isResult.filter((isResult) => isResult.id !== id))
     setIsConfirm(false)
   }
 
@@ -82,4 +95,4 @@ const InputComponent: FC<Props> = ({sns, option}) => {
   )
 }
 
-export default InputComponent
+export {InputComponent}

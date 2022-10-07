@@ -3,13 +3,15 @@ import {useRecoilValue, useSetRecoilState} from 'recoil'
 import {Example} from 'src/components/event/Example'
 import {EventBasket} from 'src/components/list/EventBasket'
 import {EventMenu} from 'src/components/list/EventMenu'
-import {resultState} from 'src/components/states/eventState'
+import {eventContentState, eventTitleState, resultState} from 'src/components/states/eventState'
 import {collectionState} from 'src/components/states/nftState'
 import {KTSVG} from 'src/utils'
 
 const CreateEventPage: FC = () => {
   const collections = useRecoilValue(collectionState)
   const setResult = useSetRecoilState(resultState)
+  const setEventTitle = useSetRecoilState(eventTitleState)
+  const setEventContent = useSetRecoilState(eventContentState)
   const [currentNFT, setCurrentNFT] = useState('')
   const [isReady, setIsReady] = useState(false)
   const [isContinue, setIsContinue] = useState(false)
@@ -35,6 +37,8 @@ const CreateEventPage: FC = () => {
   const backHandler = () => {
     setIsContinue(false)
     setResult([])
+    setEventTitle('')
+    setEventContent('')
   }
 
   return (
