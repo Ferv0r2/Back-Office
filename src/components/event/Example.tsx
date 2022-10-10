@@ -1,6 +1,8 @@
 import {FC, useState, useEffect, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilState, useSetRecoilState} from 'recoil'
+import { EventBatchAPI } from 'src/api'
+import useCollection from 'src/hooks/useCollection'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../list/EventBasket'
 import {basketState, eventContentState, eventTitleState, resultState} from '../states/eventState'
@@ -10,6 +12,7 @@ interface Props {
 }
 
 const Example: FC<Props> = ({nft}) => {
+  const {isLoading, collections} = useCollection();
   const navigate = useNavigate()
   const contentRef = useRef<HTMLDivElement>(null)
   const [resultItem, setResultItem] = useRecoilState(resultState)
@@ -36,7 +39,16 @@ const Example: FC<Props> = ({nft}) => {
       return
     }
 
-    alert('Submit is done')
+    const batch = await EventBatchAPI({
+      pid: 1,
+      title: eventTitle,
+      content: eventContent,
+      start_dt: new Date(startDate),
+      end_dt: new Date(endDate),
+      items: []
+
+    })
+    alert('이벤트 생성이 완료되었습니다.')
 
     setResultItem([])
     setBasketItem([])
@@ -66,7 +78,7 @@ const Example: FC<Props> = ({nft}) => {
             <div className='text-muted'>All Participants</div>
           </div>
           <div className='col-4'>
-            <div className='fs-1 fw-bold pb-2'>30</div>
+            <div className='fs-1 fw-bold pb-2'>{(Number(new Date(endDate)) - Number(new Date(startDate)))  / (24 * 60 * 60 * 1000) || 30}</div>
             <div className='text-muted'>Days Left</div>
           </div>
         </div>
@@ -79,12 +91,11 @@ const Example: FC<Props> = ({nft}) => {
             {resultItem.length > 0 &&
               resultItem.map((item, index) => (
                 <div className='d-flex px-6 py-4 align-items-center border-bottom justify-content-between'>
-                  <div className={`bg-light-${setColor(item.title)}`}>
+                  
                     <KTSVG
                       path={`/media/svg/social-logos/${item.title}.svg`}
                       className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
                     />
-                  </div>
                   <div className='text-wrap w-75 px-4'>{item.content || 'Example Content'}</div>
                   <div className='d-flex justify-content-center'>
                     <span className={`badge px-6 py-4 fs-8 badge-light-${setColor(item.title)}`}>

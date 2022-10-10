@@ -46,7 +46,8 @@ export interface IEventCreateAPI {
   content: string
   start_dt: Date
   end_dt: Date
-  metadata: IEventItem
+  metadata?: MapConstructor
+  items?: IEventItem[]
 }
 
 export interface IEventModifyAPI extends IEventBaseAPI {
@@ -54,22 +55,11 @@ export interface IEventModifyAPI extends IEventBaseAPI {
   content: string
 }
 
-export interface IEvent {
-  event_id?: number
-  title: string
+export interface IEventItem {
+  eid: number
+  title?: string
   content: string
   point: number
   type: string
-  metadata: IEventItem
-}
-
-export interface IEventItem {
-  login_discord?: string
-  login_twitter?: string
-  connect_wallet?: string
-  twitter_follow?: string
-  twitter_retweet?: string
-  click_link?: string
-  click_callback_link?: string
-  nft_hold?: string
+  metadata?: MapConstructor
 }

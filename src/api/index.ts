@@ -9,6 +9,7 @@ export * from 'src/api/event/EventModifyAPI'
 export * from 'src/api/event/EventDeleteAPI'
 export * from 'src/api/event/EventDetailAPI'
 export * from 'src/api/event/EventJoinAPI'
+export * from "src/api/event/EventBatchAPI"
 
 /* Event Item */
 export * from 'src/api/eventItem/EventItemCreateAPI'

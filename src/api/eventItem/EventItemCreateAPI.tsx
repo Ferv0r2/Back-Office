@@ -1,9 +1,10 @@
 import axios from 'axios'
-import {IEvent} from '../APIModels'
+import {IEventItem} from '../APIModels'
 
-export async function EventItemCreateAPI(args: IEvent) {
+export async function EventItemCreateAPI(args: IEventItem) {
   const request = await axios
     .post(`/api/event/item`, {
+      event_id: args.eid,
       title: args.title,
       content: args.content,
       point: args.point,
