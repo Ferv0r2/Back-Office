@@ -1,4 +1,5 @@
 import {atom} from 'recoil'
+import {v1} from 'uuid'
 
 export interface WalletTypes {
   address: string
@@ -7,17 +8,17 @@ export interface WalletTypes {
 }
 
 const authState = atom<boolean>({
-  key: 'authState',
+  key: `authState/${v1()}`,
   default: false,
 })
 
 const selectedWalletState = atom<string>({
-  key: 'selectedWalletState',
+  key: `selectedWalletState/${v1()}`,
   default: '',
 })
 
 const metamaskState = atom<WalletTypes>({
-  key: 'metamaskState',
+  key: `metamaskState/${v1()}`,
   default: {
     address: '',
     balance: 0,
@@ -26,7 +27,7 @@ const metamaskState = atom<WalletTypes>({
 })
 
 const kaikasState = atom<WalletTypes>({
-  key: 'kaikasState',
+  key: `kaikasState/${v1()}`,
   default: {
     address: '',
     balance: 0,

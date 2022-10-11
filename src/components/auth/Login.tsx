@@ -30,11 +30,12 @@ export function Login() {
 
   useEffect(() => {
     const {klaytn} = window
-    if (klaytn === undefined) return
+    if (klaytn) {
+      klaytn.on('accountsChanged', () => {
+        setKaikasAccount()
+      })
+    }
 
-    klaytn.on('accountsChanged', () => {
-      setKaikasAccount()
-    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setKaikasWallet])
 
@@ -164,7 +165,6 @@ export function Login() {
       'WALLET_BALANCE',
       selectedWallet === 'metamask' ? String(metamaskWallet.balance) : String(kaikasWallet.balance)
     )
-    console.log(selectedWallet)
     setAuth(true)
     setLoading(false)
   }

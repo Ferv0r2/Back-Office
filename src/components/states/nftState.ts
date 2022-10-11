@@ -1,4 +1,5 @@
 import {atom} from 'recoil'
+import {v1} from 'uuid'
 
 export interface CollectionTypes {
   id: number
@@ -14,7 +15,7 @@ export interface CollectionTypes {
 }
 
 const collectionState = atom<CollectionTypes[]>({
-  key: 'collectionState',
+  key: `collectionState/${v1()}`,
   default: [],
 })
 

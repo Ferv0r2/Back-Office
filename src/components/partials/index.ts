@@ -4,7 +4,7 @@ export * from './layout/user-menu/UserMenu'
 export * from './layout/theme-mode/ThemeModeProvider'
 export * from './layout/theme-mode/ThemeModeSwitcher'
 
-// dropdpwns
+// dropdowns
 export * from './content/dropdown/Dropdown1'
 export * from './content/dropdown/Dropdown2'
 

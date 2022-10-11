@@ -1,3 +1,6 @@
+/* All in One */
+export * from 'src/api/all/AllinOneAPI'
+
 /* Auth */
 export * from 'src/api/auth/AuthNonceAPI'
 export * from 'src/api/auth/AuthTokenAPI'
@@ -9,7 +12,7 @@ export * from 'src/api/event/EventModifyAPI'
 export * from 'src/api/event/EventDeleteAPI'
 export * from 'src/api/event/EventDetailAPI'
 export * from 'src/api/event/EventJoinAPI'
-export * from "src/api/event/EventBatchAPI"
+export * from 'src/api/event/EventBatchAPI'
 
 /* Event Item */
 export * from 'src/api/eventItem/EventItemCreateAPI'

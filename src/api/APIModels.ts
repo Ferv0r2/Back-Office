@@ -46,7 +46,7 @@ export interface IEventCreateAPI {
   content: string
   start_dt: Date
   end_dt: Date
-  metadata?: MapConstructor
+  metadata?: any
   items?: IEventItem[]
 }
 
@@ -61,5 +61,5 @@ export interface IEventItem {
   content: string
   point: number
   type: string
-  metadata?: MapConstructor
+  metadata?: any
 }

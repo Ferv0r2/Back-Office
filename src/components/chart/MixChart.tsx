@@ -156,10 +156,10 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
               {/* begin::Title */}
               <div className='py-1'>
                 <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
-                  Visit Youtube
+                  Link Youtube
                 </a>
 
-                <div className='fs-7 text-muted fw-semibold mt-1'>Visit OOO on Youtube</div>
+                <div className='fs-7 text-muted fw-semibold mt-1'>Link OOO on Youtube</div>
               </div>
               {/* end::Title */}
             </div>

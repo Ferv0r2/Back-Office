@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC, useEffect, useRef, MouseEventHandler} from 'react'
 import {KTSVG} from 'src/utils'
+import {v1} from 'uuid'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {
   basketState,
@@ -122,7 +123,7 @@ const EventBasket: FC<Props> = ({
           <div className='accordion px-2' id='basket_accordion'>
             {eventBasket?.length ? (
               eventBasket.map((event, i) => {
-                const key = (Math.random() * 100000000).toFixed(0)
+                const key = v1()
                 return (
                   <div
                     key={key}
@@ -201,7 +202,7 @@ const EventBasket: FC<Props> = ({
                         onChange={(e) => setOptionMap(new Map(optionMap.set(i, e.target.value)))}
                       >
                         {event.options.map((option) => (
-                          <option key={Math.random()} className='fw-semibold' value={option}>
+                          <option key={v1()} className='fw-semibold' value={option}>
                             {option}
                           </option>
                         ))}

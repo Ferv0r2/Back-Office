@@ -15,6 +15,7 @@ const InputComponent: FC<Props> = ({id, sns, option}) => {
     id: id,
     title: sns,
     content: '',
+    type: option,
     point: 0,
   })
 

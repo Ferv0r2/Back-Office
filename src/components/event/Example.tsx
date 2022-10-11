@@ -1,18 +1,17 @@
 import {FC, useState, useEffect, useRef} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilState, useSetRecoilState} from 'recoil'
-import { EventBatchAPI } from 'src/api'
-import useCollection from 'src/hooks/useCollection'
+import {EventBatchAPI} from 'src/api'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../list/EventBasket'
 import {basketState, eventContentState, eventTitleState, resultState} from '../states/eventState'
+import {CollectionTypes} from '../states/nftState'
 
 interface Props {
-  nft: string
+  nft: CollectionTypes
 }
 
 const Example: FC<Props> = ({nft}) => {
-  const {isLoading, collections} = useCollection();
   const navigate = useNavigate()
   const contentRef = useRef<HTMLDivElement>(null)
   const [resultItem, setResultItem] = useRecoilState(resultState)
@@ -39,15 +38,35 @@ const Example: FC<Props> = ({nft}) => {
       return
     }
 
+    const submitItems: any = []
+
+    resultItem.map((item) => {
+      const itemData = {
+        title: item.title,
+        content: item.content,
+        type: item.type,
+        point: item.point,
+        metadata: {
+          url: 'http://metaoneer.club',
+        },
+      }
+      submitItems.push(itemData)
+      return true
+    })
+
     const batch = await EventBatchAPI({
-      pid: 1,
+      pid: nft.id,
       title: eventTitle,
       content: eventContent,
       start_dt: new Date(startDate),
       end_dt: new Date(endDate),
-      items: []
-
+      items: submitItems,
+    }).catch((err) => {
+      alert('이벤트 생성 에러가 발생하였습니다.')
     })
+
+    console.log(batch)
+
     alert('이벤트 생성이 완료되었습니다.')
 
     setResultItem([])
@@ -61,7 +80,7 @@ const Example: FC<Props> = ({nft}) => {
     <>
       <div className='card card-custom'>
         <div className='card-header'>
-          <h3 className='card-title'>{nft}</h3>
+          <h3 className='card-title'>{nft.name}</h3>
           <div className='card-toolbar'>
             <button type='button' className='btn btn-sm btn-light'>
               Connect Wallet
@@ -78,7 +97,10 @@ const Example: FC<Props> = ({nft}) => {
             <div className='text-muted'>All Participants</div>
           </div>
           <div className='col-4'>
-            <div className='fs-1 fw-bold pb-2'>{(Number(new Date(endDate)) - Number(new Date(startDate)))  / (24 * 60 * 60 * 1000) || 30}</div>
+            <div className='fs-1 fw-bold pb-2'>
+              {(Number(new Date(endDate)) - Number(new Date(startDate))) / (24 * 60 * 60 * 1000) ||
+                30}
+            </div>
             <div className='text-muted'>Days Left</div>
           </div>
         </div>
@@ -90,12 +112,14 @@ const Example: FC<Props> = ({nft}) => {
           <div className='card-body mx-1 p-0 min-h-200px'>
             {resultItem.length > 0 &&
               resultItem.map((item, index) => (
-                <div className='d-flex px-6 py-4 align-items-center border-bottom justify-content-between'>
-                  
-                    <KTSVG
-                      path={`/media/svg/social-logos/${item.title}.svg`}
-                      className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
-                    />
+                <div
+                  key={item.id}
+                  className='d-flex px-6 py-4 align-items-center border-bottom justify-content-between'
+                >
+                  <KTSVG
+                    path={`/media/svg/social-logos/${item.title}.svg`}
+                    className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
+                  />
                   <div className='text-wrap w-75 px-4'>{item.content || 'Example Content'}</div>
                   <div className='d-flex justify-content-center'>
                     <span className={`badge px-6 py-4 fs-8 badge-light-${setColor(item.title)}`}>

@@ -1,25 +1,29 @@
 import {FC, useState, useEffect} from 'react'
-import {useRecoilValue, useSetRecoilState} from 'recoil'
+import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil'
 import {Example} from 'src/components/event/Example'
 import {EventBasket} from 'src/components/list/EventBasket'
 import {EventMenu} from 'src/components/list/EventMenu'
-import {eventContentState, eventTitleState, resultState} from 'src/components/states/eventState'
+import {
+  currentNFTIndexState,
+  eventContentState,
+  eventTitleState,
+  resultState,
+} from 'src/components/states/eventState'
 import {collectionState} from 'src/components/states/nftState'
 import {KTSVG} from 'src/utils'
 
-const CreateEventPage: FC = () => {
+const EventCreatePage: FC = () => {
   const collections = useRecoilValue(collectionState)
   const setResult = useSetRecoilState(resultState)
   const setEventTitle = useSetRecoilState(eventTitleState)
   const setEventContent = useSetRecoilState(eventContentState)
-  const [currentNFT, setCurrentNFT] = useState('')
+  const [currentNFTIndex, setCurrentNFTIndex] = useRecoilState(currentNFTIndexState)
   const [isReady, setIsReady] = useState(false)
   const [isContinue, setIsContinue] = useState(false)
   const [isAnimate, setIsAnimate] = useState(false)
 
   useEffect(() => {
     if (collections.length > 0) {
-      setCurrentNFT(collections[0].name)
       setIsReady(true)
     } else {
       setIsReady(false)
@@ -61,13 +65,13 @@ const CreateEventPage: FC = () => {
                 <div className='card-body px-6 py-4'>
                   {isReady ? (
                     <select
-                      onChange={(e) => setCurrentNFT(e.target.value)}
-                      defaultValue={currentNFT}
+                      onChange={(e) => setCurrentNFTIndex(Number(e.target.value))}
+                      defaultValue={collections[Number(currentNFTIndex)].name}
                       className='cursor-pointer form-select'
                       aria-label='Select Option'
                     >
-                      {collections.map((nft) => (
-                        <option key={nft.contract} value={nft.name}>
+                      {collections.map((nft, index) => (
+                        <option key={nft.contract} value={index}>
                           {nft.name}
                         </option>
                       ))}
@@ -108,7 +112,7 @@ const CreateEventPage: FC = () => {
 
         {isContinue && (
           <div className='col-5 mx-auto animate__animated animate__fadeIn animate__faster'>
-            <Example nft={currentNFT} />
+            <Example nft={collections[currentNFTIndex]} />
           </div>
         )}
       </div>
@@ -116,4 +120,4 @@ const CreateEventPage: FC = () => {
   )
 }
 
-export default CreateEventPage
+export default EventCreatePage
