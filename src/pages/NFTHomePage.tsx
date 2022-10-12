@@ -1,3 +1,4 @@
+import {FC} from 'react'
 import {FeedsWidget} from 'src/components/feed/FeedsWidget'
 import TokenList from 'src/components/list/TokenList'
 import {CollectionTypes} from 'src/components/states/nftState'
@@ -6,7 +7,8 @@ interface Props {
   nft: CollectionTypes
 }
 
-const NFTHomePage = ({nft}: Props) => {
+const NFTHomePage: FC<Props> = ({nft}) => {
+  console.log(nft)
   return (
     <>
       <div className='row gy-8 pb-8'>

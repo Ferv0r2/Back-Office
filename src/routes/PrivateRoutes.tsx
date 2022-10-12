@@ -9,6 +9,7 @@ import NFTEventPage from 'src/pages/NFTEventPage'
 import EventCreatePage from 'src/pages/EventCreatePage'
 import EventStatusPage from 'src/pages/EventStatusPage'
 import useCollection from 'src/hooks/useCollection'
+import EventDetailPage from 'src/pages/EventDetailPage'
 
 const PrivateRoutes = () => {
   const {isLoading, collections} = useCollection()
@@ -33,14 +34,15 @@ const PrivateRoutes = () => {
                   element={<Navigate to={`nft/${nft.contract}/home`} />}
                 />
                 <Route path={`nft/${nft.contract}/home`} element={<NFTHomePage nft={nft} />} />
-                <Route path={`nft/${nft.contract}/event`} element={<NFTEventPage />} />
+                <Route path={`nft/${nft.contract}/event`} element={<NFTEventPage nft={nft} />} />
+                <Route path={`nft/${nft.contract}/event/:eid`} element={<EventDetailPage />} />
               </Fragment>
             )
           })}
         <Route path='event/create' element={<EventCreatePage />} />
         <Route path='event/live' element={<EventStatusPage />} />
         <Route path='event/end' element={<EventStatusPage />} />
-        <Route path='event/*' element={<Navigate to='/event/create' />} />
+        <Route path='event/*' element={<Navigate to='/event/live' />} />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

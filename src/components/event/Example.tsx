@@ -6,6 +6,7 @@ import {KTSVG} from 'src/utils'
 import {setColor} from '../list/EventBasket'
 import {basketState, eventContentState, eventTitleState, resultState} from '../states/eventState'
 import {CollectionTypes} from '../states/nftState'
+import DatePicker from 'react-datepicker'
 
 interface Props {
   nft: CollectionTypes
@@ -18,8 +19,8 @@ const Example: FC<Props> = ({nft}) => {
   const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
   const [eventContent, setEventContent] = useRecoilState(eventContentState)
   const setBasketItem = useSetRecoilState(basketState)
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   useEffect(() => {
     if (contentRef.current) {
@@ -97,11 +98,23 @@ const Example: FC<Props> = ({nft}) => {
             <div className='text-muted'>All Participants</div>
           </div>
           <div className='col-4'>
-            <div className='fs-1 fw-bold pb-2'>
-              {(Number(new Date(endDate)) - Number(new Date(startDate))) / (24 * 60 * 60 * 1000) ||
-                30}
-            </div>
-            <div className='text-muted'>Days Left</div>
+            {Number(endDate) - Number(startDate) > 24 * 60 * 60 * 1000 ? (
+              <>
+                <div className='fs-1 fw-bold pb-2'>
+                  {parseInt(
+                    String((Number(endDate) - Number(startDate)) / (24 * 60 * 60 * 1000))
+                  ) || 30}
+                </div>
+                <div className='text-muted'>Days Left</div>
+              </>
+            ) : (
+              <>
+                <div className='fs-1 fw-bold pb-2'>
+                  {parseInt(String((Number(endDate) - Number(startDate)) / (60 * 60 * 1000)))}
+                </div>
+                <div className='text-muted'>Hours Left</div>
+              </>
+            )}
           </div>
         </div>
         <div className='card-body p-0 card-scroll'>
@@ -138,18 +151,22 @@ const Example: FC<Props> = ({nft}) => {
         <div className='card-footer d-flex justify-content-between align-items-end'>
           <div>
             <label className='form-label px-2'>Start Date</label>
-            <input
-              onChange={(e) => setStartDate(e.target.value)}
-              type='date'
-              className='cursor-pointer form-control text-center'
+            <DatePicker
+              selected={startDate}
+              showTimeSelect
+              dateFormat='Pp'
+              onChange={(date: Date) => setStartDate(date)}
+              // className='cursor-pointer form-control text-center'
             />
           </div>
           <div>
             <label className='form-label px-2'>End Date</label>
-            <input
-              onChange={(e) => setEndDate(e.target.value)}
-              type='date'
-              className='cursor-pointer form-control text-center'
+            <DatePicker
+              selected={endDate}
+              showTimeSelect
+              dateFormat='Pp'
+              onChange={(date: Date) => setEndDate(date)}
+              // className='cursor-pointer form-control text-center'
             />
           </div>
           <button

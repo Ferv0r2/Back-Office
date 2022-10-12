@@ -4,6 +4,7 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 
 // Apps
+import 'react-datepicker/dist/react-datepicker.css'
 import 'src/assets/sass/style.scss'
 import 'src/assets/sass/plugins.scss'
 import 'src/assets/sass/style.react.scss'

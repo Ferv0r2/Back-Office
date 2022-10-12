@@ -76,7 +76,7 @@ export function AsideMenuMain() {
       />
 
       <AsideMenuItemWithSub
-        to='/event/live'
+        to='/event/status'
         title='Event Status'
         icon='/media/icons/duotune/general/gen032.svg'
       >
