@@ -1,12 +1,12 @@
 import {useEffect} from 'react'
 import {useQuery} from 'react-query'
 import {useRecoilState} from 'recoil'
-import {EventListAPI} from 'src/api'
+import {AllinOneAPI} from 'src/api'
 import {eventListState} from 'src/components/states/eventState'
 
-const useEvent = (pid: number) => {
+const useEvent = () => {
   const {isLoading, data} = useQuery(['EventList'], async () => {
-    const res = await EventListAPI(pid)
+    const res = await AllinOneAPI()
     return res
   })
   const [eventList, setEventList] = useRecoilState(eventListState)

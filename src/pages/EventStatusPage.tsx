@@ -1,7 +1,12 @@
-import React from 'react'
+import {FC} from 'react'
 import {EventCard} from 'src/components/feed/EventCard'
+import useEvent from 'src/hooks/useEvent'
 
-const EventStatus = () => {
+const EventStatusPage: FC = () => {
+  const {isLoading, eventList} = useEvent()
+
+  console.log(eventList)
+
   return (
     <div>
       <EventCard
@@ -13,4 +18,4 @@ const EventStatus = () => {
   )
 }
 
-export default EventStatus
+export default EventStatusPage

@@ -117,8 +117,10 @@ export function Login() {
       return
     }
 
-    const nonceAPI = await AuthNonceAPI()
-    console.log(nonceAPI)
+    const nonceAPI = await AuthNonceAPI().catch(() => {
+      alert('서명이 취소되었습니다.')
+      setLoading(false)
+    })
     let sign, authAPI
 
     try {
