@@ -82,6 +82,7 @@ export function AsideMenuMain() {
       >
         <AsideMenuItem to='/event/live' title='Live' hasBullet={true} />
         <AsideMenuItem to='/event/end' title='End' hasBullet={true} />
+        <AsideMenuItem to='/event/pending' title='Pending' hasBullet={true} />
       </AsideMenuItemWithSub>
 
       <div className='menu-item'>

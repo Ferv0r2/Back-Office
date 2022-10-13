@@ -1,43 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC} from 'react'
 import {EventList} from 'src/components/dashboard/EventList'
 import {BarChart} from 'src/components/chart/BarChart'
-import {MixChart} from 'src/components/chart/MixChart'
+// import {MixChart} from 'src/components/chart/MixChart'
 import {ItemList} from 'src/components/dashboard/ItemList'
 import {QuickMenu} from 'src/components/dashboard/QuickMenu'
-
-const testEvent = [
-  {
-    id: 1,
-    name: '유튜브 구독 이벤트',
-    nft: 'Kepler-452b',
-    startDate: 'D-1',
-  },
-  {
-    id: 2,
-    name: '민팅 완판 기념 이벤트',
-    nft: 'Klay-Weasel',
-    startDate: 'D-2',
-  },
-  {
-    id: 3,
-    name: '파트너십 이벤트',
-    nft: 'Kepler-452b',
-    startDate: 'D-8',
-  },
-  {
-    id: 4,
-    name: '파트너십 이벤트',
-    nft: 'Kepler-452b',
-    startDate: 'D-8',
-  },
-  {
-    id: 5,
-    name: '파트너십 이벤트',
-    nft: 'Kepler-452b',
-    startDate: 'D-8',
-  },
-]
 
 const DashboardPage: FC = () => {
   return (
@@ -60,22 +26,17 @@ const DashboardPage: FC = () => {
       {/* end::Row */}
 
       <div className='row gy-5 g-md-5 gx-xxl-8'>
-        <div className='col-md-10 col-xxl-4 mx-auto'>
+        {/* <div className='col-md-10 col-xxl-4 mx-auto'>
           <MixChart className='card-xxl-stretch mb-xl-3' chartColor='success' chartHeight='125px' />
+        </div> */}
+        <div className='col-md-10 col-xxl-4 mx-auto'>
+          <EventList className='card-xxl-stretch mb-xl-3' title='Live' />
         </div>
         <div className='col-md-10 col-xxl-4 mx-auto'>
-          <EventList
-            className='card-xxl-stretch mb-xl-3'
-            title='Live Event'
-            eventItems={testEvent}
-          />
+          <EventList className='card-xxl-stretch mb-xl-3' title='End' />
         </div>
         <div className='col-md-10 col-xxl-4 mx-auto'>
-          <EventList
-            className='card-xxl-stretch mb-xl-3'
-            title='End Event'
-            eventItems={testEvent}
-          />
+          <EventList className='card-xxl-stretch mb-xl-3' title='Pending' />
         </div>
       </div>
     </>

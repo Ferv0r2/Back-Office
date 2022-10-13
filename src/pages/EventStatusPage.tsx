@@ -1,36 +1,46 @@
 import {FC, useEffect, useState} from 'react'
 import {useLocation} from 'react-router-dom'
 import {EventCard} from 'src/components/feed/EventCard'
+import {Event} from 'src/components/states/eventState'
+import {CollectionTypes} from 'src/components/states/nftState'
 import useEvent from 'src/hooks/useEvent'
 import {KTSVG} from 'src/utils'
 
-interface Event {
-  id: number
-  project_id: number
-  title: string
-  content: string
-  metadata?: any
-  start_dt: Date
-  end_dt: Date
+interface Props {
+  collection: CollectionTypes[]
 }
 
-const EventStatusPage: FC = () => {
+const EventStatusPage: FC<Props> = ({collection}) => {
   const location = useLocation()
   const {isLoading, eventList} = useEvent()
-  const [isLive, setIsLive] = useState(true)
+  const [isType, setIsType] = useState(0)
   const [statusList, setStatus] = useState([])
+  const types = ['Live', 'End', 'Pending']
 
   useEffect(() => {
     if (location.pathname === '/event/live') {
-      const tmp = eventList.filter((event: Event) => new Date(event.end_dt) > new Date())
+      const tmp = eventList.filter(
+        (event: Event) =>
+          new Date(event.start_dt) <= new Date() && new Date(event.end_dt) > new Date()
+      )
       setStatus(tmp)
-      setIsLive(true)
-    } else {
+      setIsType(0)
+    } else if (location.pathname === '/event/end') {
       const tmp = eventList.filter((event: Event) => new Date(event.end_dt) <= new Date())
       setStatus(tmp)
-      setIsLive(false)
+      setIsType(1)
+    } else {
+      const tmp = eventList.filter((event: Event) => new Date(event.start_dt) > new Date())
+      setStatus(tmp)
+      setIsType(2)
     }
   }, [eventList, location])
+
+  const setType = () => {
+    if (location.pathname === '/event/live') return 'success'
+    if (location.pathname === '/event/end') return 'danger'
+    if (location.pathname === '/event/pending') return 'warning'
+  }
 
   return (
     <>
@@ -39,13 +49,11 @@ const EventStatusPage: FC = () => {
           <div className='card'>
             <div className='card-header border-0 align-items-center'>
               <h3 className='card-title'>
-                <span className='card-label fw-bold text-dark fs-3'>
-                  {isLive ? 'Live Event' : 'End Event'}
-                </span>
+                <span className='card-label fw-bold text-dark fs-3'>{types[isType]} Event</span>
               </h3>
               <KTSVG
                 path='/media/icons/duotune/abstract/abs050.svg'
-                className={`svg-icon-2hx ${isLive ? 'svg-icon-success' : 'svg-icon-danger'}`}
+                className={`svg-icon-2hx svg-icon-${setType()}`}
               />
             </div>
           </div>
@@ -54,18 +62,19 @@ const EventStatusPage: FC = () => {
       <div className='row g-8'>
         {isLoading && <p className='fs-5'>Loading...</p>}
         {!isLoading && statusList?.length !== 0 ? (
-          statusList?.map((event: Event) => (
-            <div key={event.id} className='col-4'>
-              <EventCard
-                icon={'http://localhost:3011/media/svg/social-logos/Facebook.svg'}
-                title={event.title}
-                description={event.content}
-              />
-            </div>
-          ))
+          statusList?.map((event: Event) => {
+            const nft = collection.filter((v) => v.id === event.project_id)
+            return (
+              <div key={event.id} className='col-4'>
+                <EventCard event={event} nft={nft[0]} />
+              </div>
+            )
+          })
         ) : (
           <p className='fs-5'>
-            {isLive ? '진행중인 이벤트가 없습니다.' : '종료된 이벤트가 없습니다.'}
+            {isType === 0 && '진행중인 이벤트가 없습니다.'}
+            {isType === 1 && '종료된 이벤트가 없습니다.'}
+            {isType === 2 && '대기중인 이벤트가 없습니다.'}
           </p>
         )}
       </div>

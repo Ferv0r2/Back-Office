@@ -23,7 +23,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
 
   const editHandler = async () => {
     await NFTModifyAPI({
-      pid: Number(nft.id),
+      pid: nft.id,
       homepage: homepage,
       thumbnail: thumbnail,
     })
@@ -37,7 +37,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
   }
 
   const deleteHandler = async () => {
-    await NFTDeleteAPI(Number(nft.id))
+    await NFTDeleteAPI(nft.id)
       .then((res) => {
         alert('삭제가 완료되었습니다.')
       })
@@ -56,22 +56,16 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
     <>
       <DeleteCheckModal deleteHandler={deleteHandler} />
       <div className={clsx(`card card-custom shadow py-3 ${className}`, mode && 'fs-5 ps-8 pt-10')}>
-        {/* begin::Header */}
         <div
           className={clsx(
             'position-relative card-header px-sm-11 px-3 pt-4 d-flex align-items-center mb-5 overflow-hidden',
             'pb-6'
           )}
         >
-          {/* begin::User */}
           <div className='d-block d-md-flex align-items-center'>
-            {/* begin::Avatar */}
             <div className={clsx('symbol me-5', mode ? 'symbol-60px' : 'symbol-45px')}>
               <img src={nft.thumbnail || toAbsoluteUrl('/media/avatars/blank.png')} alt='icon' />
             </div>
-            {/* end::Avatar */}
-
-            {/* begin::Info */}
             <div className='d-flex flex-column pt-4 pt-md-0'>
               <p className={clsx('mb-1 text-gray-800 fw-bold', mode ? 'fs-3' : 'fs-6')}>
                 {nft.name}
@@ -81,7 +75,6 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
                 {nft.contract.replace(nft.contract.substring(6, 36), '...')}
               </span>
             </div>
-            {/* end::Info */}
           </div>
 
           {mode && (
@@ -105,10 +98,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
               />
             </div>
           )}
-          {/* end::User */}
         </div>
-        {/* end::Header */}
-        {/* begin::Body */}
         <div className={clsx('card-body', mode ? 'mx-0 mx-md-4 fs-6' : 'mx-4')}>
           <div className={clsx('d-lg-flex d-block ', mode ? 'gap-20 lh-xl' : 'gap-20')}>
             <div className={clsx('d-flex', mode && 'min-w-300px')}>
@@ -141,7 +131,6 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
             </div>
           </div>
         </div>
-        {/* end::Body */}
         {mode ? (
           ''
         ) : (

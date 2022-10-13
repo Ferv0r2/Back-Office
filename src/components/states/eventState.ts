@@ -15,6 +15,17 @@ interface ResultItem {
   point: number
 }
 
+export interface Event {
+  id: number
+  project_id: number
+  title: string
+  content: string
+  metadata?: any
+  start_dt: Date
+  end_dt: Date
+  event_item: any
+}
+
 const basketState = atom<EventItem[]>({
   key: `basketState/${v1()}`,
   default: [],

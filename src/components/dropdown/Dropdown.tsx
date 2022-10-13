@@ -53,7 +53,7 @@ const Dropdown = ({
             </div>
           </div>
 
-          <div className='mb-10'>
+          {/* <div className='mb-10'>
             <label className='form-label fw-bold'>Notifications:</label>
 
             <div className='form-check form-switch form-switch-sm form-check-custom form-check-solid'>
@@ -66,7 +66,7 @@ const Dropdown = ({
               />
               <label className='form-check-label'>준비중</label>
             </div>
-          </div>
+          </div> */}
 
           <div className='d-flex justify-content-end'>
             <button

@@ -3,7 +3,6 @@ import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from 'src/layout/MasterLayout'
 import DashboardPage from 'src/pages/DashboardPage'
 import AddProjectPage from 'src/pages/AddProjectPage'
-import NFTDetailPage from 'src/pages/NFTDetailPage'
 import NFTHomePage from 'src/pages/NFTHomePage'
 import NFTEventPage from 'src/pages/NFTEventPage'
 import EventCreatePage from 'src/pages/EventCreatePage'
@@ -28,10 +27,9 @@ const PrivateRoutes = () => {
           collections?.map((nft) => {
             return (
               <Fragment key={nft.contract}>
-                <Route path={`nft/${nft.contract}`} element={<NFTDetailPage />} />
                 <Route
                   path={`nft/${nft.contract}/*`}
-                  element={<Navigate to={`nft/${nft.contract}/home`} />}
+                  element={<Navigate to={`/nft/${nft.contract}/home`} />}
                 />
                 <Route path={`nft/${nft.contract}/home`} element={<NFTHomePage nft={nft} />} />
                 <Route path={`nft/${nft.contract}/event`} element={<NFTEventPage nft={nft} />} />
@@ -40,8 +38,9 @@ const PrivateRoutes = () => {
             )
           })}
         <Route path='event/create' element={<EventCreatePage />} />
-        <Route path='event/live' element={<EventStatusPage />} />
-        <Route path='event/end' element={<EventStatusPage />} />
+        <Route path='event/live' element={<EventStatusPage collection={collections} />} />
+        <Route path='event/end' element={<EventStatusPage collection={collections} />} />
+        <Route path='event/pending' element={<EventStatusPage collection={collections} />} />
         <Route path='event/*' element={<Navigate to='/event/live' />} />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />

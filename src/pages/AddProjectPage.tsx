@@ -78,8 +78,9 @@ const AddProjectPage: FC = () => {
       </form>
       <div className='separator border-white my-10' />
       <div className='row'>
-        {isLoading && <p className='fs-5'>Loading...</p>}
-        {!isLoading && collections?.length !== 0 ? (
+        {isLoading ? (
+          <p className='fs-5'>Loading...</p>
+        ) : collections?.length !== 0 ? (
           collections?.map((nft) => (
             <FeedsWidget
               key={nft.contract}

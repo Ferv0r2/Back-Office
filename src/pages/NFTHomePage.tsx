@@ -8,14 +8,11 @@ interface Props {
 }
 
 const NFTHomePage: FC<Props> = ({nft}) => {
-  console.log(nft)
   return (
-    <>
-      <div className='row gy-8 pb-8'>
-        <FeedsWidget className='col-11 col-md-9 mx-auto' nft={nft} mode='detail' />
-        <TokenList className='col-11 col-md-9 mx-auto' />
-      </div>
-    </>
+    <div className='row gy-8 pb-8'>
+      <FeedsWidget className='col-11 col-md-9 mx-auto' nft={nft} mode='detail' />
+      <TokenList pid={nft.id} totalSupply={nft.total_supply} className='col-11 col-md-9 mx-auto' />
+    </div>
   )
 }
 

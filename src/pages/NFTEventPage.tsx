@@ -1,20 +1,11 @@
 import {FC, useEffect, useState} from 'react'
 import {EventCard} from 'src/components/feed/EventCard'
+import {Event} from 'src/components/states/eventState'
 import {CollectionTypes} from 'src/components/states/nftState'
 import useEvent from 'src/hooks/useEvent'
 
 interface Props {
   nft: CollectionTypes
-}
-
-interface Event {
-  id: number
-  project_id: number
-  title: string
-  content: string
-  metadata?: any
-  start_dt: Date
-  end_dt: Date
 }
 
 const NFTEventPage: FC<Props> = ({nft}) => {
@@ -28,15 +19,12 @@ const NFTEventPage: FC<Props> = ({nft}) => {
 
   return (
     <div className='row g-8'>
-      {isLoading && <p className='fs-5'>Loading...</p>}
-      {!isLoading && currentEvent?.length !== 0 ? (
+      {isLoading ? (
+        <p className='fs-5'>Loading...</p>
+      ) : currentEvent?.length !== 0 ? (
         currentEvent?.map((event: Event) => (
           <div key={event.id} className='col-4'>
-            <EventCard
-              icon={'http://localhost:3011/media/svg/social-logos/Facebook.svg'}
-              title={event.title}
-              description={event.content}
-            />
+            <EventCard event={event} nft={nft} />
           </div>
         ))
       ) : (

@@ -14,7 +14,7 @@ const useEvent = () => {
   const [eventList, setEventList] = useRecoilState(eventListState)
 
   useEffect(() => {
-    if (data) {
+    if (collections && data) {
       const pids = collections.map((row) => row.id)
       const result: any = []
       data.map((obj: any) =>

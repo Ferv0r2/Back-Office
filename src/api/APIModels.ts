@@ -26,6 +26,12 @@ export interface INFTTokenDetailAPI {
   attributes: string[]
 }
 
+export interface INFTHolderAPI {
+  pid: number
+  size: number
+  page: number
+}
+
 export interface INFTHolderDetailAPI {
   pid: number
   wallet_address: string
