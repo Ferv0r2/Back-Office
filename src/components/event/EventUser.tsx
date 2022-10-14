@@ -78,7 +78,7 @@ const EventUser: FC<Props> = ({event, nft}) => {
                     path={`/media/svg/social-logos/${item.title}.svg`}
                     className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
                   />
-                  <div className='text-wrap w-75 px-4'>{item.content || 'EventUser Content'}</div>
+                  <div className='text-wrap w-75 px-4'>{item.content || 'Null'}</div>
                   <div className='d-flex justify-content-center'>
                     <span className={`badge px-6 py-4 fs-8 badge-light-${setColor(item.title)}`}>
                       + {item.point}

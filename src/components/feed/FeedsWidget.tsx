@@ -62,7 +62,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
             'pb-6'
           )}
         >
-          <div className='d-block d-md-flex align-items-center'>
+          <div className={`${mode ? 'd-block d-md-flex' : 'd-flex px-8'} align-items-center`}>
             <div className={clsx('symbol me-5', mode ? 'symbol-60px' : 'symbol-45px')}>
               <img src={nft.thumbnail || toAbsoluteUrl('/media/avatars/blank.png')} alt='icon' />
             </div>
@@ -99,9 +99,9 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
             </div>
           )}
         </div>
-        <div className={clsx('card-body', mode ? 'mx-0 mx-md-4 fs-6' : 'mx-4')}>
+        <div className={clsx('card-body', mode ? 'mx-0 mx-md-4 fs-7 fs-md-5' : 'mx-4')}>
           <div className={clsx('d-lg-flex d-block ', mode ? 'gap-20 lh-xl' : 'gap-20')}>
-            <div className={clsx('d-flex', mode && 'min-w-300px')}>
+            <div className={clsx('d-flex', mode && 'min-w-200px')}>
               <div className='fw-bolder'>
                 <ol className={clsx('p-0', mode && 'pe-4')}>Name</ol>
                 <ol className={clsx('p-0', mode && 'pe-4')}>Symbol</ol>
@@ -117,7 +117,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
               <div className='fw-bolder'>
                 <ol className={clsx('p-0', mode && 'pe-4')}>Holders</ol>
                 <ol className={clsx('p-0', mode && 'pe-4')}>Event count</ol>
-                {mode && <ol className={clsx('p-0', mode && 'pe-4')}>Official Site</ol>}
+                {mode && <ol className='p-0 pe-4'>Official Site</ol>}
               </div>
               <div>
                 <ol>{nft.holder_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>

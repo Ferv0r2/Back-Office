@@ -1,4 +1,5 @@
-import {FC} from 'react'
+import {FC, MouseEventHandler} from 'react'
+import {v1} from 'uuid'
 
 interface Props {
   list: {
@@ -7,9 +8,19 @@ interface Props {
   }[]
   page: number
   totalSupply: number
+  prevHandler: MouseEventHandler<HTMLButtonElement>
+  nextHandler: MouseEventHandler<HTMLButtonElement>
+  selectHandler: any
 }
 
-const HoldersTable: FC<Props> = ({list, page, totalSupply}) => {
+const HoldersTable: FC<Props> = ({
+  list,
+  page,
+  totalSupply,
+  prevHandler,
+  nextHandler,
+  selectHandler,
+}) => {
   return (
     <>
       <table className='table table-striped gy-7 gs-7'>
@@ -17,8 +28,8 @@ const HoldersTable: FC<Props> = ({list, page, totalSupply}) => {
           <tr className='fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200'>
             <th className='min-w-150px'>Rank</th>
             <th className='min-w-350px'>Address</th>
-            <th className='min-w-200px'>Amount</th>
-            <th className='min-w-200px'>Percentage</th>
+            <th className='min-w-200px text-center'>Amount</th>
+            <th className='min-w-200px text-center'>Percentage</th>
           </tr>
         </thead>
         <tbody>
@@ -27,28 +38,36 @@ const HoldersTable: FC<Props> = ({list, page, totalSupply}) => {
                 <tr key={v.address}>
                   <td>{page * 15 + i + 1}</td>
                   <td>{v.address}</td>
-                  <td>{String(v.balance).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}</td>
-                  <td>{((v.balance / totalSupply) * 100).toFixed(2)}%</td>
+                  <td className='text-center'>
+                    {String(v.balance).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}
+                  </td>
+                  <td className='text-center'>{((v.balance / totalSupply) * 100).toFixed(2)}%</td>
                 </tr>
               ))
             : ''}
         </tbody>
       </table>
       <ul className='pagination py-4'>
-        <li className='page-item previous disabled'>
-          <a href='/' className='page-link'>
-            <i className='previous'></i>
-          </a>
+        <li className='page-item previous'>
+          <button type='button' onClick={prevHandler} className='page-link'>
+            <i className='previous' />
+          </button>
         </li>
-        <li className='page-item active'>
-          <a href='/' className='page-link'>
-            1
-          </a>
-        </li>
-        <li className='page-item next disabled'>
-          <a href='/' className='page-link'>
-            <i className='next'></i>
-          </a>
+        {[...Array(5)].map((n, index) => (
+          <li key={v1()} className={`page-item ${index === 0 && 'active'}`}>
+            <button
+              type='button'
+              onClick={(e) => selectHandler(page + index, e)}
+              className='page-link'
+            >
+              {page + index + 1}
+            </button>
+          </li>
+        ))}
+        <li className='page-item next'>
+          <button type='button' onClick={nextHandler} className='page-link'>
+            <i className='next' />
+          </button>
         </li>
       </ul>
     </>

@@ -58,16 +58,19 @@ const EventList: React.FC<Props> = ({className, title}) => {
         {isLoading && <p className='fs-5'>Loading...</p>}
         {!isLoading && statusList?.length !== 0 ? (
           statusList?.map((event: Event, index) => (
-            <div key={event.id} className='cursor-pointer'>
-              <EventItem eventItem={event} isType={isType} index={index} />
-            </div>
+            <EventItem key={event.id} eventItem={event} isType={isType} index={index} />
           ))
         ) : (
-          <p className='fs-5'>
-            {isType === 0 && '진행중인 이벤트가 없습니다.'}
-            {isType === 1 && '종료된 이벤트가 없습니다.'}
-            {isType === 2 && '대기중인 이벤트가 없습니다.'}
-          </p>
+          <div className='d-flex align-items-center mb-8'>
+            <span className='bullet bullet-vertical h-40px bg-success' />
+            <div className='flex-grow-1 mx-5'>
+              <span className='text-gray-800 fs-6'>
+                {isType === 0 && '진행중인 이벤트가 없습니다.'}
+                {isType === 1 && '종료된 이벤트가 없습니다.'}
+                {isType === 2 && '대기중인 이벤트가 없습니다.'}
+              </span>
+            </div>
+          </div>
         )}
       </div>
       {/* end::Body */}
