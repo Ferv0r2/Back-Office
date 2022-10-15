@@ -1,5 +1,6 @@
 import {FC, useEffect, useState} from 'react'
 import {useLocation} from 'react-router-dom'
+import {Empty} from 'src/components/empty/Empty'
 import {EventCard} from 'src/components/feed/EventCard'
 import {Event} from 'src/components/states/eventState'
 import {CollectionTypes} from 'src/components/states/nftState'
@@ -71,11 +72,11 @@ const EventStatusPage: FC<Props> = ({collection}) => {
             )
           })
         ) : (
-          <p className='fs-5'>
+          <Empty>
             {isType === 0 && '진행중인 이벤트가 없습니다.'}
             {isType === 1 && '종료된 이벤트가 없습니다.'}
             {isType === 2 && '대기중인 이벤트가 없습니다.'}
-          </p>
+          </Empty>
         )}
       </div>
     </>

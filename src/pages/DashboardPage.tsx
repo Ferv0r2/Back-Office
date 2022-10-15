@@ -1,27 +1,29 @@
 import {FC} from 'react'
 import {EventList} from 'src/components/dashboard/EventList'
-import {BarChart} from 'src/components/chart/BarChart'
+// import {BarChart} from 'src/components/chart/BarChart'
 // import {MixChart} from 'src/components/chart/MixChart'
-import {ItemList} from 'src/components/dashboard/ItemList'
+// import {ItemList} from 'src/components/dashboard/ItemList'
 import {QuickMenu} from 'src/components/dashboard/QuickMenu'
+import {CalendarItem} from 'src/components/dashboard/CalendarItem'
 
 const DashboardPage: FC = () => {
   return (
     <>
       {/* begin::Row */}
       <div className='row gy-5 g-md-5 g-xxl-8'>
-        <div className='col-md-10 col-xxl-4 mx-auto'>
+        <div className='col-md-10 col-xxl-4 mx-md-auto mx-xxl-0'>
           <QuickMenu
             className='card-xxl-stretch mb-xl-8'
             balance={Number(sessionStorage.getItem('WALLET_BALANCE'))}
           />
         </div>
-        <div className='col-md-10 col-xxl-4 mx-auto pt-sm-0 pt-4'>
-          <ItemList className='card-xxl-stretch mb-xl-8' />
+        <div className=' col-md-10 col-xxl-8 mx-md-auto mx-xxl-0 pt-sm-0 pt-4'>
+          <CalendarItem className='card-xxl-stretch mb-xl-8' />
+          {/* <ItemList className='card-xxl-stretch mb-xl-8' /> */}
         </div>
-        <div className='col-md-10 col-xxl-4 mx-auto'>
+        {/* <div className='col-md-10 col-xxl-4 mx-md-auto mx-xxl-0'>
           <BarChart className='card-xxl-stretch-75 mb-5 mb-xl-8' />
-        </div>
+        </div> */}
       </div>
       {/* end::Row */}
 

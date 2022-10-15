@@ -100,7 +100,7 @@ const EventBasket: FC<Props> = ({
         {/* end::Header */}
 
         {/* begin::Body */}
-        <div ref={animateEventRef} className='card-body card-scroll h-550px  p-4'>
+        <div ref={animateEventRef} className='card-body card-scroll h-lg-550px h-350px  p-4'>
           {isContinue ? (
             <div className='px-2 pb-4'>
               <div className='pb-4'>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 import useEvent from 'src/hooks/useEvent'
-import {KTSVG} from 'src/utils'
 import {Event} from '../states/eventState'
 import {EventItem} from './EventItem'
 
@@ -10,6 +10,7 @@ interface Props {
 }
 
 const EventList: React.FC<Props> = ({className, title}) => {
+  const navigate = useNavigate()
   const {isLoading, eventList} = useEvent()
   const [isType, setIsType] = useState(0)
   const [statusList, setStatus] = useState([])
@@ -34,20 +35,22 @@ const EventList: React.FC<Props> = ({className, title}) => {
   }, [eventList, title])
 
   return (
-    <div className={`card ${className}`}>
+    <div className={`card ${className} min-h-400px`}>
       {/* begin::Header */}
-      <div className='card-header border-0'>
-        <h3 className='card-title fw-bold fs-3 text-dark'>{title}</h3>
+      <div className='card-header mt-2 border-0'>
+        <h3 className='card-title align-items-start flex-column'>
+          <span className='card-label fw-bold text-dark'>{title}</span>
+          <span className='text-muted mt-1 fw-semibold fs-7'>Recent 5 tasks</span>
+        </h3>
+
         <div className='card-toolbar'>
           {/* begin::Menu */}
           <button
             type='button'
-            className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
-            data-kt-menu-trigger='click'
-            data-kt-menu-placement='bottom-end'
-            data-kt-menu-flip='top-end'
+            onClick={() => navigate(`/event/${title.toLowerCase()}`)}
+            className='btn btn-sm p-2 btn-color-gray btn-active-light-primary'
           >
-            <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
+            +More
           </button>
           {/* end::Menu */}
         </div>
@@ -57,9 +60,11 @@ const EventList: React.FC<Props> = ({className, title}) => {
       <div className='card-body pt-4'>
         {isLoading && <p className='fs-5'>Loading...</p>}
         {!isLoading && statusList?.length !== 0 ? (
-          statusList?.map((event: Event, index) => (
-            <EventItem key={event.id} eventItem={event} isType={isType} index={index} />
-          ))
+          statusList
+            ?.slice(0, 5)
+            .map((event: Event, index) => (
+              <EventItem key={event.id} eventItem={event} isType={isType} index={index} />
+            ))
         ) : (
           <div className='d-flex align-items-center mb-8'>
             <span className='bullet bullet-vertical h-40px bg-success' />

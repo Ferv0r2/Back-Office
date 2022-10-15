@@ -4,6 +4,9 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 
 // Apps
+import '@toast-ui/calendar/dist/toastui-calendar.min.css'
+import 'tui-date-picker/dist/tui-date-picker.css'
+import 'tui-time-picker/dist/tui-time-picker.css'
 import 'react-datepicker/dist/react-datepicker.css'
 import 'src/assets/sass/style.scss'
 import 'src/assets/sass/plugins.scss'

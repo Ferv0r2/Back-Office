@@ -61,7 +61,7 @@ const QuickMenu: React.FC<Props> = ({className, balance}) => {
             {/* begin::Col */}
             <button
               type='button'
-              onClick={() => window.open('https://bad-bot.shop/')}
+              onClick={() => window.open('https://bot.metaoneer.club/')}
               className='col btn btn-light-danger btn-color-danger px-6 py-8 rounded-2 m-2'
             >
               <KTSVG

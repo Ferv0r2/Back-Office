@@ -31,6 +31,7 @@ const EventCreatePage: FC = () => {
   }, [collections, setIsReady])
 
   const continueHandler = () => {
+    if (window.innerWidth < 992) window.scrollTo(0, 0)
     setIsAnimate(true)
     setTimeout(() => {
       setIsContinue(true)
@@ -47,10 +48,14 @@ const EventCreatePage: FC = () => {
 
   return (
     <>
-      <div className='row g-8'>
+      <div className='row g-8 justify-lg-content-center'>
         {!isContinue && (
           <>
-            <div className={`col-4 ${isAnimate && 'animate__animated animate__fadeOutLeft'}`}>
+            <div
+              className={`col-lg-4 col-10 mx-lg-0 mx-auto ${
+                isAnimate && window.innerWidth >= 992 && 'animate__animated animate__fadeOutLeft'
+              } ${isAnimate && window.innerWidth < 992 && 'animate__animated animate__fadeOutUp'}`}
+            >
               <div className='card pb-2 mb-5'>
                 <div className='card-header border-0 pt-5'>
                   <h3 className='card-title align-items-start flex-column'>
@@ -83,7 +88,11 @@ const EventCreatePage: FC = () => {
               </div>
               <EventMenu />
             </div>
-            <div className={`col-1 mt-40 ${isAnimate && 'animate__animated animate__fadeOutLeft'}`}>
+            <div
+              className={`d-lg-block d-none col-1 mt-40 ${
+                isAnimate && 'animate__animated animate__fadeOutLeft'
+              }`}
+            >
               <KTSVG
                 path='/media/icons/duotune/arrows/arr001.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
@@ -97,10 +106,32 @@ const EventCreatePage: FC = () => {
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
             </div>
+            <div
+              className={`d-lg-none d-flex justify-content-center ${
+                isAnimate && 'animate__animated animate__fadeOutLeft'
+              }`}
+            >
+              <KTSVG
+                path='/media/icons/duotune/arrows/arr004.svg'
+                className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
+              />
+              <KTSVG
+                path='/media/icons/duotune/arrows/arr004.svg'
+                className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
+              />
+              <KTSVG
+                path='/media/icons/duotune/arrows/arr004.svg'
+                className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
+              />
+            </div>
           </>
         )}
 
-        <div className={`col-5 ${isAnimate && 'animate__animated animate__slideOutLeft'}`}>
+        <div
+          className={`col-lg-5 col-10 mx-lg-0 mx-auto  ${
+            isAnimate && window.innerWidth >= 992 && 'animate__animated animate__slideOutLeft'
+          } ${isAnimate && window.innerWidth < 992 && 'animate__animated animate__fadeOutUp'}`}
+        >
           <EventBasket
             isReady={isReady}
             isContinue={isContinue}
@@ -111,7 +142,7 @@ const EventCreatePage: FC = () => {
         </div>
 
         {isContinue && (
-          <div className='col-5 mx-auto animate__animated animate__fadeIn animate__faster'>
+          <div className='col-lg-5 col-10 mx-auto animate__animated animate__fadeIn animate__faster'>
             <Example nft={collections[currentNFTIndex]} />
           </div>
         )}

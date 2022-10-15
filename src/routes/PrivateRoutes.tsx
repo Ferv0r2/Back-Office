@@ -9,9 +9,11 @@ import EventCreatePage from 'src/pages/EventCreatePage'
 import EventStatusPage from 'src/pages/EventStatusPage'
 import useCollection from 'src/hooks/useCollection'
 import EventDetailPage from 'src/pages/EventDetailPage'
+import useEvent from 'src/hooks/useEvent'
 
 const PrivateRoutes = () => {
-  const {isLoading, collections} = useCollection()
+  const {collections} = useCollection()
+  const {isLoading} = useEvent()
 
   return (
     <Routes>
