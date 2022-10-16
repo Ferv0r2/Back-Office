@@ -17,7 +17,7 @@ const DashboardPage: FC = () => {
             balance={Number(sessionStorage.getItem('WALLET_BALANCE'))}
           />
         </div>
-        <div className=' col-md-10 col-xxl-8 mx-md-auto mx-xxl-0 pt-sm-0 pt-4'>
+        <div className='col-md-10 col-xxl-8 mx-md-auto mx-xxl-0 pt-sm-0 pt-4'>
           <CalendarItem className='card-xxl-stretch mb-xl-8' />
           {/* <ItemList className='card-xxl-stretch mb-xl-8' /> */}
         </div>

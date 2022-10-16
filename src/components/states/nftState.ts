@@ -11,7 +11,7 @@ export interface CollectionTypes {
   total_supply: number
   homepage?: string
   thumbnail?: string
-  event_count?: number
+  eventCount?: number
 }
 
 const collectionState = atom<CollectionTypes[]>({

@@ -88,19 +88,19 @@ const Example: FC<Props> = ({nft}) => {
             </button>
           </div>
         </div>
-        <div className='row border-bottom align-items-center text-center h-100px'>
-          <div className='col-4'>
-            <div className='fs-1 fw-bold pb-2'>0 / {resultItem?.length || 0}</div>
+        <div className='d-flex border-bottom align-items-center text-center h-100px'>
+          <div className='col-4 h-100 border-end'>
+            <div className='fs-1 fw-bold pb-2 mt-6'>0 / {resultItem?.length || 0}</div>
             <div className='text-muted'>Your Entries</div>
           </div>
-          <div className='col-4'>
-            <div className='fs-1 fw-bold pb-2'>0</div>
+          <div className='col-4 h-100 border-end'>
+            <div className='fs-1 fw-bold pb-2 mt-6'>0</div>
             <div className='text-muted'>All Participants</div>
           </div>
-          <div className='col-4'>
+          <div className='col-4 h-100'>
             {Number(endDate) - Number(startDate) > 24 * 60 * 60 * 1000 ? (
               <>
-                <div className='fs-1 fw-bold pb-2'>
+                <div className='fs-1 fw-bold pb-2 mt-6'>
                   {parseInt(
                     String((Number(endDate) - Number(startDate)) / (24 * 60 * 60 * 1000))
                   ) || 30}
@@ -109,7 +109,7 @@ const Example: FC<Props> = ({nft}) => {
               </>
             ) : (
               <>
-                <div className='fs-1 fw-bold pb-2'>
+                <div className='fs-1 fw-bold pb-2 mt-6'>
                   {parseInt(String((Number(endDate) - Number(startDate)) / (60 * 60 * 1000)))}
                 </div>
                 <div className='text-muted'>Hours Left</div>
@@ -122,12 +122,14 @@ const Example: FC<Props> = ({nft}) => {
             <h2>{eventTitle || 'Example Title'}</h2>
           </div>
           <div ref={contentRef} className='ql w-100 border-bottom p-8 text-break min-h-100px' />
-          <div className='card-body mx-1 p-0 min-h-200px'>
+          <div className='card-body mx-1 p-0 min-h-100px'>
             {resultItem.length > 0 &&
               resultItem.map((item, index) => (
                 <div
                   key={item.id}
-                  className='d-flex px-6 py-4 align-items-center border-bottom justify-content-between'
+                  className={`d-flex px-6 py-4 align-items-center justify-content-between ${
+                    index !== resultItem.length - 1 && 'border-bottom'
+                  }`}
                 >
                   <KTSVG
                     path={`/media/svg/social-logos/${item.title}.svg`}
@@ -148,35 +150,37 @@ const Example: FC<Props> = ({nft}) => {
         </div>
       </div>
       <div className='card mt-4'>
-        <div className='card-footer d-flex justify-content-between align-items-end'>
-          <div>
+        <div className='card-footer'>
+          <div className='pb-4'>
             <label className='form-label px-2'>Start Date</label>
             <DatePicker
               selected={startDate}
               showTimeSelect
               dateFormat='Pp'
               onChange={(date: Date) => setStartDate(date)}
-              // className='cursor-pointer form-control text-center'
+              className='form-control'
             />
           </div>
-          <div>
+          <div className='pb-4'>
             <label className='form-label px-2'>End Date</label>
             <DatePicker
               selected={endDate}
               showTimeSelect
               dateFormat='Pp'
               onChange={(date: Date) => setEndDate(date)}
-              // className='cursor-pointer form-control text-center'
+              className='form-control'
             />
           </div>
-          <button
-            onClick={submitHandler}
-            disabled={!eventTitle || !eventContent || resultItem.length <= 0}
-            type='button'
-            className='btn btn-primary'
-          >
-            Submit
-          </button>
+          <div className='d-flex justify-content-end'>
+            <button
+              onClick={submitHandler}
+              disabled={!eventTitle || !eventContent || resultItem.length <= 0}
+              type='button'
+              className='btn btn-primary'
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </>

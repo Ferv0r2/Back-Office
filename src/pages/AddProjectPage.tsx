@@ -84,7 +84,7 @@ const AddProjectPage: FC = () => {
           collections?.map((nft) => (
             <FeedsWidget
               key={nft.contract}
-              className='col-11 col-md-5 mx-lg-4 mx-auto m-4'
+              className='col-11 col-lg-5 mx-lg-4 mx-auto m-4'
               nft={nft}
             />
           ))

@@ -171,7 +171,7 @@ const EventBasket: FC<Props> = ({
                             </span>
                           </div>
                           <span
-                            className={`text-dark text-hover-${setColor(event.sns)} fs-6 fw-bold `}
+                            className={`text-dark text-hover-${setColor(event.sns)} fs-4 fw-bold `}
                           >
                             {event.sns}
                           </span>
@@ -195,18 +195,20 @@ const EventBasket: FC<Props> = ({
                         </div>
                       </div>
                     ) : (
-                      <select
-                        className='form-select cursor-pointer w-200px'
-                        aria-label='Select Option'
-                        value={optionMap.get(i)}
-                        onChange={(e) => setOptionMap(new Map(optionMap.set(i, e.target.value)))}
-                      >
-                        {event.options.map((option) => (
-                          <option key={v1()} className='fw-semibold' value={option}>
-                            {option}
-                          </option>
-                        ))}
-                      </select>
+                      <div>
+                        <select
+                          className='form-select cursor-pointer w-lg-200px'
+                          aria-label='Select Option'
+                          value={optionMap.get(i)}
+                          onChange={(e) => setOptionMap(new Map(optionMap.set(i, e.target.value)))}
+                        >
+                          {event.options.map((option) => (
+                            <option key={v1()} className='fw-semibold' value={option}>
+                              {option}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     )}
                   </div>
                 )
@@ -245,7 +247,7 @@ const EventBasket: FC<Props> = ({
                 <button
                   ref={animateBtnRef}
                   onClick={backHandler}
-                  className='btn btn-light-danger me-3'
+                  className='btn btn-light-danger'
                   type='button'
                 >
                   Cancel

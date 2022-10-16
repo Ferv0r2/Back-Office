@@ -8,19 +8,14 @@ const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
 const Topbar: FC = () => {
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
-      {/* begin::Theme mode */}
       <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
         <ThemeModeSwitcher
           toggleBtnClass={clsx('btn-active-light-primary btn-custom', toolbarButtonHeightClass)}
         />
       </div>
-      {/* end::Theme mode */}
-
-      {/* begin::Sign out */}
       <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
         <Logout toggleBtnClass={clsx('btn-active-light-primary')} />
       </div>
-      {/* end::Sign out */}
     </div>
   )
 }

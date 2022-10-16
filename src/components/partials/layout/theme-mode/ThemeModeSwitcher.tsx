@@ -33,7 +33,6 @@ const ThemeModeSwitcher = ({
     <>
       {/* begin::Menu toggle */}
       <a
-        href='#'
         className={clsx('btn btn-icon ', toggleBtnClass)}
         data-kt-menu-trigger={menuTrigger}
         data-kt-menu-attach='parent'
@@ -63,7 +62,6 @@ const ThemeModeSwitcher = ({
         {/* begin::Menu item */}
         <div className='menu-item px-3 my-0'>
           <a
-            href='#'
             className={clsx('menu-link px-3 py-2', {active: menuMode === 'light'})}
             onClick={() => switchMode('light')}
           >
@@ -78,7 +76,6 @@ const ThemeModeSwitcher = ({
         {/* begin::Menu item */}
         <div className='menu-item px-3 my-0'>
           <a
-            href='#'
             className={clsx('menu-link px-3 py-2', {active: menuMode === 'dark'})}
             onClick={() => switchMode('dark')}
           >
@@ -93,7 +90,6 @@ const ThemeModeSwitcher = ({
         {/* begin::Menu item */}
         <div className='menu-item px-3 my-0'>
           <a
-            href='#'
             className={clsx('menu-link px-3 py-2', {active: menuMode === 'system'})}
             onClick={() => switchMode('system')}
           >

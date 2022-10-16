@@ -3,43 +3,7 @@ import Calendar, {EventObject} from '@toast-ui/calendar'
 import useEvent from 'src/hooks/useEvent'
 import {Event} from '../states/eventState'
 import {Empty} from '../empty/Empty'
-
-const options: any = {
-  defaultView: 'month',
-  timezone: {
-    zones: [
-      {
-        timezoneName: 'Asia/Seoul',
-        displayLabel: 'Seoul',
-      },
-    ],
-  },
-  calendars: [
-    {
-      id: 'cal0',
-      name: 'Event',
-      backgroundColor: '#1abaa0',
-    },
-    {
-      id: 'cal1',
-      name: 'Event',
-      backgroundColor: '#efb865',
-    },
-    {
-      id: 'cal2',
-      name: 'Event',
-      backgroundColor: '#f28baf',
-    },
-    {
-      id: 'cal3',
-      name: 'Event',
-      backgroundColor: '#bb6cf0',
-    },
-  ],
-  month: {
-    visibleWeeksCount: 2,
-  },
-}
+import {useThemeMode} from '../partials'
 
 interface Props {
   className?: string
@@ -47,6 +11,7 @@ interface Props {
 
 const CalendarItem: FC<Props> = ({className}) => {
   const {isLoading, eventList} = useEvent()
+  const {mode} = useThemeMode()
 
   useEffect(() => {
     const events: EventObject = eventList?.map((event: Event, index) => ({
@@ -57,13 +22,51 @@ const CalendarItem: FC<Props> = ({className}) => {
       end: event.end_dt,
     }))
 
-    const calendar = new Calendar('#calander', options)
-    calendar.setTheme({
-      common: {
-        gridSelection: {
-          backgroundColor: 'rgba(81, 230, 92, 0.05)',
-          border: '1px dotted #515ce6',
+    const calendar = new Calendar('#calander', {
+      defaultView: 'month',
+      theme: {
+        common: {
+          backgroundColor: `${mode === 'light' ? 'white' : '#1E1E2D'}`,
+          dayName: {
+            color: `${mode === 'light' ? '#1E1E2D' : 'white'}`,
+          },
+          saturday: {
+            color: '#009ef7',
+          },
         },
+      },
+      timezone: {
+        zones: [
+          {
+            timezoneName: 'Asia/Seoul',
+            displayLabel: 'Seoul',
+          },
+        ],
+      },
+      calendars: [
+        {
+          id: 'cal0',
+          name: 'Event',
+          backgroundColor: '#50CD89',
+        },
+        {
+          id: 'cal1',
+          name: 'Event',
+          backgroundColor: '#FFC700',
+        },
+        {
+          id: 'cal2',
+          name: 'Event',
+          backgroundColor: '#009EF7',
+        },
+        {
+          id: 'cal3',
+          name: 'Event',
+          backgroundColor: '#F1416C',
+        },
+      ],
+      month: {
+        visibleWeeksCount: 2,
       },
     })
 
@@ -77,7 +80,9 @@ const CalendarItem: FC<Props> = ({className}) => {
     })
 
     calendar.createEvents(events)
-  }, [eventList])
+
+    calendar.render()
+  }, [eventList, mode])
 
   return (
     <div className={`card d-xxl-flex d-none ${className}`}>
@@ -86,7 +91,7 @@ const CalendarItem: FC<Props> = ({className}) => {
           <Empty>Loading...</Empty>
         </div>
       ) : (
-        <div id='calander' className=' card-body' />
+        <div id='calander' className='card-body' />
       )}
     </div>
   )

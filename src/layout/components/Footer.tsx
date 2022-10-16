@@ -13,27 +13,40 @@ const Footer: FC = () => {
         {/* begin::Copyright */}
         <div className='text-dark order-2 order-md-1'>
           <span className='text-muted fw-bold me-2'>{new Date().getFullYear()} &copy;</span>
-          <a href='#' className='text-gray-800 text-hover-primary'>
-            METAONEER. ALL RIGHT RESERVED.
-          </a>
+          <a className='text-gray-800 text-hover-primary'>METAONEER. ALL RIGHT RESERVED.</a>
         </div>
         {/* end::Copyright */}
 
         {/* begin::Nav */}
         <ul className='menu menu-gray-600 menu-hover-primary fw-bold order-1'>
           <li className='menu-item'>
-            <a href='#' className='menu-link ps-0 pe-2'>
+            <a
+              target='_blank'
+              href='https://bot.metaoneer.club/'
+              className='menu-link pe-0'
+              rel='noreferrer'
+            >
               About
             </a>
           </li>
           <li className='menu-item'>
-            <a href='#' className='menu-link pe-0 pe-2'>
+            <a
+              target='_blank'
+              href='https://bot.metaoneer.club/'
+              className='menu-link pe-0'
+              rel='noreferrer'
+            >
               Contact
             </a>
           </li>
           <li className='menu-item'>
-            <a href='#' className='menu-link pe-0'>
-              Purchase
+            <a
+              target='_blank'
+              href='https://bot.metaoneer.club/'
+              className='menu-link pe-0'
+              rel='noreferrer'
+            >
+              Lisence
             </a>
           </li>
         </ul>

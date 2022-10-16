@@ -110,7 +110,7 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
               <div>
                 <ol>{nft.name}</ol>
                 <ol>{nft.symbol}</ol>
-                <ol>{nft.total_supply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+                <ol>{String(nft.total_supply).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
               </div>
             </div>
             <div className='d-flex'>
@@ -120,10 +120,10 @@ const FeedsWidget: FC<Props> = ({className, nft, mode}) => {
                 {mode && <ol className='p-0 pe-4'>Official Site</ol>}
               </div>
               <div>
-                <ol>{nft.holder_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
+                <ol>{String(nft.holder_count).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</ol>
                 <ol>
-                  {nft.event_count
-                    ? nft.event_count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                  {nft.eventCount
+                    ? String(nft.eventCount).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     : 0}
                 </ol>
                 {mode && <ol>{nft.homepage || ''}</ol>}

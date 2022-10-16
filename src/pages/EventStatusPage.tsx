@@ -46,7 +46,7 @@ const EventStatusPage: FC<Props> = ({collection}) => {
   return (
     <>
       <div className='row mb-8 me-1'>
-        <div className='col-4'>
+        <div className='col-lg-4 col-10 mx-lg-0 mx-auto'>
           <div className='card'>
             <div className='card-header border-0 align-items-center'>
               <h3 className='card-title'>
@@ -66,7 +66,7 @@ const EventStatusPage: FC<Props> = ({collection}) => {
           statusList?.map((event: Event) => {
             const nft = collection.filter((v) => v.id === event.project_id)
             return (
-              <div key={event.id} className='col-4'>
+              <div key={event.id} className='col-lg-4 col-10 mx-lg-0 mx-auto'>
                 <EventCard event={event} nft={nft[0]} />
               </div>
             )

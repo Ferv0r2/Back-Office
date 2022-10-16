@@ -12,6 +12,7 @@ import {ErrorsPage} from 'src/pages/ErrorsPage'
 import {AuthPage} from 'src/pages/AuthPage'
 import {App} from 'src/App'
 import useAuth from 'src/hooks/useAuth'
+import {UserPage} from 'src/pages/UserPage'
 
 /**
  * Base URL of the website.
@@ -36,6 +37,9 @@ const AppRoutes: FC = () => {
             <>
               <Route path='auth/*' element={<AuthPage />} />
               <Route path='*' element={<Navigate to='/auth' />} />
+
+              <Route path='user/*' element={<UserPage />} />
+              <Route path='user/:eid' element={<UserPage />} />
             </>
           )}
         </Route>
