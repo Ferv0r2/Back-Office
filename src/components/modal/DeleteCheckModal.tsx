@@ -22,7 +22,7 @@ const DeleteCheckModal: FC<Props> = ({deleteHandler}: Props) => {
             <div className='modal-header'>
               <div className='mx-auto text-center'>
                 <KTSVG
-                  path='/media/icons/duotune/general/gen044.svg'
+                  path='/media/icons/warning.svg'
                   className='svg-icon svg-icon-5tx svg-icon-danger mb-5'
                 />
 
@@ -61,4 +61,4 @@ const DeleteCheckModal: FC<Props> = ({deleteHandler}: Props) => {
   )
 }
 
-export default DeleteCheckModal
+export {DeleteCheckModal}

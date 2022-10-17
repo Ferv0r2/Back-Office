@@ -49,7 +49,7 @@ export function HeaderWrapper() {
               className='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
               id='kt_aside_mobile_toggle'
             >
-              <KTSVG path='/media/icons/duotune/abstract/abs015.svg' className='svg-icon-2x mt-1' />
+              <KTSVG path='/media/icons/hamburger.svg' className='svg-icon-2x mt-1' />
             </div>
           </div>
         )}

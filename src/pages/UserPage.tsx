@@ -1,6 +1,8 @@
 import {useEffect} from 'react'
-import {EventUser} from 'src/components/event/EventUser'
 import {toAbsoluteUrl} from 'src/utils'
+
+/* Components */
+import {EventUser} from 'src/components/item/EventUser'
 
 const UserPage = () => {
   useEffect(() => {
@@ -21,15 +23,15 @@ const UserPage = () => {
       {/* begin::Footer */}
       <div className='d-flex flex-center flex-column-auto p-10'>
         <div className='d-flex align-items-center fw-bold fs-6'>
-          <a href='#' className='text-muted text-hover-primary px-2'>
+          <a href='/' className='text-muted text-hover-primary px-2'>
             About
           </a>
 
-          <a href='#' className='text-muted text-hover-primary px-2'>
+          <a href='/' className='text-muted text-hover-primary px-2'>
             Contact
           </a>
 
-          <a href='#' className='text-muted text-hover-primary px-2'>
+          <a href='/' className='text-muted text-hover-primary px-2'>
             Contact Us
           </a>
         </div>
@@ -39,4 +41,4 @@ const UserPage = () => {
   )
 }
 
-export {UserPage}
+export default UserPage

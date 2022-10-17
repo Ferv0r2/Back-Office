@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import {FC} from 'react'
-import {ThemeModeSwitcher} from 'src/components/partials'
+import {ThemeModeSwitcher} from 'src/components/theme-mode'
 import {Logout} from 'src/components/auth/Logout'
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
   toolbarButtonHeightClass = 'w-30px h-30px w-md-40px h-md-40px'

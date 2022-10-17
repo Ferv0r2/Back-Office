@@ -1,14 +1,18 @@
 import {Fragment} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from 'src/layout/MasterLayout'
+
+/* Pages */
 import DashboardPage from 'src/pages/DashboardPage'
 import AddProjectPage from 'src/pages/AddProjectPage'
 import NFTHomePage from 'src/pages/NFTHomePage'
 import NFTEventPage from 'src/pages/NFTEventPage'
 import EventCreatePage from 'src/pages/EventCreatePage'
 import EventStatusPage from 'src/pages/EventStatusPage'
-import useCollection from 'src/hooks/useCollection'
 import EventDetailPage from 'src/pages/EventDetailPage'
+
+/* Hooks */
+import useCollection from 'src/hooks/useCollection'
 import useEvent from 'src/hooks/useEvent'
 
 const PrivateRoutes = () => {

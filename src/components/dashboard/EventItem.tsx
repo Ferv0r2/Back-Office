@@ -1,8 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useState} from 'react'
 import clsx from 'clsx'
 import {useNavigate} from 'react-router-dom'
+
+/* Hooks */
 import useCollection from 'src/hooks/useCollection'
+
+/* State */
 import {Event} from '../states/eventState'
 
 interface Props {

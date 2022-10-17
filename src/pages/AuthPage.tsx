@@ -1,8 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import {useEffect} from 'react'
 import {Outlet, Route, Routes} from 'react-router-dom'
-import {Login} from 'src/components/auth/Login'
 import {toAbsoluteUrl} from 'src/utils'
+
+/* Components */
+import {Login} from 'src/components/auth/Login'
 
 const AuthLayout = () => {
   useEffect(() => {
@@ -58,4 +59,4 @@ const AuthPage = () => (
   </Routes>
 )
 
-export {AuthPage}
+export default AuthPage

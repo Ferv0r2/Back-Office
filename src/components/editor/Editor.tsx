@@ -1,6 +1,8 @@
 import {FC} from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+
+/* State */
 import {useRecoilState} from 'recoil'
 import {eventContentState} from '../states/eventState'
 
@@ -57,10 +59,7 @@ const modules = {
     ['link', 'image', 'video'],
   ],
 }
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
+
 const formats = [
   'header',
   'size',

@@ -1,11 +1,12 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {KTSVG, toAbsoluteUrl} from 'src/utils'
 import {getCSSVariableValue} from 'src/assets/ts/_utils'
-import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
 
-type Props = {
+/* Hooks */
+import {useThemeMode} from 'src/components/theme-mode'
+
+interface Props {
   className: string
   chartColor: string
   chartHeight: string
@@ -56,7 +57,7 @@ const MixChart: React.FC<Props> = ({className, chartColor, chartHeight}) => {
             data-kt-menu-placement='bottom-end'
             data-kt-menu-flip='top-end'
           >
-            <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
+            <KTSVG path='/media/icons/menu-1.svg' className='svg-icon-2' />
           </button>
           {/* end::Menu */}
         </div>

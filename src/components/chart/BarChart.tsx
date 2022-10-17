@@ -1,9 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef} from 'react'
 import {KTSVG} from 'src/utils'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from 'src/assets/ts/_utils'
-import {useThemeMode} from 'src/components/partials/layout/theme-mode/ThemeModeProvider'
+
+/* Hooks */
+import {useThemeMode} from 'src/components/theme-mode'
 
 interface Props {
   className: string
@@ -40,19 +41,13 @@ const BarChart: React.FC<Props> = ({className}) => {
 
   return (
     <div className={`card ${className}`}>
-      {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
-        {/* begin::Title */}
         <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bold fs-3 mb-1'>Event Attendance</span>
 
           <span className='text-muted fw-semibold fs-7'>Recent 6 months</span>
         </h3>
-        {/* end::Title */}
-
-        {/* begin::Toolbar */}
         <div className='card-toolbar'>
-          {/* begin::Menu */}
           <button
             type='button'
             className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
@@ -60,21 +55,14 @@ const BarChart: React.FC<Props> = ({className}) => {
             data-kt-menu-placement='bottom-end'
             data-kt-menu-flip='top-end'
           >
-            <KTSVG path='/media/icons/duotune/general/gen024.svg' className='svg-icon-2' />
+            <KTSVG path='/media/icons/menu-1.svg' className='svg-icon-2' />
           </button>
-          {/* end::Menu */}
         </div>
-        {/* end::Toolbar */}
       </div>
-      {/* end::Header */}
 
-      {/* begin::Body */}
       <div className='card-body'>
-        {/* begin::Chart */}
         <div ref={chartRef} id='kt_charts_widget_1_chart' style={{height: '350px'}} />
-        {/* end::Chart */}
       </div>
-      {/* end::Body */}
     </div>
   )
 }

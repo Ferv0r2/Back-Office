@@ -22,7 +22,7 @@ export function AsideMenuMain() {
 
       <AsideMenuItem
         to='/dashboard'
-        icon='/media/icons/duotune/art/art002.svg'
+        icon='/media/icons/dashboard.svg'
         title='Dashboard'
         fontIcon='bi-app-indicator'
       />
@@ -32,17 +32,13 @@ export function AsideMenuMain() {
         </div>
       </div>
 
-      <AsideMenuItem
-        to='/nft/management'
-        title='NFT Management'
-        icon='/media/icons/duotune/coding/cod001.svg'
-      />
+      <AsideMenuItem to='/nft/management' title='NFT Management' icon='/media/icons/setting.svg' />
 
       <AsideMenuItemWithSub
         to='/nft/collections'
         title='Collections'
         fontIcon='bi-archive'
-        icon='/media/icons/duotune/general/gen022.svg'
+        icon='/media/icons/menu-3.svg'
       >
         {isLoading && <p className='fs-5'>Loading...</p>}
 
@@ -69,17 +65,9 @@ export function AsideMenuMain() {
         </div>
       </div>
 
-      <AsideMenuItem
-        to='/event/create'
-        icon='/media/icons/duotune/general/gen017.svg'
-        title='Event Create'
-      />
+      <AsideMenuItem to='/event/create' icon='/media/icons/block.svg' title='Event Create' />
 
-      <AsideMenuItemWithSub
-        to='/event/status'
-        title='Event Status'
-        icon='/media/icons/duotune/general/gen032.svg'
-      >
+      <AsideMenuItemWithSub to='/event/status' title='Event Status' icon='/media/icons/chart.svg'>
         <AsideMenuItem to='/event/live' title='Live' hasBullet={true} />
         <AsideMenuItem to='/event/end' title='End' hasBullet={true} />
         <AsideMenuItem to='/event/pending' title='Pending' hasBullet={true} />
@@ -98,7 +86,7 @@ export function AsideMenuMain() {
           href={process.env.REACT_APP_DOCS_URL + '/docs/changelog'}
         >
           <span className='menu-icon'>
-            <KTSVG path='/media/icons/duotune/general/gen005.svg' className='svg-icon-2' />
+            <KTSVG path='/media/icons/paper.svg' className='svg-icon-2' />
           </span>
           <span className='menu-title'>Document</span>
         </a>

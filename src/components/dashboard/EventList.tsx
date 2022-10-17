@@ -1,8 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import useEvent from 'src/hooks/useEvent'
-import {Event} from '../states/eventState'
+
+/* Compontents */
 import {EventItem} from './EventItem'
+
+/* Hooks */
+import useEvent from 'src/hooks/useEvent'
+
+/* State */
+import {Event} from '../states/eventState'
 
 interface Props {
   className: string
@@ -21,14 +27,17 @@ const EventList: React.FC<Props> = ({className, title}) => {
         (event: Event) =>
           new Date(event.start_dt) <= new Date() && new Date(event.end_dt) > new Date()
       )
+      tmp.sort((a: Event, b: Event) => Number(new Date(a.end_dt)) - Number(new Date(b.end_dt)))
       setStatus(tmp)
       setIsType(0)
     } else if (title === 'End') {
       const tmp = eventList.filter((event: Event) => new Date(event.end_dt) <= new Date())
+      tmp.sort((a: Event, b: Event) => Number(new Date(b.end_dt)) - Number(new Date(a.end_dt)))
       setStatus(tmp)
       setIsType(1)
     } else {
       const tmp = eventList.filter((event: Event) => new Date(event.start_dt) > new Date())
+      tmp.sort((a: Event, b: Event) => Number(new Date(a.start_dt)) - Number(new Date(b.start_dt)))
       setStatus(tmp)
       setIsType(2)
     }
@@ -36,7 +45,6 @@ const EventList: React.FC<Props> = ({className, title}) => {
 
   return (
     <div className={`card ${className} min-h-400px`}>
-      {/* begin::Header */}
       <div className='card-header mt-2 border-0'>
         <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bold text-dark'>{title}</span>
@@ -44,7 +52,6 @@ const EventList: React.FC<Props> = ({className, title}) => {
         </h3>
 
         <div className='card-toolbar'>
-          {/* begin::Menu */}
           <button
             type='button'
             onClick={() => navigate(`/event/${title.toLowerCase()}`)}
@@ -52,11 +59,8 @@ const EventList: React.FC<Props> = ({className, title}) => {
           >
             +More
           </button>
-          {/* end::Menu */}
         </div>
       </div>
-      {/* end::Header */}
-      {/* begin::Body */}
       <div className='card-body pt-4'>
         {isLoading && <p className='fs-5'>Loading...</p>}
         {!isLoading && statusList?.length !== 0 ? (
@@ -70,15 +74,14 @@ const EventList: React.FC<Props> = ({className, title}) => {
             <span className='bullet bullet-vertical h-40px bg-success' />
             <div className='flex-grow-1 mx-5'>
               <span className='text-gray-800 fs-6'>
-                {isType === 0 && '진행중인 이벤트가 없습니다.'}
-                {isType === 1 && '종료된 이벤트가 없습니다.'}
-                {isType === 2 && '대기중인 이벤트가 없습니다.'}
+                {isType === 0 && 'Live event is empty.'}
+                {isType === 1 && 'End event is empty.'}
+                {isType === 2 && 'Pending event is empty.'}
               </span>
             </div>
           </div>
         )}
       </div>
-      {/* end::Body */}
     </div>
   )
 }

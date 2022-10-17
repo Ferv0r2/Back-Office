@@ -1,10 +1,15 @@
 import {FC, useEffect, useState} from 'react'
-import {EventCard} from 'src/components/feed/EventCard'
-import {Event} from 'src/components/states/eventState'
-import {CollectionTypes} from 'src/components/states/nftState'
-import useEvent from 'src/hooks/useEvent'
 import {KTSVG} from 'src/utils'
 
+/* Components */
+import {EventCard} from 'src/components/card/EventCard'
+
+/* Hooks */
+import useEvent from 'src/hooks/useEvent'
+
+/* State */
+import {Event} from 'src/components/states/eventState'
+import {CollectionTypes} from 'src/components/states/nftState'
 interface Props {
   nft: CollectionTypes
 }
@@ -43,13 +48,13 @@ const NFTEventPage: FC<Props> = ({nft}) => {
               <span className='card-label fs-5 fw-bold text-gray-800 d-flex justify-content-between'>
                 Sorting by
                 <KTSVG
-                  path='/media/icons/duotune/general/gen031.svg'
+                  path='/media/icons/filter.svg'
                   className='d-xxl-none d-flex svg-icon-muted svg-icon-2x me-2'
                 />
               </span>
               <div className='d-flex align-items-center'>
                 <KTSVG
-                  path='/media/icons/duotune/general/gen031.svg'
+                  path='/media/icons/filter.svg'
                   className='d-xxl-flex d-none svg-icon-muted svg-icon-2x me-2'
                 />
                 <select
@@ -73,12 +78,12 @@ const NFTEventPage: FC<Props> = ({nft}) => {
           <p className='fs-5'>Loading...</p>
         ) : currentEvent?.length !== 0 ? (
           currentEvent?.map((event: Event) => (
-            <div key={event.id} className='col-lg-4 col-10 mx-auto'>
+            <div key={event.id} className='col-lg-4 col-10 mx-lg-0 mx-auto'>
               <EventCard event={event} nft={nft} />
             </div>
           ))
         ) : (
-          <p className='fs-5'>이벤트가 없습니다.</p>
+          <p className='fs-5'>Event is empty</p>
         )}
       </div>
     </>

@@ -7,4 +7,4 @@ declare global {
 }
 
 const caver = new Caver(window.klaytn)
-export default caver
+export {caver}

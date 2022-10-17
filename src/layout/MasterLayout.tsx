@@ -7,7 +7,7 @@ import {ScrollTop} from './components/ScrollTop'
 import {Content} from './components/Content'
 import {PageDataProvider} from './core'
 import {useLocation} from 'react-router-dom'
-import {ActivityDrawer, InviteUsers, UpgradePlan, ThemeModeProvider} from 'src/components/partials'
+import {ThemeModeProvider} from 'src/components/theme-mode'
 import {MenuComponent} from '../assets/ts/components'
 
 const MasterLayout = () => {
@@ -43,14 +43,6 @@ const MasterLayout = () => {
           </div>
         </div>
 
-        {/* begin:: Drawers */}
-        <ActivityDrawer />
-        {/* end:: Drawers */}
-
-        {/* begin:: Modals */}
-        <InviteUsers />
-        <UpgradePlan />
-        {/* end:: Modals */}
         <ScrollTop />
       </ThemeModeProvider>
     </PageDataProvider>

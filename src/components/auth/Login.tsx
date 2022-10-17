@@ -4,9 +4,7 @@ import {toAbsoluteUrl} from 'src/utils'
 
 /* Wallet */
 import {useWeb3React} from '@web3-react/core'
-import {injected} from 'src/components/blockchain/metamask'
-import caver from 'src/components/blockchain/caver'
-import web3 from 'src/components/blockchain/web3'
+import {caver, web3, injected} from 'src/components/blockchain'
 
 /* API */
 import {AuthNonceAPI, AuthTokenAPI} from 'src/api'
@@ -20,7 +18,7 @@ import {
   authState,
 } from 'src/components/states/walletState'
 
-export function Login() {
+const Login = () => {
   const {account, chainId, active, activate} = useWeb3React()
   const [loading, setLoading] = useState(false)
   const setAuth = useSetRecoilState(authState)
@@ -48,7 +46,7 @@ export function Login() {
     activate(injected)
       .then(async () => await loadMetamaskInfo())
       .catch((err) => {
-        alert('메타마스크 지갑이 필요합니다.')
+        alert('Metamask wallet is required.')
         window.open('https://metamask.io/download.html')
         return
       })
@@ -88,7 +86,7 @@ export function Login() {
         console.log(error)
       }
     } else {
-      alert('카이카스 지갑이 필요합니다.')
+      alert('Kaikas wallet is required.')
       window.open(
         'https://chrome.google.com/webstore/detail/kaikas/jblndlipeogpafnldhgmapagcccfchpi?hl=ko'
       )
@@ -110,15 +108,20 @@ export function Login() {
   }
 
   const setAuthHandler = async () => {
+    if (selectedWallet === 'metamask' && chainId !== (1001 || 8217)) {
+      alert('Please set the network to Klaytn Mainnet or Klaytn Baobab.')
+      return
+    }
+
     setLoading(true)
     if (!selectedWallet) {
-      alert('지갑을 연결해 주세요.')
+      alert('Please connect your wallet.')
       setLoading(false)
       return
     }
 
     const nonceAPI = await AuthNonceAPI().catch(() => {
-      alert('서명이 취소되었습니다.')
+      alert('The signature has been cancelled.')
       setLoading(false)
     })
     let sign, authAPI
@@ -148,7 +151,7 @@ export function Login() {
         console.log('KAIKAS', authAPI)
       }
     } catch (err) {
-      alert('서명이 취소되었습니다.')
+      alert('The signature has been cancelled.')
       setLoading(false)
       return
     }
@@ -173,13 +176,9 @@ export function Login() {
 
   return (
     <form className='form w-100' noValidate id='kt_login_signin_form'>
-      {/* begin::Heading */}
       <div className='text-center mb-10'>
         <h1 className='text-dark mb-3'>Sign In</h1>
       </div>
-      {/* begin::Heading */}
-
-      {/* begin::Action */}
       <div className='text-center'>
         {/* begin::Metamask */}
         <button
@@ -245,7 +244,8 @@ export function Login() {
           </span>
         </button>
       </div>
-      {/* end::Action */}
     </form>
   )
 }
+
+export {Login}

@@ -1,8 +1,13 @@
 import {FC, useState, useEffect} from 'react'
+import {KTSVG} from 'src/utils'
+
+/* Components */
+import {EventBasket} from 'src/components/card/EventBasket'
+import {EventMenu} from 'src/components/card/EventMenu'
+import {Example} from 'src/components/item/Example'
+
+/* State */
 import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil'
-import {Example} from 'src/components/event/Example'
-import {EventBasket} from 'src/components/list/EventBasket'
-import {EventMenu} from 'src/components/list/EventMenu'
 import {
   currentNFTIndexState,
   eventContentState,
@@ -10,7 +15,6 @@ import {
   resultState,
 } from 'src/components/states/eventState'
 import {collectionState} from 'src/components/states/nftState'
-import {KTSVG} from 'src/utils'
 
 const EventCreatePage: FC = () => {
   const collections = useRecoilValue(collectionState)
@@ -62,10 +66,7 @@ const EventCreatePage: FC = () => {
                     <span className='card-label fw-bold text-dark'>Select NFT</span>
                     <span className='text-muted mt-1 fw-semibold fs-7'>Event to apply</span>
                   </h3>
-                  <KTSVG
-                    path='/media/icons/duotune/general/gen026.svg'
-                    className='svg-icon-muted svg-icon-2hx'
-                  />
+                  <KTSVG path='/media/icons/verified.svg' className='svg-icon-muted svg-icon-2hx' />
                 </div>
                 <div className='card-body px-6 py-4'>
                   {isReady ? (
@@ -82,7 +83,7 @@ const EventCreatePage: FC = () => {
                       ))}
                     </select>
                   ) : (
-                    <div className='px-4 py-2'>NFT를 먼저 등록해 주세요.</div>
+                    <div className='px-4 py-2'>Please register NFT first.</div>
                   )}
                 </div>
               </div>
@@ -94,15 +95,15 @@ const EventCreatePage: FC = () => {
               }`}
             >
               <KTSVG
-                path='/media/icons/duotune/arrows/arr001.svg'
+                path='/media/icons/arrow-right.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
               <KTSVG
-                path='/media/icons/duotune/arrows/arr001.svg'
+                path='/media/icons/arrow-right.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
               <KTSVG
-                path='/media/icons/duotune/arrows/arr001.svg'
+                path='/media/icons/arrow-right.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
             </div>
@@ -112,15 +113,15 @@ const EventCreatePage: FC = () => {
               }`}
             >
               <KTSVG
-                path='/media/icons/duotune/arrows/arr004.svg'
+                path='/media/icons/arrow-bottom.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
               <KTSVG
-                path='/media/icons/duotune/arrows/arr004.svg'
+                path='/media/icons/arrow-bottom.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
               <KTSVG
-                path='/media/icons/duotune/arrows/arr004.svg'
+                path='/media/icons/arrow-bottom.svg'
                 className='d-flex justify-content-center py-6 svg-icon-4x text-primary'
               />
             </div>

@@ -64,7 +64,7 @@ const Dropdown = ({
                 name='notifications'
                 defaultChecked={true}
               />
-              <label className='form-check-label'>준비중</label>
+              <label className='form-check-label'>Coming Soon</label>
             </div>
           </div> */}
 

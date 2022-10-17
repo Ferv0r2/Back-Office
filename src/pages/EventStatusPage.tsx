@@ -1,11 +1,17 @@
 import {FC, useEffect, useState} from 'react'
 import {useLocation} from 'react-router-dom'
-import {Empty} from 'src/components/empty/Empty'
-import {EventCard} from 'src/components/feed/EventCard'
-import {Event} from 'src/components/states/eventState'
-import {CollectionTypes} from 'src/components/states/nftState'
-import useEvent from 'src/hooks/useEvent'
 import {KTSVG} from 'src/utils'
+
+/* Components */
+import {Empty} from 'src/components/empty/Empty'
+import {EventCard} from 'src/components/card/EventCard'
+
+/* Hooks */
+import useEvent from 'src/hooks/useEvent'
+
+/* State */
+import {CollectionTypes} from 'src/components/states/nftState'
+import {Event} from 'src/components/states/eventState'
 
 interface Props {
   collection: CollectionTypes[]
@@ -24,14 +30,17 @@ const EventStatusPage: FC<Props> = ({collection}) => {
         (event: Event) =>
           new Date(event.start_dt) <= new Date() && new Date(event.end_dt) > new Date()
       )
+      tmp.sort((a: Event, b: Event) => Number(new Date(a.end_dt)) - Number(new Date(b.end_dt)))
       setStatus(tmp)
       setIsType(0)
     } else if (location.pathname === '/event/end') {
       const tmp = eventList.filter((event: Event) => new Date(event.end_dt) <= new Date())
+      tmp.sort((a: Event, b: Event) => Number(new Date(b.end_dt)) - Number(new Date(a.end_dt)))
       setStatus(tmp)
       setIsType(1)
     } else {
       const tmp = eventList.filter((event: Event) => new Date(event.start_dt) > new Date())
+      tmp.sort((a: Event, b: Event) => Number(new Date(a.start_dt)) - Number(new Date(b.start_dt)))
       setStatus(tmp)
       setIsType(2)
     }
@@ -53,7 +62,7 @@ const EventStatusPage: FC<Props> = ({collection}) => {
                 <span className='card-label fw-bold text-dark fs-3'>{types[isType]} Event</span>
               </h3>
               <KTSVG
-                path='/media/icons/duotune/abstract/abs050.svg'
+                path='/media/icons/circle.svg'
                 className={`svg-icon-2hx svg-icon-${setType()}`}
               />
             </div>
@@ -73,9 +82,9 @@ const EventStatusPage: FC<Props> = ({collection}) => {
           })
         ) : (
           <Empty>
-            {isType === 0 && '진행중인 이벤트가 없습니다.'}
-            {isType === 1 && '종료된 이벤트가 없습니다.'}
-            {isType === 2 && '대기중인 이벤트가 없습니다.'}
+            {isType === 0 && 'Live event is empty'}
+            {isType === 1 && 'End event is empty.'}
+            {isType === 2 && 'Pending event is empty.'}
           </Empty>
         )}
       </div>

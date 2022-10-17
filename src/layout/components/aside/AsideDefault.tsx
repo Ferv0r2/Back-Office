@@ -58,10 +58,7 @@ const AsideDefault: FC = () => {
             data-kt-toggle-name='aside-minimize'
             onClick={minimize}
           >
-            <KTSVG
-              path={'/media/icons/duotune/arrows/arr080.svg'}
-              className={'svg-icon-1 rotate-180'}
-            />
+            <KTSVG path={'/media/icons/next-twice.svg'} className={'svg-icon-1 rotate-180'} />
           </div>
         )}
         {/* end::Aside toggler */}
@@ -87,7 +84,7 @@ const AsideDefault: FC = () => {
         >
           <span className='btn-label'>Docs & Components</span>
           <span className='svg-icon btn-icon svg-icon-2'>
-            <KTSVG path='/media/icons/duotune/general/gen005.svg' />
+            <KTSVG path='/media/icons/paper.svg' />
           </span>
         </a>
       </div>

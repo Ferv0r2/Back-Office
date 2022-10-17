@@ -1,6 +1,10 @@
 import clsx from 'clsx'
 import {FC, useEffect, useState} from 'react'
+
+/* API */
 import {NFTHolderAPI} from 'src/api'
+
+/* Components */
 import HoldersTable from '../table/HoldersTable'
 import SNSTable from '../table/SNSTable'
 
@@ -38,7 +42,7 @@ const TokenList: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
 
   const holderPrevHandler = () => {
     if (currentHoldersPage === 0) {
-      alert('첫번째 페이지입니다.')
+      alert('This is the first page.')
       return
     }
 
@@ -51,7 +55,7 @@ const TokenList: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
 
   const holderNextHandler = () => {
     if (currentHoldersPage === Math.ceil(holderCount)) {
-      alert('마지막 페이지입니다.')
+      alert('This is the last page.')
       return
     }
     if (currentHoldersPage + 5 > Math.ceil(holderCount)) {

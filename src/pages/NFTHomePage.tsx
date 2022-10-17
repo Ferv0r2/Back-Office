@@ -1,6 +1,10 @@
 import {FC} from 'react'
-import {FeedsWidget} from 'src/components/feed/FeedsWidget'
+
+/* Components */
+import {NFTCard} from 'src/components/card/NFTCard'
 import TokenList from 'src/components/list/TokenList'
+
+/* State */
 import {CollectionTypes} from 'src/components/states/nftState'
 
 interface Props {
@@ -10,7 +14,7 @@ interface Props {
 const NFTHomePage: FC<Props> = ({nft}) => {
   return (
     <div className='row gy-8 pb-8'>
-      <FeedsWidget className='col-11 col-md-9 mx-auto' nft={nft} mode='detail' />
+      <NFTCard className='col-11 col-md-9 mx-auto' nft={nft} mode='detail' />
       <TokenList
         pid={nft.id}
         totalSupply={nft.total_supply}

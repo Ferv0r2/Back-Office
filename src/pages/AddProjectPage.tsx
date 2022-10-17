@@ -1,7 +1,13 @@
 import {FC, useState} from 'react'
+
+/* API */
 import {NFTCreateAPI} from 'src/api'
-import {FeedsWidget} from 'src/components/feed/FeedsWidget'
+
+/* Hooks */
 import useCollection from 'src/hooks/useCollection'
+
+/* Components */
+import {NFTCard} from 'src/components/card/NFTCard'
 
 const AddProjectPage: FC = () => {
   const {isLoading, collections} = useCollection()
@@ -10,11 +16,11 @@ const AddProjectPage: FC = () => {
 
   const addContractHandler = async () => {
     if (contract.trim().length === 0) {
-      alert('Contract 주소를 입력해 주세요.')
+      alert('Please enter a contract.')
       setContract('')
       return
     } else if (contract.trim().slice(0, 2) !== '0x' || contract.trim().length !== 42) {
-      alert('잘못된 주소입니다. 다시 입력해 주세요.')
+      alert('The address is invalid. Please re-enter.')
       setContract('')
       return
     }
@@ -28,13 +34,13 @@ const AddProjectPage: FC = () => {
         interface: 'kip17',
       })
     } catch (err) {
-      alert('이미 등록했거나 Owner 권한이 없습니다.')
+      alert('You have already registered or do not have [Owner] rights..')
       setAddLoading(false)
       return
     }
 
     setContract('')
-    alert(`${addContractAPI.name} NFT 등록이 완료되었습니다.`)
+    alert(`${addContractAPI.name} NFT Registration is complete.`)
     setAddLoading(false)
   }
 
@@ -82,14 +88,10 @@ const AddProjectPage: FC = () => {
           <p className='fs-5'>Loading...</p>
         ) : collections?.length !== 0 ? (
           collections?.map((nft) => (
-            <FeedsWidget
-              key={nft.contract}
-              className='col-11 col-lg-5 mx-lg-4 mx-auto m-4'
-              nft={nft}
-            />
+            <NFTCard key={nft.contract} className='col-11 col-lg-5 mx-lg-4 mx-auto m-4' nft={nft} />
           ))
         ) : (
-          <p className='fs-5'>등록한 NFT가 없습니다.</p>
+          <p className='fs-5'>No NFTs registered.</p>
         )}
       </div>
     </>
