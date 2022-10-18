@@ -1,30 +1,40 @@
-import {FC, useEffect, useRef} from 'react'
+import {FC, useEffect, useRef, useState} from 'react'
+import {NFTDetailAPI} from 'src/api'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../card/EventBasket'
 
 /* State */
 import {Event} from '../states/eventState'
-import {CollectionTypes} from '../states/nftState'
 
 interface Props {
   event: Event
-  nft: CollectionTypes
 }
 
-const EventUser: FC<Props> = ({event, nft}) => {
+const EventUser: FC<Props> = ({event}) => {
   const contentRef = useRef<HTMLDivElement>(null)
+  const [nft, setNFT] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    setIsLoading(true)
     if (contentRef.current) {
       contentRef.current.innerHTML = event.content
     }
+
+    const getNFT = async () => {
+      const res = await NFTDetailAPI(event.project_id)
+      setNFT(res.name)
+      setIsLoading(false)
+    }
+
+    getNFT()
   }, [event])
 
   return (
     <>
       <div className='card card-custom'>
         <div className='card-header'>
-          <h3 className='card-title'>{nft.name}</h3>
+          <h3 className='card-title'>{!isLoading ? nft : 'Loading...'}</h3>
           <div className='card-toolbar'>
             <button type='button' className='btn btn-sm btn-light'>
               Connect Wallet

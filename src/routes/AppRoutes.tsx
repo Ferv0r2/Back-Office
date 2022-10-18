@@ -30,8 +30,8 @@ const AppRoutes: FC = () => {
               <Route path='auth/*' element={<AuthPage />} />
               <Route path='*' element={<Navigate to='/auth' />} />
 
-              <Route path='user/*' element={<UserPage />} />
-              <Route path='user/:eid' element={<UserPage />} />
+              <Route path='user/:pid/:eid' element={<UserPage />} />
+              <Route path='user/*' element={<Navigate to='/error/404' />} />
             </>
           )}
         </Route>

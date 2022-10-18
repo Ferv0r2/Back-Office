@@ -56,7 +56,7 @@ const EventCreatePage: FC = () => {
         {!isContinue && (
           <>
             <div
-              className={`col-lg-4 col-10 mx-lg-0 mx-auto ${
+              className={`col-lg-4 col-11 mx-lg-0 mx-auto ${
                 isAnimate && window.innerWidth >= 992 && 'animate__animated animate__fadeOutLeft'
               } ${isAnimate && window.innerWidth < 992 && 'animate__animated animate__fadeOutUp'}`}
             >
@@ -129,7 +129,7 @@ const EventCreatePage: FC = () => {
         )}
 
         <div
-          className={`col-lg-5 col-10 mx-lg-0 mx-auto  ${
+          className={`col-lg-5 col-11 mx-lg-0 mx-auto  ${
             isAnimate && window.innerWidth >= 992 && 'animate__animated animate__slideOutLeft'
           } ${isAnimate && window.innerWidth < 992 && 'animate__animated animate__fadeOutUp'}`}
         >
@@ -143,7 +143,7 @@ const EventCreatePage: FC = () => {
         </div>
 
         {isContinue && (
-          <div className='col-lg-5 col-10 mx-auto animate__animated animate__fadeIn animate__faster'>
+          <div className='col-lg-5 col-11 mx-auto animate__animated animate__fadeIn animate__faster'>
             <Example nft={collections[currentNFTIndex]} />
           </div>
         )}

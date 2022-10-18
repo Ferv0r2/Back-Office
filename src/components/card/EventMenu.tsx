@@ -130,9 +130,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             </span>
           </div>
           <div className='d-flex flex-column'>
-            <a href='#' className='text-dark text-hover-danger fs-6 fw-bold'>
-              Youtube
-            </a>
+            <span className='text-dark text-hover-danger fs-6 fw-bold'>Youtube</span>
             <span className='text-muted fw-semibold'>Link</span>
           </div>
         </div>

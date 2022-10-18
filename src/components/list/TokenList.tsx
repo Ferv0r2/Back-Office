@@ -7,6 +7,7 @@ import {NFTHolderAPI} from 'src/api'
 /* Components */
 import HoldersTable from '../table/HoldersTable'
 import SNSTable from '../table/SNSTable'
+import {ToastWidget} from '../toast/ToastWidget'
 
 interface Props {
   pid: number
@@ -24,6 +25,8 @@ const TokenList: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
     items: [],
     token: {},
   })
+  const [isToast, setIsToast] = useState(false)
+  const [toastContent, setToastContent] = useState('')
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -42,7 +45,11 @@ const TokenList: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
 
   const holderPrevHandler = () => {
     if (currentHoldersPage === 0) {
-      alert('This is the first page.')
+      setToastContent('This is the fist page.')
+      setIsToast(true)
+      setTimeout(() => {
+        setIsToast(false)
+      }, 2000)
       return
     }
 
@@ -55,7 +62,11 @@ const TokenList: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
 
   const holderNextHandler = () => {
     if (currentHoldersPage === Math.ceil(holderCount)) {
-      alert('This is the last page.')
+      setToastContent('This is the last page.')
+      setIsToast(true)
+      setTimeout(() => {
+        setIsToast(false)
+      }, 1500)
       return
     }
     if (currentHoldersPage + 5 > Math.ceil(holderCount)) {
@@ -71,44 +82,52 @@ const TokenList: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
   }
 
   return (
-    <div className={clsx('table-responsive rounded shadow bg-semiwhite', className)}>
-      <ul className='nav nav-tabs nav-line-tabs mb-5 fs-6 p-8'>
-        <li className='nav-item'>
-          <a
-            onClick={() => setCurrentTab(0)}
-            className='nav-link active'
-            data-bs-toggle='tab'
-            href='#holders'
-          >
-            Holders
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a onClick={() => setCurrentTab(1)} className='nav-link' data-bs-toggle='tab' href='#sns'>
-            SNS
-          </a>
-        </li>
-      </ul>
-      <div className='tab-content' id='myTabContent'>
-        <div className='tab-pane fade active show' id='holders' role='tabpanel'>
-          {isLoading ? (
-            <div className='p-20 fs-4 fw-bold'>Loading...</div>
-          ) : (
-            <HoldersTable
-              list={holderList.items}
-              page={currentHoldersPage}
-              totalSupply={totalSupply}
-              prevHandler={holderPrevHandler}
-              nextHandler={holderNextHandler}
-              selectHandler={(page: number) => holderSelectHandler(page)}
-            />
-          )}
-        </div>
-        <div className='tab-pane fade' id='sns' role='tabpanel'>
-          <SNSTable />
+    <>
+      {isToast && <ToastWidget content={toastContent} />}
+      <div className={clsx('table-responsive rounded shadow bg-semiwhite', className)}>
+        <ul className='nav nav-tabs nav-line-tabs mb-5 fs-6 p-8'>
+          <li className='nav-item'>
+            <a
+              onClick={() => setCurrentTab(0)}
+              className='nav-link active'
+              data-bs-toggle='tab'
+              href='#holders'
+            >
+              Holders
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a
+              onClick={() => setCurrentTab(1)}
+              className='nav-link'
+              data-bs-toggle='tab'
+              href='#sns'
+            >
+              SNS
+            </a>
+          </li>
+        </ul>
+        <div className='tab-content' id='myTabContent'>
+          <div className='tab-pane fade active show' id='holders' role='tabpanel'>
+            {isLoading ? (
+              <div className='p-20 fs-4 fw-bold'>Loading...</div>
+            ) : (
+              <HoldersTable
+                list={holderList.items}
+                page={currentHoldersPage}
+                totalSupply={totalSupply}
+                prevHandler={holderPrevHandler}
+                nextHandler={holderNextHandler}
+                selectHandler={(page: number) => holderSelectHandler(page)}
+              />
+            )}
+          </div>
+          <div className='tab-pane fade' id='sns' role='tabpanel'>
+            <SNSTable />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,15 +1,25 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {toAbsoluteUrl} from 'src/utils'
 
 /* Components */
 import {EventUser} from 'src/components/item/EventUser'
+import {EventDetailAPI} from 'src/api'
+import {useParams} from 'react-router-dom'
 
 const UserPage = () => {
+  const params = useParams()
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
-    document.body.classList.add('bg-body')
-    return () => {
-      document.body.classList.remove('bg-body')
+    setIsLoading(true)
+    const getEvent = async () => {
+      const res = await EventDetailAPI({
+        pid: Number(params.pid),
+        eid: Number(params.eid),
+      })
+      console.log(res)
     }
+    getEvent()
   }, [])
 
   return (
@@ -18,6 +28,7 @@ const UserPage = () => {
         <div className='d-flex mb-12 align-items-center'>
           <img alt='Logo' src={toAbsoluteUrl('/media/logos/favicon.ico')} className='h-45px' />
           <h2 className='display-6 m-3'>METAONEER</h2>
+          {/* {!isLoading && <EventUser />} */}
         </div>
       </div>
       {/* begin::Footer */}

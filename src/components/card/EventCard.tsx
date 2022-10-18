@@ -19,7 +19,6 @@ const EventCard: FC<Props> = ({event, nft}) => {
     navigate(`/nft/${nft.contract}/event/${event.id}`, {
       state: {
         event: event,
-        nft: nft,
       },
     })
   }
