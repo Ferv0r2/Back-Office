@@ -1,69 +1,19 @@
-# Back Office
+# Metaoneer KGF 2차 프로젝트
+
+## Klaytn NFT 통합 마케팅 서비스
+
+- NFT를 등록 및 수정, 조회할 수 있으며, NFT를 기반으로 Event 생성이 가능한 마케팅 서비스입니다.
+
+- 대시보드를 통해 다가오는 이벤트를 확인하고, 종료된 이벤트를 확인하여 보상을 지급할 수 있습니다.
 
 ---
+
+### Install
 
 ```
 npm install --legacy-peer-deps
 ```
 
-## Flow
-
 ---
 
-### import caver-js & web3
-
-- npm i caver-js web3 @ethersproject/providers @web3-react/core @web3-react/injected-connector
-- Add `/src/app/modules/blockchain/*`
-
-### add favicon.ico
-
-- Add `/public/favicon.ico`
-- Add `/public/media/logos/favicon.ico`
-
-### test CustomPage
-
-- Add `/src/app/pages/AddProjectPage.tsx`
-- Add `/src/app/routing/PrivateRoutes.tsx` -> `import & <Route>`
-- Add `/src/_metronic/layout/aside/AsideMenuMain.tsx` -> `<AsideMenuItemWithSub>`
-- Add `/src/_metronic/layout/header/MenuInner.tsx` -> `<MenuInnerWithSub>`
-
-### testNFT Object
-
-- Add `/src/app/pages/AddProjectPage.tsx`
-- Add `/src/app/routing/PrivateRoutes.tsx`
-- Add `/src/layout/components/aside/AsideMenuMain.tsx`
-
-### Custom colors
-
-- Modify `src/assets/sass/core/components/_variables.scss`
-
-### Webpack config overrides
-
-- Install `npm install -D react-app-rewired`
-- Add `config-overrides.js`
-- Modify `scripts`
-
-```js
-"scripts" {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test"
-}
-```
-
-### API
-
-- Add `src/api/*`
-
-### Modify Label
-
-- `Add nft` => `NFT Management`
-- `Create Event` => `Event Management`
-
-### script: Remove source during run
-
-- Windows => `npm run winStart`
-- Linux => `npm start`
-
 [API-Link](https://github.com/Metaoneer-Club/metaoneer-kgf2-backend/tree/master/src/routes)
-[Theme-Link](https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469)
