@@ -1,4 +1,4 @@
-import {FC, useEffect, useRef, MouseEventHandler} from 'react'
+import {FC, useEffect, useRef, MouseEventHandler, useState} from 'react'
 import {KTSVG} from 'src/utils'
 import {v1} from 'uuid'
 
@@ -15,6 +15,7 @@ import {
   itemOptionState,
   resultState,
 } from 'src/components/states/eventState'
+import {ToastWidget} from '../toast/ToastWidget'
 
 interface Props {
   className?: string
@@ -48,6 +49,8 @@ const EventBasket: FC<Props> = ({
   const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
   const setResult = useSetRecoilState(resultState)
   const setEventContent = useSetRecoilState(eventContentState)
+  const [isToast, setIsToast] = useState(false)
+  const [toastContent, setToastContent] = useState('')
   const animateEventRef = useRef<HTMLDivElement | null>(null)
   const animateBtnRef = useRef<HTMLButtonElement | null>(null)
 
@@ -78,6 +81,17 @@ const EventBasket: FC<Props> = ({
     }
   }, [isContinue])
 
+  useEffect(() => {
+    let timer
+    if (isToast) {
+      timer = setTimeout(() => {
+        setIsToast(false)
+      }, 4000)
+    } else {
+      clearTimeout(timer)
+    }
+  }, [isToast])
+
   const resetHandler = () => {
     setEventBasket([])
     setResult([])
@@ -88,6 +102,10 @@ const EventBasket: FC<Props> = ({
 
   return (
     <>
+      {isToast && (
+        <ToastWidget content={toastContent} delay={3500} close={() => setIsToast(false)} />
+      )}
+
       <div className={`card ${className}`}>
         <div className='card-header border-0 pt-5'>
           <h3 className='card-title align-items-start flex-column'>
@@ -107,7 +125,8 @@ const EventBasket: FC<Props> = ({
                   value={eventTitle}
                   onChange={(e) => {
                     if (e.target.value.length > 60) {
-                      alert('Enter up to 60 words')
+                      setToastContent('Enter up to 60 words')
+                      setIsToast(true)
                       return
                     }
                     setEventTitle(e.target.value)

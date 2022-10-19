@@ -11,6 +11,7 @@ import {EventBatchAPI} from 'src/api'
 import {useRecoilState, useSetRecoilState} from 'recoil'
 import {basketState, eventContentState, eventTitleState, resultState} from '../states/eventState'
 import {CollectionTypes} from '../states/nftState'
+import {ToastWidget} from '../toast/ToastWidget'
 
 interface Props {
   nft: CollectionTypes
@@ -25,6 +26,9 @@ const Example: FC<Props> = ({nft}) => {
   const setBasketItem = useSetRecoilState(basketState)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
+  const [isToast, setIsToast] = useState(false)
+  const [isType, setIsType] = useState('primary')
+  const [toastContent, setToastContent] = useState('')
 
   useEffect(() => {
     if (contentRef.current) {
@@ -32,14 +36,29 @@ const Example: FC<Props> = ({nft}) => {
     }
   }, [eventContent])
 
+  useEffect(() => {
+    let timer
+    if (isToast) {
+      timer = setTimeout(() => {
+        setIsToast(false)
+      }, 4000)
+    } else {
+      clearTimeout(timer)
+    }
+  }, [isToast])
+
   const submitHandler = async () => {
     if (!startDate || !endDate) {
-      alert('Please select both start and end dates.')
+      setIsType('primary')
+      setToastContent('Please select both start and end dates.')
+      setIsToast(true)
       return
     }
 
     if (new Date(startDate) > new Date(endDate)) {
-      alert('The end date must be greater than the start date.')
+      setIsType('primary')
+      setToastContent('The end date must be greater than the start date.')
+      setIsToast(true)
       return
     }
 
@@ -59,7 +78,7 @@ const Example: FC<Props> = ({nft}) => {
       return true
     })
 
-    const batch = await EventBatchAPI({
+    await EventBatchAPI({
       pid: nft.id,
       title: eventTitle,
       content: eventContent,
@@ -67,12 +86,14 @@ const Example: FC<Props> = ({nft}) => {
       end_dt: new Date(endDate),
       items: submitItems,
     }).catch((err) => {
-      alert('An error occurred while generating the event.')
+      setIsType('danger')
+      setToastContent('An error occurred while generating the event.')
+      setIsToast(true)
     })
 
-    console.log(batch)
-
-    alert('Event creation has completed.')
+    setIsType('success')
+    setToastContent('Event creation has completed.')
+    setIsToast(true)
 
     setResultItem([])
     setBasketItem([])
@@ -83,6 +104,14 @@ const Example: FC<Props> = ({nft}) => {
 
   return (
     <>
+      {isToast && (
+        <ToastWidget
+          content={toastContent}
+          type={isType}
+          delay={3500}
+          close={() => setIsToast(false)}
+        />
+      )}
       <div className='card card-custom'>
         <div className='card-header'>
           <h3 className='card-title'>{nft.name}</h3>

@@ -17,6 +17,7 @@ import {
   selectedWalletState,
   authState,
 } from 'src/components/states/walletState'
+import {ToastWidget} from '../toast/ToastWidget'
 
 const Login = () => {
   const {account, chainId, active, activate} = useWeb3React()
@@ -25,6 +26,9 @@ const Login = () => {
   const [metamaskWallet, setMetamaskWallet] = useRecoilState(metamaskState)
   const [kaikasWallet, setKaikasWallet] = useRecoilState(kaikasState)
   const [selectedWallet, setSelectedWallet] = useRecoilState(selectedWalletState)
+  const [isToast, setIsToast] = useState(false)
+  const [isType, setIsType] = useState('primary')
+  const [toastContent, setToastContent] = useState('')
 
   useEffect(() => {
     const {klaytn} = window
@@ -37,6 +41,17 @@ const Login = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setKaikasWallet])
 
+  useEffect(() => {
+    let timer
+    if (isToast) {
+      timer = setTimeout(() => {
+        setIsToast(false)
+      }, 4000)
+    } else {
+      clearTimeout(timer)
+    }
+  }, [isToast])
+
   const metamaskConnectHandler = async () => {
     if (active) {
       setSelectedWallet('metamask')
@@ -46,7 +61,9 @@ const Login = () => {
     activate(injected)
       .then(async () => await loadMetamaskInfo())
       .catch((err) => {
-        alert('Metamask wallet is required.')
+        setIsType('danger')
+        setToastContent('Metamask wallet is required.')
+        setIsToast(true)
         window.open('https://metamask.io/download.html')
         return
       })
@@ -86,7 +103,9 @@ const Login = () => {
         console.log(error)
       }
     } else {
-      alert('Kaikas wallet is required.')
+      setIsType('danger')
+      setToastContent('Kaikas wallet is required.')
+      setIsToast(true)
       window.open(
         'https://chrome.google.com/webstore/detail/kaikas/jblndlipeogpafnldhgmapagcccfchpi?hl=ko'
       )
@@ -109,19 +128,23 @@ const Login = () => {
 
   const setAuthHandler = async () => {
     if (selectedWallet === 'metamask' && chainId !== (1001 || 8217)) {
-      alert('Please set the network to Klaytn Mainnet or Klaytn Baobab.')
+      setToastContent('Please set the network to Klaytn Mainnet or Klaytn Baobab.')
+      setIsToast(true)
       return
     }
 
     setLoading(true)
     if (!selectedWallet) {
-      alert('Please connect your wallet.')
+      setToastContent('Please connect your wallet.')
+      setIsToast(true)
       setLoading(false)
       return
     }
 
     const nonceAPI = await AuthNonceAPI().catch(() => {
-      alert('The signature has been cancelled.')
+      setIsType('danger')
+      setToastContent('The signature has been cancelled.')
+      setIsToast(true)
       setLoading(false)
     })
     let sign, authAPI
@@ -151,7 +174,9 @@ const Login = () => {
         console.log('KAIKAS', authAPI)
       }
     } catch (err) {
-      alert('The signature has been cancelled.')
+      setIsType('danger')
+      setToastContent('The signature has been cancelled.')
+      setIsToast(true)
       setLoading(false)
       return
     }
@@ -175,76 +200,86 @@ const Login = () => {
   }
 
   return (
-    <form className='form w-100' noValidate id='kt_login_signin_form'>
-      <div className='text-center mb-10'>
-        <h1 className='text-dark mb-3'>Sign In</h1>
-      </div>
-      <div className='text-center'>
-        {/* begin::Metamask */}
-        <button
-          type='button'
-          onClick={metamaskConnectHandler}
-          className={clsx(
-            'btn btn-flex flex-center fs-6 fs-md-5 btn-light btn-lg w-100 py-6 mb-5',
-            selectedWallet === 'metamask' && 'ribbon ribbon-end ribbon-clip'
-          )}
-        >
-          {selectedWallet === 'metamask' && (
-            <div className='ribbon-label'>
-              Selected
-              <span className='ribbon-inner bg-info' />
-            </div>
-          )}
-          <img
-            alt='Logo'
-            src={toAbsoluteUrl('/media/svg/brand-logos/metamask.svg')}
-            className='h-20px me-3'
-          />
-          {account?.replace(account.substring(6, 36), '...') || 'Continue with Metamask'}
-        </button>
-        {/* end::Metamask */}
+    <>
+      {isToast && (
+        <ToastWidget
+          content={toastContent}
+          type={isType}
+          delay={3500}
+          close={() => setIsToast(false)}
+        />
+      )}
+      <form className='form w-100' noValidate id='kt_login_signin_form'>
+        <div className='text-center mb-10'>
+          <h1 className='text-dark mb-3'>Sign In</h1>
+        </div>
+        <div className='text-center'>
+          {/* begin::Metamask */}
+          <button
+            type='button'
+            onClick={metamaskConnectHandler}
+            className={clsx(
+              'btn btn-flex flex-center fs-6 fs-md-5 btn-light btn-lg w-100 py-6 mb-5',
+              selectedWallet === 'metamask' && 'ribbon ribbon-end ribbon-clip'
+            )}
+          >
+            {selectedWallet === 'metamask' && (
+              <div className='ribbon-label'>
+                Selected
+                <span className='ribbon-inner bg-info' />
+              </div>
+            )}
+            <img
+              alt='Logo'
+              src={toAbsoluteUrl('/media/svg/brand-logos/metamask.svg')}
+              className='h-20px me-3'
+            />
+            {account?.replace(account.substring(6, 36), '...') || 'Continue with Metamask'}
+          </button>
+          {/* end::Metamask */}
 
-        {/* begin::Kaikas */}
-        <button
-          type='button'
-          onClick={kaikasConnectHandler}
-          className={clsx(
-            'btn btn-flex flex-center fs-6 fs-md-5 btn-light btn-lg w-100 py-6 mb-5',
-            selectedWallet === 'kaikas' && 'ribbon ribbon-end ribbon-clip'
-          )}
-        >
-          {selectedWallet === 'kaikas' && (
-            <div className='ribbon-label'>
-              Selected
-              <span className='ribbon-inner bg-info' />
-            </div>
-          )}
-          <img
-            alt='Logo'
-            src={toAbsoluteUrl('/media/svg/brand-logos/kaikas.svg')}
-            className='h-20px me-3'
-          />
-          {(kaikasWallet.address &&
-            kaikasWallet.address?.replace(kaikasWallet.address.substring(6, 36), '...')) ||
-            'Continue with Kaikas'}
-        </button>
-        {/* end::Kaikas */}
+          {/* begin::Kaikas */}
+          <button
+            type='button'
+            onClick={kaikasConnectHandler}
+            className={clsx(
+              'btn btn-flex flex-center fs-6 fs-md-5 btn-light btn-lg w-100 py-6 mb-5',
+              selectedWallet === 'kaikas' && 'ribbon ribbon-end ribbon-clip'
+            )}
+          >
+            {selectedWallet === 'kaikas' && (
+              <div className='ribbon-label'>
+                Selected
+                <span className='ribbon-inner bg-info' />
+              </div>
+            )}
+            <img
+              alt='Logo'
+              src={toAbsoluteUrl('/media/svg/brand-logos/kaikas.svg')}
+              className='h-20px me-3'
+            />
+            {(kaikasWallet.address &&
+              kaikasWallet.address?.replace(kaikasWallet.address.substring(6, 36), '...')) ||
+              'Continue with Kaikas'}
+          </button>
+          {/* end::Kaikas */}
 
-        <button
-          type='button'
-          onClick={setAuthHandler}
-          className='btn btn-lg btn-primary w-100 mb-5'
-          data-kt-indicator={loading && 'on'}
-          disabled={!selectedWallet || !(account || kaikasWallet.address) || loading}
-        >
-          <span className='indicator-label'>Continue</span>
-          <span className='indicator-progress'>
-            Please wait...{' '}
-            <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-          </span>
-        </button>
-      </div>
-    </form>
+          <button
+            type='button'
+            onClick={setAuthHandler}
+            className='btn btn-lg btn-primary w-100 mb-5'
+            data-kt-indicator={loading && 'on'}
+            disabled={!selectedWallet || !(account || kaikasWallet.address) || loading}
+          >
+            <span className='indicator-label'>Continue</span>
+            <span className='indicator-progress'>
+              Please wait...{' '}
+              <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+            </span>
+          </button>
+        </div>
+      </form>
+    </>
   )
 }
 

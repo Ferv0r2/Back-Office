@@ -65,4 +65,4 @@ const SNSTable: FC = () => {
   )
 }
 
-export default SNSTable
+export {SNSTable}

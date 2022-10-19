@@ -1,18 +1,20 @@
-import {FC, useEffect, useState} from 'react'
+import {FC, MouseEventHandler, useEffect, useState} from 'react'
 
 interface Props {
   content: string
   type?: string
+  delay: number
+  close: MouseEventHandler<HTMLButtonElement>
 }
 
-const ToastWidget: FC<Props> = ({content, type}) => {
+const ToastWidget: FC<Props> = ({content, type, delay, close}) => {
   const [fade, setFade] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
       setFade(false)
-    }, 1500)
-  }, [])
+    }, delay)
+  }, [delay])
 
   return (
     <div aria-live='polite' aria-atomic='true'>
@@ -23,18 +25,24 @@ const ToastWidget: FC<Props> = ({content, type}) => {
         }}
       >
         <div
-          className={`animate__animated ${
-            fade ? 'animate__fadeIn' : 'animate__fadeOut'
-          } animate__fast toast show`}
+          className={`animate__animated ${fade ? 'animate__fadeIn' : 'animate__fadeOut'} bg-${
+            type || 'primary'
+          } animate__fast show toast align-items-center text-white border-0`}
           role='alert'
           aria-live='assertive'
           aria-atomic='true'
+          data-bs-autohide='false'
         >
-          <div className='toast-header'>
-            <img src='/favicon.ico' className='rounded me-2 h-20px' alt='logo' />
-            <strong className='me-auto'>Alert</strong>
+          <div className='d-flex mx-2'>
+            <div className='toast-body fs-4'>{content}</div>
+            <button
+              type='button'
+              onClick={close}
+              className='btn-close btn-close-white me-2 m-auto'
+              data-bs-dismiss='toast'
+              aria-label='Close'
+            />
           </div>
-          <div className='toast-body'>{content}</div>
         </div>
       </div>
     </div>

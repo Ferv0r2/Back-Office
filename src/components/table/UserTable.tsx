@@ -16,7 +16,7 @@ interface Props {
   selectHandler: any
 }
 
-const HoldersTable: FC<Props> = ({
+const UserTable: FC<Props> = ({
   list,
   section,
   page,
@@ -34,7 +34,7 @@ const HoldersTable: FC<Props> = ({
           <tr className='fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200'>
             <th className='min-w-125px'>Rank</th>
             <th className='min-w-350px'>Address</th>
-            <th className='min-w-200px text-center'>Amount</th>
+            <th className='min-w-200px text-center'>Point</th>
             <th className='min-w-200px text-center'>Percentage</th>
           </tr>
         </thead>
@@ -82,4 +82,4 @@ const HoldersTable: FC<Props> = ({
   )
 }
 
-export {HoldersTable}
+export {UserTable}

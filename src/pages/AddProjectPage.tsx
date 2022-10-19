@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 
 /* API */
 import {NFTCreateAPI} from 'src/api'
@@ -8,19 +8,38 @@ import useCollection from 'src/hooks/useCollection'
 
 /* Components */
 import {NFTCard} from 'src/components/card/NFTCard'
+import {ToastWidget} from 'src/components/toast/ToastWidget'
 
 const AddProjectPage: FC = () => {
   const {isLoading, collections} = useCollection()
   const [contract, setContract] = useState('')
   const [addLoading, setAddLoading] = useState(false)
+  const [isToast, setIsToast] = useState(false)
+  const [isType, setIsType] = useState('primary')
+  const [toastContent, setToastContent] = useState('')
+
+  useEffect(() => {
+    let timer
+    if (isToast) {
+      timer = setTimeout(() => {
+        setIsToast(false)
+      }, 4000)
+    } else {
+      clearTimeout(timer)
+    }
+  }, [isToast])
 
   const addContractHandler = async () => {
     if (contract.trim().length === 0) {
-      alert('Please enter a contract.')
+      setIsType('primary')
+      setToastContent('Please enter a contract.')
+      setIsToast(true)
       setContract('')
       return
     } else if (contract.trim().slice(0, 2) !== '0x' || contract.trim().length !== 42) {
-      alert('The address is invalid. Please re-enter.')
+      setIsType('danger')
+      setToastContent('The address is invalid. Please re-enter.')
+      setIsToast(true)
       setContract('')
       return
     }
@@ -34,13 +53,18 @@ const AddProjectPage: FC = () => {
         interface: 'kip17',
       })
     } catch (err) {
-      alert('You have already registered or do not have [Owner] rights..')
+      setIsType('danger')
+      setToastContent('You have already registered or do not have [Owner] rights..')
+      setIsToast(true)
       setAddLoading(false)
       return
     }
 
     setContract('')
-    alert(`${addContractAPI.name} NFT Registration is complete.`)
+
+    setIsType('success')
+    setToastContent(`${addContractAPI.name} NFT Registration is complete.`)
+    setIsToast(true)
     setAddLoading(false)
   }
 
@@ -50,6 +74,14 @@ const AddProjectPage: FC = () => {
 
   return (
     <>
+      {isToast && (
+        <ToastWidget
+          content={toastContent}
+          type={isType}
+          delay={3500}
+          close={() => setIsToast(false)}
+        />
+      )}
       <form>
         <div className='row'>
           <div className='col-11 col-md-5 mx-auto mx-lg-0 mx-sm-8'>

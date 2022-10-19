@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import clsx from 'clsx'
@@ -13,6 +13,7 @@ import {Dropdown} from '../dropdown/Dropdown'
 /* State */
 import {CollectionTypes} from '../states/nftState'
 import {DeleteCheckModal} from '../modal/DeleteCheckModal'
+import {ToastWidget} from '../toast/ToastWidget'
 
 interface Props {
   className: string
@@ -25,6 +26,20 @@ const NFTCard: FC<Props> = ({className, nft, mode}) => {
 
   const [homepage, setHomepage] = useState('')
   const [thumbnail, setThumbnail] = useState('')
+  const [isToast, setIsToast] = useState(false)
+  const [isType, setIsType] = useState('primary')
+  const [toastContent, setToastContent] = useState('')
+
+  useEffect(() => {
+    let timer
+    if (isToast) {
+      timer = setTimeout(() => {
+        setIsToast(false)
+      }, 4000)
+    } else {
+      clearTimeout(timer)
+    }
+  }, [isToast])
 
   const editHandler = async () => {
     await NFTModifyAPI({
@@ -33,9 +48,15 @@ const NFTCard: FC<Props> = ({className, nft, mode}) => {
       thumbnail: thumbnail,
     })
       .then((res) => {
-        alert('The change has been completed.')
+        setIsType('success')
+        setToastContent('The change has been completed.')
+        setIsToast(true)
       })
-      .catch((err) => alert('An error occurred while processing.'))
+      .catch((err) => {
+        setIsType('danger')
+        setToastContent('An error occurred while processing.')
+        setIsToast(true)
+      })
 
     setThumbnail('')
     setHomepage('')
@@ -44,9 +65,15 @@ const NFTCard: FC<Props> = ({className, nft, mode}) => {
   const deleteHandler = async () => {
     await NFTDeleteAPI(nft.id)
       .then((res) => {
-        alert('Deletion completed successfully.')
+        setIsType('success')
+        setToastContent('Deletion completed successfully.')
+        setIsToast(true)
       })
-      .catch((err) => alert('An error occurred while processing.'))
+      .catch((err) => {
+        setIsType('danger')
+        setToastContent('An error occurred while processing.')
+        setIsToast(true)
+      })
   }
 
   const getThumbnailHandler = (e: any) => {
@@ -59,6 +86,14 @@ const NFTCard: FC<Props> = ({className, nft, mode}) => {
 
   return (
     <>
+      {isToast && (
+        <ToastWidget
+          content={toastContent}
+          type={isType}
+          delay={3500}
+          close={() => setIsToast(false)}
+        />
+      )}
       <DeleteCheckModal deleteHandler={deleteHandler} />
       <div className={clsx(`card card-custom shadow py-3 ${className}`, mode && 'fs-5 ps-8 pt-10')}>
         <div

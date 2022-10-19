@@ -22,8 +22,9 @@ const EventDetailPage: FC = () => {
   }, [copied])
 
   return (
-    <div className='row'>
-      <div className='col-lg-5 col-11 mx-auto py-4'>
+    <div className='row py-4'>
+      <div className='col-lg-5 col-11 mx-lg-0 mx-auto'></div>
+      <div className='col-lg-5 col-11 mx-lg-0 mx-auto'>
         <EventUser event={state.event} />
         <div className='card mt-8'>
           <div className='card-body w-100'>

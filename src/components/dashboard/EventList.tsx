@@ -62,8 +62,9 @@ const EventList: React.FC<Props> = ({className, title}) => {
         </div>
       </div>
       <div className='card-body pt-4'>
-        {isLoading && <p className='fs-5'>Loading...</p>}
-        {!isLoading && statusList?.length !== 0 ? (
+        {isLoading ? (
+          <p className='fs-5'>Loading...</p>
+        ) : statusList?.length !== 0 ? (
           statusList
             ?.slice(0, 5)
             .map((event: Event, index) => (

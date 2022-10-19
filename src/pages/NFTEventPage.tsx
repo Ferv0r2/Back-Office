@@ -10,6 +10,7 @@ import useEvent from 'src/hooks/useEvent'
 /* State */
 import {Event} from 'src/components/states/eventState'
 import {CollectionTypes} from 'src/components/states/nftState'
+import {Empty} from 'src/components/empty/Empty'
 interface Props {
   nft: CollectionTypes
 }
@@ -83,7 +84,7 @@ const NFTEventPage: FC<Props> = ({nft}) => {
             </div>
           ))
         ) : (
-          <p className='fs-5'>Event is empty</p>
+          <Empty>Event is empty.</Empty>
         )}
       </div>
     </>
