@@ -21,12 +21,7 @@ const EventItem: React.FC<Props> = ({eventItem, isType, index}) => {
   const nft = collections.filter((item) => (item.id === eventItem.project_id ? item : ''))[0]
 
   const moveHandler = (e: any) => {
-    navigate(`/nft/${nft.contract}/event/${eventItem.id}`, {
-      state: {
-        event: eventItem,
-        nft: nft,
-      },
-    })
+    navigate(`/nft/${nft.contract}/event/${eventItem.id}`)
   }
 
   const color = ['success', 'warning', 'primary', 'danger']

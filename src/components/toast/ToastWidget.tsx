@@ -17,32 +17,32 @@ const ToastWidget: FC<Props> = ({content, type, delay, close}) => {
   }, [delay])
 
   return (
-    <div aria-live='polite' aria-atomic='true'>
+    <div
+      className='toast-container position-fixed start-50 translate-middle-x'
+      aria-live='polite'
+      aria-atomic='true'
+      style={{
+        zIndex: 1099,
+      }}
+    >
       <div
-        className='position-fixed start-50 translate-middle-x p-4'
-        style={{
-          top: '60px',
-        }}
+        className={`animate__animated ${fade ? 'animate__fadeIn' : 'animate__fadeOut'} bg-${
+          type || 'primary'
+        } animate__fast show toast align-items-center text-white border-0`}
+        role='alert'
+        aria-live='assertive'
+        aria-atomic='true'
+        data-bs-autohide='false'
       >
-        <div
-          className={`animate__animated ${fade ? 'animate__fadeIn' : 'animate__fadeOut'} bg-${
-            type || 'primary'
-          } animate__fast show toast align-items-center text-white border-0`}
-          role='alert'
-          aria-live='assertive'
-          aria-atomic='true'
-          data-bs-autohide='false'
-        >
-          <div className='d-flex mx-2'>
-            <div className='toast-body fs-4'>{content}</div>
-            <button
-              type='button'
-              onClick={close}
-              className='btn-close btn-close-white me-2 m-auto'
-              data-bs-dismiss='toast'
-              aria-label='Close'
-            />
-          </div>
+        <div className='d-flex mx-2'>
+          <div className='toast-body fs-4'>{content}</div>
+          <button
+            type='button'
+            onClick={close}
+            className='btn-close btn-close-white me-2 m-auto'
+            data-bs-dismiss='toast'
+            aria-label='Close'
+          />
         </div>
       </div>
     </div>

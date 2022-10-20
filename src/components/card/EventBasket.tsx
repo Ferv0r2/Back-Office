@@ -16,8 +16,10 @@ import {
   resultState,
 } from 'src/components/states/eventState'
 import {ToastWidget} from '../toast/ToastWidget'
+import {CollectionTypes} from '../states/nftState'
 
 interface Props {
+  nft: CollectionTypes
   className?: string
   isReady: boolean
   isContinue: boolean
@@ -29,15 +31,18 @@ interface Props {
 export const setColor = (sns: string) => {
   if (sns === 'Facebook' || sns === 'Twitter') {
     return 'primary'
-  } else if (sns === 'Instagram' || sns === 'Discord') {
+  } else if (sns === 'Instagram' || sns === 'Discord' || sns === 'NFT') {
     return 'info'
-  } else {
+  } else if (sns === 'Youtube') {
     return 'danger'
+  } else {
+    return 'dark'
   }
 }
 
 const EventBasket: FC<Props> = ({
   className,
+  nft,
   isReady,
   isContinue,
   isAnimate,
@@ -209,7 +214,13 @@ const EventBasket: FC<Props> = ({
                         data-bs-parent='#basket_accordion'
                       >
                         <div className='accordion-body'>
-                          <InputWidget id={`i${key}`} sns={event.sns} option={optionMap.get(i)} />
+                          <InputWidget
+                            id={`i${key}`}
+                            sns={event.sns}
+                            option={optionMap.get(i)}
+                            contract={nft.contract}
+                            chain_id={nft.chain_id}
+                          />
                         </div>
                       </div>
                     ) : (

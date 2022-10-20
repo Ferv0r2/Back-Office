@@ -12,6 +12,7 @@ export interface CollectionTypes {
   homepage?: string
   thumbnail?: string
   eventCount?: number
+  chain_id: number
 }
 
 const collectionState = atom<CollectionTypes[]>({

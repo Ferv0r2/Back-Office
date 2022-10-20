@@ -1,53 +1,29 @@
-import {useEffect, useState} from 'react'
-import {toAbsoluteUrl} from 'src/utils'
+import {FC} from 'react'
+import {useParams} from 'react-router-dom'
+import {useQuery} from 'react-query'
+
+/* API */
+import {UserEventDetailAPI} from 'src/api'
 
 /* Components */
 import {EventUser} from 'src/components/item/EventUser'
-import {EventDetailAPI} from 'src/api'
-import {useParams} from 'react-router-dom'
 
-const UserPage = () => {
+const UserPage: FC = () => {
   const params = useParams()
-  const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    setIsLoading(true)
-    const getEvent = async () => {
-      const res = await EventDetailAPI({
-        pid: Number(params.pid),
-        eid: Number(params.eid),
-      })
-      console.log(res)
-    }
-    getEvent()
-  }, [])
+  const {isLoading, data} = useQuery(['UserEvent'], async () => {
+    const res = await UserEventDetailAPI(Number(params.eid))
+    return res
+  })
 
   return (
     <div className='d-flex flex-column flex-column-fluid'>
-      <div className='d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20'>
-        <div className='d-flex mb-12 align-items-center'>
-          <img alt='Logo' src={toAbsoluteUrl('/media/logos/favicon.ico')} className='h-45px' />
-          <h2 className='display-6 m-3'>METAONEER</h2>
-          {/* {!isLoading && <EventUser />} */}
-        </div>
+      <div className='d-flex mx-auto mt-12 align-items-center'>
+        <img alt='Logo' src='/media/logos/favicon.ico' className='h-45px' />
+        <h2 className='display-6 m-3'>METAONEER</h2>
       </div>
-      {/* begin::Footer */}
-      <div className='d-flex flex-center flex-column-auto p-10'>
-        <div className='d-flex align-items-center fw-bold fs-6'>
-          <a href='/' className='text-muted text-hover-primary px-2'>
-            About
-          </a>
-
-          <a href='/' className='text-muted text-hover-primary px-2'>
-            Contact
-          </a>
-
-          <a href='/' className='text-muted text-hover-primary px-2'>
-            Contact Us
-          </a>
-        </div>
+      <div className='row d-flex flex-center flex-column flex-column-fluid py-10 pb-lg-20'>
+        <div className='w-lg-500px col-11'>{!isLoading && <EventUser event={data} />}</div>
       </div>
-      {/* end::Footer */}
     </div>
   )
 }

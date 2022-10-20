@@ -8,18 +8,23 @@ interface Props {
   id: string
   sns: string
   option: string
+  contract: string
+  chain_id: number
 }
 
-const InputWidget: FC<Props> = ({id, sns, option}) => {
+const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
   const [isResult, setResult] = useRecoilState(resultState)
   const [isConfirm, setIsConfirm] = useState(false)
   const [inputs, setInputs] = useState({
     id: id,
     title: sns,
     content: '',
-    type: option,
+    type: sns === 'ETC' ? 'link' : `${sns}.${option === 'Join' ? 'invite' : option}`,
     metadata: {
       url: '',
+      count: 0,
+      contract: contract,
+      chain_id: chain_id,
     },
     point: 1,
   })
@@ -35,13 +40,26 @@ const InputWidget: FC<Props> = ({id, sns, option}) => {
     })
   }
 
-  const onChangeMetadata = (e: any) => {
+  const onChangeLink = (e: any) => {
     const {name, value} = e.target
 
     setInputs({
       ...inputs,
       [name]: {
         url: value,
+      },
+    })
+  }
+
+  const onChangeCount = (e: any) => {
+    const {name, value} = e.target
+
+    setInputs({
+      ...inputs,
+      [name]: {
+        count: value,
+        contract: contract,
+        chain_id: chain_id,
       },
     })
   }
@@ -56,6 +74,16 @@ const InputWidget: FC<Props> = ({id, sns, option}) => {
     setIsConfirm(false)
   }
 
+  const exampleURL = () => {
+    if (sns === 'Facebook') return 'https://facebook.com/klaytn.official'
+    if (sns === 'Instagram') return 'https://instagram.com/p/Ca7SYYHpgLu/'
+    if (sns === 'Twitter') return 'https://twitter.com/klaytn_official/status/1574900715381825539'
+    if (sns === 'Youtube') return 'https://youtube.com/c/Klaytn_official'
+    if (sns === 'Discord')
+      return 'https://discord.com/channels/937571529087152189/952307109339463730'
+    if (sns === 'ETC') return 'https://example.com'
+  }
+
   return (
     <>
       <div className='pb-4'>
@@ -68,15 +96,27 @@ const InputWidget: FC<Props> = ({id, sns, option}) => {
           placeholder={`${option} on @metaoneer`}
         />
       </div>
-      {option === 'Link' && (
+      {option === 'Hold' ? (
+        <div className='pb-4'>
+          <label className='form-label px-2'>Count</label>
+          <input
+            type='number'
+            className='form-control'
+            name='metadata'
+            defaultValue={metadata.count}
+            onChange={onChangeCount}
+            placeholder='5'
+          />
+        </div>
+      ) : (
         <div className='pb-4'>
           <label className='form-label px-2'>Link</label>
           <input
             className='form-control'
             name='metadata'
             defaultValue={metadata.url}
-            onChange={onChangeMetadata}
-            placeholder='https://example.com'
+            onChange={onChangeLink}
+            placeholder={exampleURL()}
           />
         </div>
       )}

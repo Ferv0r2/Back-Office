@@ -12,7 +12,10 @@ export * from 'src/api/event/EventModifyAPI'
 export * from 'src/api/event/EventDeleteAPI'
 export * from 'src/api/event/EventDetailAPI'
 export * from 'src/api/event/EventJoinAPI'
+export * from 'src/api/event/EventCheckAPI'
 export * from 'src/api/event/EventBatchAPI'
+export * from 'src/api/event/EventStatusAPI'
+export * from 'src/api/event/UserEventDetailAPI'
 
 /* Event Item */
 export * from 'src/api/eventItem/EventItemCreateAPI'

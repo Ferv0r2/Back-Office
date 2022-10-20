@@ -78,7 +78,7 @@ const EventCreatePage: FC = () => {
                     >
                       {collections.map((nft, index) => (
                         <option key={nft.contract} value={index}>
-                          {nft.name}
+                          {nft.name} ({nft.contract.replace(nft.contract.substring(6, 36), '...')})
                         </option>
                       ))}
                     </select>
@@ -134,6 +134,7 @@ const EventCreatePage: FC = () => {
           } ${isAnimate && window.innerWidth < 992 && 'animate__animated animate__fadeOutUp'}`}
         >
           <EventBasket
+            nft={collections[Number(currentNFTIndex)]}
             isReady={isReady}
             isContinue={isContinue}
             isAnimate={isAnimate}

@@ -16,11 +16,7 @@ const EventCard: FC<Props> = ({event, nft}) => {
   const navigate = useNavigate()
 
   const moveHandler = (e: any) => {
-    navigate(`/nft/${nft.contract}/event/${event.id}`, {
-      state: {
-        event: event,
-      },
-    })
+    navigate(`/nft/${nft.contract}/event/${event.id}`)
   }
 
   const setType = () => {

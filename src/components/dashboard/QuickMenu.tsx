@@ -61,7 +61,7 @@ const QuickMenu: React.FC<Props> = ({className, balance}) => {
             </button>
             <button
               type='button'
-              onClick={() => navigate('/dashboard')}
+              onClick={() => window.open(process.env.REACT_APP_DOCS_URL)}
               className='col btn btn-light-success btn-color-success px-6 py-8 rounded-2 m-2'
             >
               <KTSVG

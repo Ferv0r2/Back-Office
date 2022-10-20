@@ -29,7 +29,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'f1',
+                id: 'e1',
                 sns: 'Facebook',
                 options: ['Link'],
               },
@@ -57,7 +57,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'f2',
+                id: 'e2',
                 sns: 'Instagram',
                 options: ['Link'],
               },
@@ -85,9 +85,9 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'f3',
+                id: 'e3',
                 sns: 'Twitter',
-                options: ['Like', 'Follow', 'Retweet'],
+                options: ['Link'],
               },
             ])
           }}
@@ -103,7 +103,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
           </div>
           <div className='d-flex flex-column'>
             <span className='text-dark text-hover-primary fs-6 fw-bold'>Twitter</span>
-            <span className='text-muted fw-semibold'>Like, Follow, Retweet</span>
+            <span className='text-muted fw-semibold'>Link</span>
           </div>
         </div>
         {/* end::Twitter */}
@@ -113,7 +113,7 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'f4',
+                id: 'e4',
                 sns: 'Youtube',
                 options: ['Link'],
               },
@@ -141,9 +141,9 @@ const EventMenu: React.FC<Props> = ({className}) => {
             setBasketItems([
               ...basketItems,
               {
-                id: 'f5',
+                id: 'e5',
                 sns: 'Discord',
-                options: ['Check holder', 'Role'],
+                options: ['Link', 'Join'],
               },
             ])
           }}
@@ -159,10 +159,60 @@ const EventMenu: React.FC<Props> = ({className}) => {
           </div>
           <div className='d-flex flex-column'>
             <span className='text-dark text-hover-info fs-6 fw-bold'>Discord</span>
-            <span className='text-muted fw-semibold'>Check holder, Role</span>
+            <span className='text-muted fw-semibold'>Link, Join</span>
           </div>
         </div>
         {/* end::Discord */}
+        {/* begin::NFT */}
+        <div
+          onClick={() => {
+            setBasketItems([
+              ...basketItems,
+              {
+                id: 'e6',
+                sns: 'NFT',
+                options: ['Hold'],
+              },
+            ])
+          }}
+          className='d-flex align-items-center mb-4 cursor-pointer px-4 py-2 bg-hover-light-info rounded'
+        >
+          <div className='symbol symbol-50px me-5'>
+            <span className='symbol-label bg-light-info'>
+              <KTSVG path='/media/svg/social-logos/nft.svg' className='svg-icon-2x svg-icon-info' />
+            </span>
+          </div>
+          <div className='d-flex flex-column'>
+            <span className='text-dark text-hover-info fs-6 fw-bold'>NFT</span>
+            <span className='text-muted fw-semibold'>Hold</span>
+          </div>
+        </div>
+        {/* end::NFT */}
+        {/* begin::ETC */}
+        <div
+          onClick={() => {
+            setBasketItems([
+              ...basketItems,
+              {
+                id: 'e7',
+                sns: 'ETC',
+                options: ['Link'],
+              },
+            ])
+          }}
+          className='d-flex align-items-center mb-4 cursor-pointer px-4 py-2 bg-hover-light-info rounded'
+        >
+          <div className='symbol symbol-50px me-5'>
+            <span className='symbol-label bg-light-dark'>
+              <KTSVG path='/media/svg/social-logos/etc.svg' className='svg-icon-2x svg-icon-dark' />
+            </span>
+          </div>
+          <div className='d-flex flex-column'>
+            <span className='text-dark text-hover-info fs-6 fw-bold'>ETC</span>
+            <span className='text-muted fw-semibold'>Link</span>
+          </div>
+        </div>
+        {/* end::ETC */}
       </div>
     </div>
   )

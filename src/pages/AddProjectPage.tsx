@@ -48,7 +48,7 @@ const AddProjectPage: FC = () => {
     let addContractAPI
     try {
       addContractAPI = await NFTCreateAPI({
-        chain_id: 8217,
+        chain_id: Number(sessionStorage.getItem('WALLET_NETWORK')),
         contract: contract,
         interface: 'kip17',
       })

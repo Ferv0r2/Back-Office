@@ -76,7 +76,7 @@ const NFTEventPage: FC<Props> = ({nft}) => {
       </div>
       <div className='row g-8'>
         {isLoading ? (
-          <p className='fs-5'>Loading...</p>
+          <Empty>Loading...</Empty>
         ) : currentEvent?.length !== 0 ? (
           currentEvent?.map((event: Event) => (
             <div key={event.id} className='col-lg-4 col-10 mx-lg-0 mx-auto'>

@@ -13,6 +13,7 @@ interface ResultItem {
   content: string
   type: string
   point: number
+  metadata?: any
 }
 
 export interface Event {
@@ -24,6 +25,8 @@ export interface Event {
   start_dt: Date
   end_dt: Date
   event_item: any
+  user_point?: number
+  total_point?: number
 }
 
 const basketState = atom<EventItem[]>({

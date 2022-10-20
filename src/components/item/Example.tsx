@@ -71,7 +71,10 @@ const Example: FC<Props> = ({nft}) => {
         type: item.type,
         point: item.point,
         metadata: {
-          url: 'http://metaoneer.club',
+          url: item.metadata.url,
+          count: item.metadata.count,
+          contract: item.metadata.contract,
+          chain_id: item.metadata.chain_id,
         },
       }
       submitItems.push(itemData)
@@ -99,7 +102,9 @@ const Example: FC<Props> = ({nft}) => {
     setBasketItem([])
     setEventTitle('')
     setEventContent('')
-    navigate('/dashboard')
+    setTimeout(() => {
+      navigate('/dashboard')
+    }, 3000)
   }
 
   return (
@@ -108,13 +113,18 @@ const Example: FC<Props> = ({nft}) => {
         <ToastWidget
           content={toastContent}
           type={isType}
-          delay={3500}
+          delay={2500}
           close={() => setIsToast(false)}
         />
       )}
       <div className='card card-custom'>
         <div className='card-header'>
-          <h3 className='card-title'>{nft.name}</h3>
+          <h3 className='card-title align-items-start flex-column'>
+            <span className='card-label fw-bold text-dark'>{nft.name}</span>
+            <span className='text-muted mt-1 fw-semibold fs-7'>
+              {nft.contract.replace(nft.contract.substring(6, 36), '...')}
+            </span>
+          </h3>
           <div className='card-toolbar'>
             <button type='button' className='btn btn-sm btn-light'>
               Connect Wallet
@@ -123,8 +133,10 @@ const Example: FC<Props> = ({nft}) => {
         </div>
         <div className='d-flex border-bottom align-items-center text-center h-100px'>
           <div className='col-4 h-100 border-end'>
-            <div className='fs-1 fw-bold pb-2 mt-6'>0 / {resultItem?.length || 0}</div>
-            <div className='text-muted'>Your Entries</div>
+            <div className='fs-1 fw-bold pb-2 mt-6'>
+              0 / {resultItem?.map((v) => v.point).reduce((a, b) => Number(a) + Number(b), 0) || 0}
+            </div>
+            <div className='text-muted'>Your Score</div>
           </div>
           <div className='col-4 h-100 border-end'>
             <div className='fs-1 fw-bold pb-2 mt-6'>0</div>
@@ -161,7 +173,7 @@ const Example: FC<Props> = ({nft}) => {
               maxHeight: '300px',
             }}
           />
-          <div className='card-body mx-1 p-0 min-h-100px'>
+          <div className='card-body p-0 min-h-100px'>
             {resultItem.length > 0 &&
               resultItem.map((item, index) => (
                 <div
@@ -172,7 +184,7 @@ const Example: FC<Props> = ({nft}) => {
                 >
                   <KTSVG
                     path={`/media/svg/social-logos/${item.title}.svg`}
-                    className={`svg-icon-2x svg-icon-${setColor(item.title)}`}
+                    className={`ms-2 svg-icon-2x svg-icon-${setColor(item.title)}`}
                   />
                   <div className='text-wrap w-75 px-4'>{item.content || 'Example Content'}</div>
                   <div className='d-flex justify-content-center'>
