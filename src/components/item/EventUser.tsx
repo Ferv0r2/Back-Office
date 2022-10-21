@@ -1,6 +1,5 @@
 import axios from 'axios'
-import {FC, useEffect, useRef, useState} from 'react'
-import {useQuery} from 'react-query'
+import {FC, useEffect, useState} from 'react'
 import {EventCheckAPI, EventJoinAPI, EventStatusAPI, NFTDetailAPI} from 'src/api'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../card/EventBasket'
@@ -16,37 +15,25 @@ interface Props {
 }
 
 const EventUser: FC<Props> = ({event}) => {
-  const {isLoading, data} = useQuery(['EventJoin'], async () => {
-    const res = await EventStatusAPI({
-      pid: event.project_id,
-      eid: event.id,
-    })
-    return res
-  })
-  const contentRef = useRef<HTMLDivElement>(null)
   const [nft, setNFT] = useState({
     name: '',
     contract: '',
   })
-  const [eventCheck, setEventCheck] = useState([])
+  const [userArray, setUserArray] = useState([])
   const [currentAccount, setAccount] = useState('')
   const [token, setToken] = useState('')
-  const [isLoadingNFT, setIsLoadingNFT] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isToast, setIsToast] = useState(false)
   const [isType, setIsType] = useState('primary')
   const [toastContent, setToastContent] = useState('')
 
   useEffect(() => {
-    setIsLoadingNFT(true)
-    if (contentRef.current) {
-      contentRef.current.innerHTML = event.content
-    }
-
+    setIsLoading(true)
     const getData = async () => {
       const detail = await NFTDetailAPI(event.project_id)
       setNFT(detail)
-      setIsLoadingNFT(false)
+      setIsLoading(false)
     }
 
     getData()
@@ -59,8 +46,12 @@ const EventUser: FC<Props> = ({event}) => {
       }
 
       const getData = async () => {
-        const res = await EventCheckAPI(event.id)
-        setEventCheck(res)
+        const res = await EventStatusAPI({
+          pid: event.project_id,
+          eid: event.id,
+        })
+        const tmp = res.sort((a: any, b: any) => b.point - a.point)
+        setUserArray(tmp)
       }
       getData()
     }
@@ -114,10 +105,10 @@ const EventUser: FC<Props> = ({event}) => {
           <div className='card-header'>
             <h3 className='card-title align-items-start flex-column'>
               <span className='card-label fw-bold text-dark'>
-                {!isLoadingNFT ? nft.name : 'Loading...'}
+                {!isLoading ? nft.name : 'Loading...'}
               </span>
               <span className='text-muted mt-1 fw-semibold fs-7'>
-                {!isLoadingNFT && nft.contract.replace(nft.contract.substring(6, 36), '...')}
+                {!isLoading && nft.contract.replace(nft.contract.substring(6, 36), '...')}
               </span>
             </h3>
             <div className='card-toolbar'>
@@ -150,7 +141,7 @@ const EventUser: FC<Props> = ({event}) => {
               <div className='text-muted'>Your Score</div>
             </div>
             <div className='col-4 border-end h-100'>
-              <div className='fs-1 fw-bold pb-2 mt-6'>{data?.length}</div>
+              <div className='fs-1 fw-bold pb-2 mt-6'>{userArray?.length}</div>
               <div className='text-muted'>All Participants</div>
             </div>
             <div className='col-4 h-100'>
@@ -190,12 +181,12 @@ const EventUser: FC<Props> = ({event}) => {
               <h2 className='mb-0'>{event.title}</h2>
             </div>
             <div
-              ref={contentRef}
+              dangerouslySetInnerHTML={{__html: event.content}}
               className='ql w-100 border-bottom p-8 text-break min-h-200px overflow-auto'
               style={{
                 maxHeight: '300px',
               }}
-            ></div>
+            />
             <div className='card-body p-0 min-h-100px'>
               {event.event_item.length > 0 &&
                 event.event_item.map((item: any, index: number) => (

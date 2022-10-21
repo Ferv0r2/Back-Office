@@ -5,7 +5,7 @@ import {NFTListAPI} from 'src/api'
 import {collectionState} from 'src/components/states/nftState'
 
 const useCollection = () => {
-  const {isLoading, data} = useQuery(['NFTList'], async () => {
+  const {isLoading, data, refetch} = useQuery(['NFTList'], async () => {
     const res = await NFTListAPI()
     return res
   })
@@ -15,7 +15,7 @@ const useCollection = () => {
     setCollections(data)
   }, [data, setCollections])
 
-  return {isLoading, collections}
+  return {isLoading, collections, refetch}
 }
 
 export default useCollection

@@ -14,6 +14,7 @@ import {Dropdown} from '../dropdown/Dropdown'
 import {CollectionTypes} from '../states/nftState'
 import {DeleteCheckModal} from '../modal/DeleteCheckModal'
 import {ToastWidget} from '../toast/ToastWidget'
+import useCollection from 'src/hooks/useCollection'
 
 interface Props {
   className: string
@@ -23,6 +24,7 @@ interface Props {
 
 const NFTCard: FC<Props> = ({className, nft, mode}) => {
   const navigate = useNavigate()
+  const {refetch} = useCollection()
 
   const [homepage, setHomepage] = useState('')
   const [thumbnail, setThumbnail] = useState('')
@@ -60,6 +62,7 @@ const NFTCard: FC<Props> = ({className, nft, mode}) => {
 
     setThumbnail('')
     setHomepage('')
+    refetch()
   }
 
   const deleteHandler = async () => {
@@ -74,6 +77,7 @@ const NFTCard: FC<Props> = ({className, nft, mode}) => {
         setToastContent('An error occurred while processing.')
         setIsToast(true)
       })
+    refetch()
   }
 
   const getThumbnailHandler = (e: any) => {

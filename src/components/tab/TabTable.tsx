@@ -116,7 +116,7 @@ const TabTable: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
               Holders
             </a>
           </li>
-          <li className='nav-item'>
+          {/* <li className='nav-item'>
             <a
               onClick={() => setCurrentTab(1)}
               className='nav-link'
@@ -125,7 +125,7 @@ const TabTable: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
             >
               SNS
             </a>
-          </li>
+          </li> */}
         </ul>
         <div className='tab-content' id='myTabContent'>
           <div className='tab-pane fade active show' id='holders' role='tabpanel'>

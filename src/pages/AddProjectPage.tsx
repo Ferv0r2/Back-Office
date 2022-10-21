@@ -9,9 +9,8 @@ import useCollection from 'src/hooks/useCollection'
 /* Components */
 import {NFTCard} from 'src/components/card/NFTCard'
 import {ToastWidget} from 'src/components/toast/ToastWidget'
-
 const AddProjectPage: FC = () => {
-  const {isLoading, collections} = useCollection()
+  const {isLoading, collections, refetch} = useCollection()
   const [contract, setContract] = useState('')
   const [addLoading, setAddLoading] = useState(false)
   const [isToast, setIsToast] = useState(false)
@@ -62,6 +61,7 @@ const AddProjectPage: FC = () => {
 
     setContract('')
 
+    refetch()
     setIsType('success')
     setToastContent(`${addContractAPI.name} NFT Registration is complete.`)
     setIsToast(true)

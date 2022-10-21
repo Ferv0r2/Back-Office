@@ -21,7 +21,7 @@ const UserPage: FC = () => {
         <img alt='Logo' src='/media/logos/favicon.ico' className='h-45px' />
         <h2 className='display-6 m-3'>METAONEER</h2>
       </div>
-      <div className='row d-flex flex-center flex-column flex-column-fluid py-10 pb-lg-20'>
+      <div className='row m-0 d-flex flex-center flex-column flex-column-fluid py-10 pb-lg-20'>
         <div className='w-lg-500px col-11'>{!isLoading && <EventUser event={data} />}</div>
       </div>
     </div>
