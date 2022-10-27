@@ -76,6 +76,31 @@ const EventUser: FC<Props> = ({event}) => {
     }
   }
 
+  const eventItemHandler = (id: number) => {
+    if (!token) {
+      setIsType('danger')
+      setToastContent('Please connect your wallet first.')
+      setIsToast(true)
+      return
+    }
+
+    if (Number(new Date()) > Number(new Date(event.end_dt))) {
+      setIsType('danger')
+      setToastContent('This event has ended.')
+      setIsToast(true)
+      return
+    }
+
+    if (Number(new Date()) < Number(new Date(event.start_dt))) {
+      setIsType('danger')
+      setToastContent('This event has not started.')
+      setIsToast(true)
+      return
+    }
+
+    joinEventItemHandler(id)
+  }
+
   return (
     <>
       {isToast && (
@@ -192,17 +217,13 @@ const EventUser: FC<Props> = ({event}) => {
                 event.event_item.map((item: any, index: number) => (
                   <div
                     key={item.id}
-                    onClick={() => {
-                      if (token) {
-                        joinEventItemHandler(item.id)
-                      } else {
-                        setIsType('danger')
-                        setToastContent('Please connect your wallet first.')
-                        setIsToast(true)
-                      }
-                    }}
+                    onClick={() => eventItemHandler(item.id)}
                     className={`d-flex ${
-                      token ? 'cursor-pointer' : 'overlay overlay-block'
+                      token &&
+                      Number(new Date()) < Number(new Date(event.end_dt)) &&
+                      Number(new Date()) > Number(new Date(event.start_dt))
+                        ? 'cursor-pointer'
+                        : 'overlay overlay-block'
                     } px-6 py-4 align-items-center justify-content-between ${
                       index !== event.event_item.length - 1 && 'border-bottom'
                     } ${item.is_success && `bg-light-${setColor(item.title)}`}`}

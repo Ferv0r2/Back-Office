@@ -80,11 +80,7 @@ export function AsideMenuMain() {
       </div>
 
       <div className='menu-item'>
-        <a
-          target='_blank'
-          className='menu-link'
-          href={process.env.REACT_APP_DOCS_URL + '/docs/changelog'}
-        >
+        <a target='_blank' className='menu-link' href={process.env.REACT_APP_DOCS_URL}>
           <span className='menu-icon'>
             <KTSVG path='/media/icons/paper.svg' className='svg-icon-2' />
           </span>
