@@ -4,6 +4,8 @@ export * from 'src/api/all/AllinOneAPI'
 /* Auth */
 export * from 'src/api/auth/AuthNonceAPI'
 export * from 'src/api/auth/AuthTokenAPI'
+export * from 'src/api/auth/AuthUserAPI'
+export * from 'src/api/auth/AuthDiscordAPI'
 
 /* Event */
 export * from 'src/api/event/EventListAPI'

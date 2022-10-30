@@ -53,6 +53,7 @@ const EventBasket: FC<Props> = ({
   const [eventBasket, setEventBasket] = useRecoilState(basketState)
   const [optionMap, setOptionMap] = useRecoilState(itemOptionState)
   const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
+  const [accIndex, setAccIndex] = useState(-1)
   const setIsInput = useSetRecoilState(inputState)
   const setResult = useSetRecoilState(resultState)
   const setEventContent = useSetRecoilState(eventContentState)
@@ -111,6 +112,7 @@ const EventBasket: FC<Props> = ({
     setResult([])
     setEventTitle('')
     setEventContent('')
+    setAccIndex(-1)
     setOptionMap(new Map())
     setIsInput(new Map())
   }
@@ -189,7 +191,7 @@ const EventBasket: FC<Props> = ({
                           <div className='symbol symbol-50px me-5'>
                             <span className={`symbol-label bg-light-${setColor(event.sns)}`}>
                               <KTSVG
-                                path={`/media/svg/social-logos/${event.sns}.svg`}
+                                path={`/media/svg/social-logos/${event.sns.toLowerCase()}.svg`}
                                 className={`svg-icon-2x svg-icon-${setColor(event.sns)}`}
                               />
                             </span>
@@ -202,7 +204,7 @@ const EventBasket: FC<Props> = ({
                           <div className='symbol symbol-50px me-5'>
                             <span className={`symbol-label bg-light-${setColor(event.sns)}`}>
                               <KTSVG
-                                path={`/media/svg/social-logos/${event.sns}.svg`}
+                                path={`/media/svg/social-logos/${event.sns.toLowerCase()}.svg`}
                                 className={`svg-icon-2x svg-icon-${setColor(event.sns)}`}
                               />
                             </span>
@@ -219,9 +221,10 @@ const EventBasket: FC<Props> = ({
                     {isContinue ? (
                       <div
                         id={`body_${key}`}
-                        className='accordion-collapse collapse'
+                        className={`accordion-collapse collapse ${i === accIndex && 'show'}`}
                         aria-labelledby={`header_${String(key)}`}
                         data-bs-parent='#basket_accordion'
+                        onClick={() => setAccIndex(i)}
                       >
                         <div className='accordion-body'>
                           <InputWidget

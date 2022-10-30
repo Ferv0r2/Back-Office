@@ -48,12 +48,19 @@ const EventDetailPage: FC = () => {
   if (isLoading) return <Empty>Loading...</Empty>
 
   return (
-    <div className='row py-4'>
+    <div className='row py-4 gy-10'>
       <div className='col-lg-6 col-11 mx-lg-0 mx-auto'>
-        <div className='table-responsive rounded shadow bg-semiwhite min-h-400px'>
-          <div className='px-8 pt-8 fs-2 fw-bold'>Event Participants</div>
-          <div className='separator my-8' />
-          <UserTable list={userArray} total_point={data.total_point} />
+        <div className='card card-custom shadow bg-semiwhite'>
+          <div className='card-header'>
+            <h3 className='card-title'>
+              <span>Event Participants</span>
+            </h3>
+          </div>
+          <div className='card-body p-0'>
+            <div className='table-responsive rounded shadow bg-semiwhite h-600px overflow-auto'>
+              <UserTable list={userArray} total_point={data.total_point} />
+            </div>
+          </div>
         </div>
       </div>
       <div className='col-lg-5 col-11 mx-auto'>

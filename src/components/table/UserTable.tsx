@@ -1,5 +1,4 @@
-import {FC, MouseEventHandler} from 'react'
-import {v1} from 'uuid'
+import {FC} from 'react'
 
 interface Props {
   list: {
@@ -15,10 +14,10 @@ const UserTable: FC<Props> = ({list, total_point}) => {
       <table className='table table-striped gy-7 gx-7'>
         <thead>
           <tr className='fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200'>
-            <th className='min-w-100px'>Rank</th>
-            <th className='min-w-300px'>Address</th>
-            <th className='min-w-150px text-center'>Point</th>
-            <th className='min-w-150px text-center'>Percentage</th>
+            <th className='min-w-60px'>Rank</th>
+            <th className='min-w-220px'>Address</th>
+            <th className='min-w-100px text-center'>Point</th>
+            <th className='min-w-100px text-center'>Percentage</th>
           </tr>
         </thead>
         <tbody>
@@ -35,8 +34,10 @@ const UserTable: FC<Props> = ({list, total_point}) => {
             ))
           ) : (
             <>
-              <td></td>
               <td className='fs-4 fw-semibold'>Holder is Empty.</td>
+              <td></td>
+              <td></td>
+              <td></td>
             </>
           )}
         </tbody>

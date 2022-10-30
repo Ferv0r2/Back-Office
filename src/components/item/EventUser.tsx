@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {FC, useEffect, useState} from 'react'
-import {EventCheckAPI, EventJoinAPI, EventStatusAPI, NFTDetailAPI} from 'src/api'
+import {AuthDiscordAPI, EventJoinAPI, EventStatusAPI, NFTDetailAPI} from 'src/api'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../card/EventBasket'
 import {Empty} from '../empty/Empty'
@@ -21,6 +21,7 @@ const EventUser: FC<Props> = ({event}) => {
   })
   const [userArray, setUserArray] = useState([])
   const [currentAccount, setAccount] = useState('')
+  const [currentNetwork, setNetwork] = useState(1001)
   const [token, setToken] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -75,7 +76,16 @@ const EventUser: FC<Props> = ({event}) => {
     }
   }
 
-  const eventItemHandler = (id: number) => {
+  const discordEventItemHandler = async (eiid: number) => {
+    const res = await AuthDiscordAPI({
+      id: eiid,
+      address: currentAccount,
+      chain_id: currentNetwork,
+    }).catch(() => alert('Error!'))
+    console.log(res)
+  }
+
+  const eventItemHandler = (id: number, type: string) => {
     if (!token) {
       setIsType('danger')
       setToastContent('Please connect your wallet first.')
@@ -97,6 +107,14 @@ const EventUser: FC<Props> = ({event}) => {
       return
     }
 
+    if (type.toLowerCase() === 'discord.invite') {
+      discordEventItemHandler(id)
+      return
+    }
+    if (type.toLowerCase() === 'nft.hold') {
+      console.log('현재 에러')
+      return
+    }
     joinEventItemHandler(id)
   }
 
@@ -114,6 +132,7 @@ const EventUser: FC<Props> = ({event}) => {
         token={token}
         setToken={(e: any) => setToken(e)}
         setAccount={(e: any) => setAccount(e)}
+        setNetwork={(e: any) => setNetwork(e)}
         deleteHandler={() => setIsOpen(false)}
       />
 
@@ -216,7 +235,7 @@ const EventUser: FC<Props> = ({event}) => {
                 event.event_item.map((item: any, index: number) => (
                   <div
                     key={item.id}
-                    onClick={() => eventItemHandler(item.id)}
+                    onClick={() => eventItemHandler(item.id, item.type)}
                     className={`d-flex ${
                       token &&
                       Number(new Date()) < Number(new Date(event.end_dt)) &&
@@ -228,7 +247,7 @@ const EventUser: FC<Props> = ({event}) => {
                     } ${item.is_success && `bg-light-${setColor(item.title)}`}`}
                   >
                     <KTSVG
-                      path={`/media/svg/social-logos/${item.title}.svg`}
+                      path={`/media/svg/social-logos/${item.title.toLowerCase()}.svg`}
                       className={`ms-2 svg-icon-2x svg-icon-${setColor(item.title)}`}
                     />
                     <div className='text-wrap w-75 px-4 align-items-center'>

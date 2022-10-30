@@ -9,7 +9,13 @@ import {EventBatchAPI} from 'src/api'
 
 /* State */
 import {useRecoilState, useSetRecoilState} from 'recoil'
-import {basketState, eventContentState, eventTitleState, resultState} from '../states/eventState'
+import {
+  basketState,
+  eventContentState,
+  eventTitleState,
+  inputState,
+  resultState,
+} from '../states/eventState'
 import {CollectionTypes} from '../states/nftState'
 import {ToastWidget} from '../toast/ToastWidget'
 
@@ -24,6 +30,7 @@ const Example: FC<Props> = ({nft}) => {
   const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
   const [eventContent, setEventContent] = useRecoilState(eventContentState)
   const setBasketItem = useSetRecoilState(basketState)
+  const setIsInput = useSetRecoilState(inputState)
   const [startDate, setStartDate] = useState(new Date())
   const [endDate, setEndDate] = useState(new Date())
   const [isToast, setIsToast] = useState(false)
@@ -100,6 +107,7 @@ const Example: FC<Props> = ({nft}) => {
 
     setResultItem([])
     setBasketItem([])
+    setIsInput(new Map())
     setEventTitle('')
     setEventContent('')
     setTimeout(() => {
@@ -183,7 +191,7 @@ const Example: FC<Props> = ({nft}) => {
                   }`}
                 >
                   <KTSVG
-                    path={`/media/svg/social-logos/${item.title}.svg`}
+                    path={`/media/svg/social-logos/${item.title.toLowerCase()}.svg`}
                     className={`ms-2 svg-icon-2x svg-icon-${setColor(item.title)}`}
                   />
                   <div className='text-wrap w-75 px-4'>{item.content || 'Example Content'}</div>

@@ -1,5 +1,5 @@
 import {FC, MouseEventHandler, useEffect, useState} from 'react'
-import {KTSVG, toAbsoluteUrl} from 'src/utils'
+import {toAbsoluteUrl} from 'src/utils'
 
 /* Wallet */
 import {useWeb3React} from '@web3-react/core'
@@ -16,10 +16,17 @@ interface Props {
   token: string
   setToken?: any
   setAccount?: any
+  setNetwork?: any
   deleteHandler: MouseEventHandler<HTMLButtonElement>
 }
 
-const ConnectWalletModal: FC<Props> = ({token, setToken, setAccount, deleteHandler}) => {
+const ConnectWalletModal: FC<Props> = ({
+  token,
+  setToken,
+  setAccount,
+  setNetwork,
+  deleteHandler,
+}) => {
   const {account, chainId, active, activate} = useWeb3React()
   const [kaikasWallet, setKaikasWallet] = useState({
     address: '',
@@ -172,6 +179,7 @@ const ConnectWalletModal: FC<Props> = ({token, setToken, setAccount, deleteHandl
     setIsToast(true)
     setToken(authAPI.token)
     setAccount(selectedWallet === 'metamask' ? account : kaikasWallet.address)
+    setNetwork(selectedWallet === 'metamask' ? chainId : kaikasWallet.network)
     setLoading(false)
   }
 
