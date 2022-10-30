@@ -39,6 +39,11 @@ const itemOptionState = atom({
   default: new Map(),
 })
 
+const inputState = atom({
+  key: `inputState/${v1()}`,
+  default: new Map(),
+})
+
 const resultState = atom<ResultItem[]>({
   key: `resultState/${v1()}`,
   default: [],
@@ -67,6 +72,7 @@ const eventListState = atom({
 export {
   basketState,
   itemOptionState,
+  inputState,
   resultState,
   eventTitleState,
   eventContentState,

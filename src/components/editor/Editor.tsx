@@ -56,7 +56,7 @@ const modules = {
       },
       {background: []},
     ],
-    ['link', 'image', 'video'],
+    ['link', 'image'],
   ],
 }
 

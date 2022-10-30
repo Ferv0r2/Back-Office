@@ -70,7 +70,6 @@ const EventUser: FC<Props> = ({event}) => {
 
   const joinEventItemHandler = async (eiid: number) => {
     const res = await EventJoinAPI(eiid).catch(() => alert('Error!'))
-    console.log(res)
     if (res.result) {
       window.open(res.redirect)
     }

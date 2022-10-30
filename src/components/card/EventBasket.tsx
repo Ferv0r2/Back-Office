@@ -1,4 +1,4 @@
-import {FC, useEffect, useRef, MouseEventHandler, useState} from 'react'
+import {FC, useEffect, useRef, MouseEventHandler, useState, useMemo} from 'react'
 import {KTSVG} from 'src/utils'
 import {v1} from 'uuid'
 
@@ -12,6 +12,7 @@ import {
   basketState,
   eventContentState,
   eventTitleState,
+  inputState,
   itemOptionState,
   resultState,
 } from 'src/components/states/eventState'
@@ -52,6 +53,7 @@ const EventBasket: FC<Props> = ({
   const [eventBasket, setEventBasket] = useRecoilState(basketState)
   const [optionMap, setOptionMap] = useRecoilState(itemOptionState)
   const [eventTitle, setEventTitle] = useRecoilState(eventTitleState)
+  const setIsInput = useSetRecoilState(inputState)
   const setResult = useSetRecoilState(resultState)
   const setEventContent = useSetRecoilState(eventContentState)
   const [isToast, setIsToast] = useState(false)
@@ -59,14 +61,21 @@ const EventBasket: FC<Props> = ({
   const animateEventRef = useRef<HTMLDivElement | null>(null)
   const animateBtnRef = useRef<HTMLButtonElement | null>(null)
 
-  useEffect(() => {
+  const mapping = useMemo(() => {
     const defaultMap = new Map()
     for (let i = 0; i < eventBasket.length; i++) {
       defaultMap.set(i, eventBasket[i].options[0])
     }
-    setOptionMap(new Map(defaultMap))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [eventBasket, setEventBasket])
+    return defaultMap
+  }, [eventBasket])
+
+  const options = useMemo(() => {
+    return eventBasket
+  }, [eventBasket])
+
+  useEffect(() => {
+    setOptionMap(new Map(mapping))
+  }, [setOptionMap, mapping])
 
   useEffect(() => {
     if (isContinue) {
@@ -103,6 +112,7 @@ const EventBasket: FC<Props> = ({
     setEventTitle('')
     setEventContent('')
     setOptionMap(new Map())
+    setIsInput(new Map())
   }
 
   return (
@@ -149,7 +159,7 @@ const EventBasket: FC<Props> = ({
 
           <div className='accordion px-2' id='basket_accordion'>
             {eventBasket?.length ? (
-              eventBasket.map((event, i) => {
+              options.map((event, i) => {
                 const key = v1()
                 return (
                   <div
@@ -220,6 +230,7 @@ const EventBasket: FC<Props> = ({
                             option={optionMap.get(i)}
                             contract={nft.contract}
                             chain_id={nft.chain_id}
+                            index={i}
                           />
                         </div>
                       </div>

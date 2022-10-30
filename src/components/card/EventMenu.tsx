@@ -7,13 +7,14 @@ import {basketState} from '../states/eventState'
 
 interface Props {
   className?: string
+  style?: any
 }
 
-const EventMenu: React.FC<Props> = ({className}) => {
+const EventMenu: React.FC<Props> = ({className, style}) => {
   const [basketItems, setBasketItems] = useRecoilState(basketState)
 
   return (
-    <div className={`card ${className}`}>
+    <div className={`card ${className}`} style={style}>
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bold text-dark'>Event Menu</span>

@@ -95,7 +95,7 @@ const Login = () => {
     if (klaytn) {
       try {
         await klaytn.enable()
-        setKaikasAccount()
+        await setKaikasAccount()
         klaytn.on('accountsChanged', () => {
           setKaikasAccount()
         })
@@ -210,8 +210,16 @@ const Login = () => {
         />
       )}
       <form className='form w-100' noValidate id='kt_login_signin_form'>
-        <div className='text-center mb-10'>
+        <div className='text-center mb-6'>
           <h1 className='text-dark mb-3'>Sign In</h1>
+          <div className='mt-6 alert alert-info'>
+            <div className='alert-text font-weight-bold'>
+              <strong className='fs-6'>Klaytn NFT Integrated Marketing Services</strong>
+              <div className='fs-7'>
+                Register NFT and create events to encourage users to participate!
+              </div>
+            </div>
+          </div>
         </div>
         <div className='text-center'>
           {/* begin::Metamask */}

@@ -18,6 +18,7 @@ const Logout = ({toggleBtnClass}: Props) => {
       type='button'
       className={clsx('btn btn-light ', toggleBtnClass)}
     >
+      <i className='las la-door-open fs-1'></i>
       Sign out
     </button>
   )

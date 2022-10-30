@@ -1,8 +1,9 @@
+import React from 'react'
 import {FC, useState} from 'react'
 
 /* State */
 import {useRecoilState} from 'recoil'
-import {resultState} from '../states/eventState'
+import {inputState, resultState} from '../states/eventState'
 
 interface Props {
   id: string
@@ -10,23 +11,25 @@ interface Props {
   option: string
   contract: string
   chain_id: number
+  index: number
 }
 
-const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
+const InputWidgetItem: FC<Props> = ({id, sns, option, contract, chain_id, index}) => {
   const [isResult, setResult] = useRecoilState(resultState)
-  const [isConfirm, setIsConfirm] = useState(false)
+  const [isInput, setIsInput] = useRecoilState(inputState)
+  const [isConfirm, setIsConfirm] = useState(isInput?.get(index)?.isConfirm || false)
   const [inputs, setInputs] = useState({
     id: id,
     title: sns,
-    content: '',
+    content: isInput?.get(index)?.content || '',
     type: sns === 'ETC' ? 'link' : `${sns}.${option === 'Join' ? 'invite' : option}`,
     metadata: {
-      url: '',
-      count: 0,
+      url: isInput?.get(index)?.metadata.url || '',
+      count: isInput?.get(index)?.metadata.count || 0,
       contract: contract,
       chain_id: chain_id,
     },
-    point: 1,
+    point: isInput?.get(index)?.count || 1,
   })
 
   const {content, metadata, point} = inputs
@@ -34,6 +37,12 @@ const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
   const onChange = (e: any) => {
     const {name, value} = e.target
 
+    setIsInput(
+      isInput.set(index, {
+        ...inputs,
+        [name]: value,
+      })
+    )
     setInputs({
       ...inputs,
       [name]: value,
@@ -43,6 +52,14 @@ const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
   const onChangeLink = (e: any) => {
     const {name, value} = e.target
 
+    setIsInput(
+      isInput.set(index, {
+        ...inputs,
+        [name]: {
+          url: value,
+        },
+      })
+    )
     setInputs({
       ...inputs,
       [name]: {
@@ -54,6 +71,16 @@ const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
   const onChangeCount = (e: any) => {
     const {name, value} = e.target
 
+    setIsInput(
+      isInput.set(index, {
+        ...inputs,
+        [name]: {
+          count: value,
+          contract: contract,
+          chain_id: chain_id,
+        },
+      })
+    )
     setInputs({
       ...inputs,
       [name]: {
@@ -66,11 +93,23 @@ const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
 
   const confirmHandler = (e: any) => {
     setResult([...isResult, inputs])
+    setIsInput(
+      isInput.set(index, {
+        ...inputs,
+        isConfirm: true,
+      })
+    )
     setIsConfirm(true)
   }
 
   const editHandler = () => {
     setResult(isResult.filter((isResult) => isResult.id !== id))
+    setIsInput(
+      isInput.set(index, {
+        ...inputs,
+        isConfirm: false,
+      })
+    )
     setIsConfirm(false)
   }
 
@@ -155,4 +194,5 @@ const InputWidget: FC<Props> = ({id, sns, option, contract, chain_id}) => {
   )
 }
 
+const InputWidget = React.memo(InputWidgetItem)
 export {InputWidget}

@@ -37,7 +37,7 @@ const QuickMenu: React.FC<Props> = ({className, balance}) => {
             </button>
             <button
               type='button'
-              onClick={() => navigate('/event/management')}
+              onClick={() => navigate('/event/create')}
               className='col btn btn-light-primary btn-color-primary px-6 py-8 rounded-2 m-2'
             >
               <KTSVG
