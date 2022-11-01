@@ -55,7 +55,7 @@ const EventStatusPage: FC<Props> = ({collection}) => {
   return (
     <>
       <div className='row mb-8 me-1'>
-        <div className='col-md-10 col-xxl-4 mx-auto'>
+        <div className='col-md-10 col-xxl-4 mx-md-auto mx-xxl-0'>
           <div className='card'>
             <div className='card-header border-0 align-items-center'>
               <h3 className='card-title'>
@@ -81,7 +81,7 @@ const EventStatusPage: FC<Props> = ({collection}) => {
             )
           })
         ) : (
-          <div className='col-md-10 col-xxl-4 mx-auto'>
+          <div className='col-md-10 col-xxl-4 mx-auto mx-md-0'>
             <Empty>
               {isType === 0 && 'Live event is empty'}
               {isType === 1 && 'End event is empty.'}

@@ -1,8 +1,12 @@
 import axios from 'axios'
 import {FC, useEffect, useState} from 'react'
-import {AuthDiscordAPI, EventJoinAPI, EventStatusAPI, NFTDetailAPI} from 'src/api'
 import {KTSVG} from 'src/utils'
 import {setColor} from '../card/EventBasket'
+
+/* API */
+import {EventJoinAPI, EventJoinDiscordAPI, EventStatusAPI, NFTDetailAPI} from 'src/api'
+
+/* Components */
 import {Empty} from '../empty/Empty'
 import ConnectWalletModal from '../modal/ConnectWalletModal'
 
@@ -21,13 +25,20 @@ const EventUser: FC<Props> = ({event}) => {
   })
   const [userArray, setUserArray] = useState([])
   const [currentAccount, setAccount] = useState('')
-  const [currentNetwork, setNetwork] = useState(1001)
+  const [, setNetwork] = useState(1001)
   const [token, setToken] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isToast, setIsToast] = useState(false)
   const [isType, setIsType] = useState('primary')
   const [toastContent, setToastContent] = useState('')
+  const [isListen, setIsListen] = useState(false)
+  const [discordAuth, setDiscordAuth] = useState('')
+
+  useEffect(() => {
+    let discordToken = localStorage.getItem('DISCORD_TOKEN')
+    setDiscordAuth(String(discordToken))
+  }, [])
 
   useEffect(() => {
     setIsLoading(true)
@@ -76,25 +87,24 @@ const EventUser: FC<Props> = ({event}) => {
     }
   }
 
-  // const discordEventItemHandler = async (eiid: number) => {
-  //   const res = await AuthDiscordAPI(code).catch(() => alert('Error!'))
-  //   console.log(res)
-  // }
-
-  const discordLoginHandler = async () => {
-    window.open(
-      'https://discord.com/api/oauth2/authorize?client_id=1031552058001727509&redirect_uri=http%3A%2F%2Flocalhost%3A3011%2Fdiscord%2F&response_type=code&scope=identify%20email%20guilds%20guilds.join'
-    )
-    // const checkAuth = setInterval(() => {
-
-    // }, 1000)
-    // console.log(res)
-
-    // clearInterval(checkAuth)
+  const discordEventItemHandler = async (eiid: number) => {
+    const res = await EventJoinDiscordAPI({
+      eiid: eiid,
+      token: discordAuth,
+    }).catch(() => alert('Error!'))
+    if (res.result) {
+      window.open(res.redirect)
+    }
   }
 
+  // const discordLoginHandler = async () => {
+  //   window.open(
+  //     'https://discord.com/api/oauth2/authorize?client_id=1031552058001727509&redirect_uri=http%3A%2F%2Flocalhost%3A3011%2Fdiscord%2F&response_type=code&scope=identify%20email%20guilds%20guilds.join'
+  //   )
+  //   setIsListen(true)
+  // }
+
   const eventItemHandler = (id: number, type: string) => {
-    console.log(type)
     if (!token) {
       setIsType('danger')
       setToastContent('Please connect your wallet first.')
@@ -117,8 +127,10 @@ const EventUser: FC<Props> = ({event}) => {
     }
 
     if (type.toLowerCase() === 'discord.invite') {
-      discordLoginHandler()
-      // discordEventItemHandler(id)
+      console.log('현재 패치중')
+      if (discordAuth) {
+        discordEventItemHandler(id)
+      }
       return
     }
     if (type.toLowerCase() === 'nft.hold') {

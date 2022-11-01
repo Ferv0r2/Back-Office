@@ -19,8 +19,8 @@ interface Props {
 const TabTable: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
   const [currentHoldersSection, setCurrentHoldersSection] = useState(0)
   const [currentHoldersPage, setCurrentHoldersPage] = useState(0)
-  const [currentSNSPage, setCurrentSNSPage] = useState(0)
-  const [currentTab, setCurrentTab] = useState(0)
+  // const [currentSNSPage, setCurrentSNSPage] = useState(0)
+  // const [currentTab, setCurrentTab] = useState(0)
   const [holderList, setHolderList] = useState({
     pagenation: {},
     items: [],
@@ -108,7 +108,7 @@ const TabTable: FC<Props> = ({pid, totalSupply, holderCount, className}) => {
         <ul className='nav nav-tabs nav-line-tabs mb-5 fs-6 p-8'>
           <li className='nav-item'>
             <a
-              onClick={() => setCurrentTab(0)}
+              // onClick={() => setCurrentTab(0)}
               className='nav-link active'
               data-bs-toggle='tab'
               href='#holders'
