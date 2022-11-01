@@ -76,16 +76,25 @@ const EventUser: FC<Props> = ({event}) => {
     }
   }
 
-  const discordEventItemHandler = async (eiid: number) => {
-    const res = await AuthDiscordAPI({
-      id: eiid,
-      address: currentAccount,
-      chain_id: currentNetwork,
-    }).catch(() => alert('Error!'))
-    console.log(res)
+  // const discordEventItemHandler = async (eiid: number) => {
+  //   const res = await AuthDiscordAPI(code).catch(() => alert('Error!'))
+  //   console.log(res)
+  // }
+
+  const discordLoginHandler = async () => {
+    window.open(
+      'https://discord.com/api/oauth2/authorize?client_id=1031552058001727509&redirect_uri=http%3A%2F%2Flocalhost%3A3011%2Fdiscord%2F&response_type=code&scope=identify%20email%20guilds%20guilds.join'
+    )
+    // const checkAuth = setInterval(() => {
+
+    // }, 1000)
+    // console.log(res)
+
+    // clearInterval(checkAuth)
   }
 
   const eventItemHandler = (id: number, type: string) => {
+    console.log(type)
     if (!token) {
       setIsType('danger')
       setToastContent('Please connect your wallet first.')
@@ -108,10 +117,12 @@ const EventUser: FC<Props> = ({event}) => {
     }
 
     if (type.toLowerCase() === 'discord.invite') {
-      discordEventItemHandler(id)
+      discordLoginHandler()
+      // discordEventItemHandler(id)
       return
     }
     if (type.toLowerCase() === 'nft.hold') {
+      joinEventItemHandler(id)
       console.log('현재 에러')
       return
     }
@@ -139,7 +150,9 @@ const EventUser: FC<Props> = ({event}) => {
       {isLoading ? (
         <div className='card'>
           <div className='card-body d-flex justify-content-between align-items-center'>
-            <Empty>Loading...</Empty>
+            <div className='col-md-10 col-xxl-4 mx-auto'>
+              <Empty>Loading...</Empty>
+            </div>
             <div className='spinner-border align-middle me-4' />
           </div>
         </div>

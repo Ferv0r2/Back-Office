@@ -127,7 +127,7 @@ const Login = () => {
   }
 
   const setAuthHandler = async () => {
-    if (selectedWallet === 'metamask' && chainId !== (1001 || 8217)) {
+    if (selectedWallet === 'metamask' && chainId === (1001 || 8217)) {
       setToastContent('Please set the network to Klaytn Mainnet or Klaytn Baobab.')
       setIsToast(true)
       return
@@ -147,11 +147,15 @@ const Login = () => {
       setIsToast(true)
       setLoading(false)
     })
+
     let sign, authAPI
 
     try {
       if (selectedWallet === 'metamask' && account) {
-        sign = await web3.eth.sign(nonceAPI, account.toLowerCase()).catch(() => setLoading(false))
+        sign = await web3.eth.personal
+          .sign(nonceAPI, account.toLowerCase(), '')
+          .catch(() => setLoading(false))
+
         authAPI = await AuthTokenAPI({
           nonce: nonceAPI,
           wallet: account,

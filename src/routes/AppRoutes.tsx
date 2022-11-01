@@ -10,6 +10,7 @@ import UserPage from 'src/pages/UserPage'
 
 /* Hooks */
 import useAuth from 'src/hooks/useAuth'
+import DiscordAuthPage from 'src/pages/DiscordAuthPage'
 
 const AppRoutes: FC = () => {
   const currentAuth = useAuth()
@@ -32,6 +33,7 @@ const AppRoutes: FC = () => {
 
               <Route path='user/:eid' element={<UserPage />} />
               <Route path='user/*' element={<Navigate to='/error/404' />} />
+              <Route path='discord' element={<DiscordAuthPage />} />
             </>
           )}
         </Route>

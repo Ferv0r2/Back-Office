@@ -1,12 +1,9 @@
 import axios from 'axios'
 
-export async function AuthDiscordAPI(args: {id: number; address: string; chain_id: number}) {
+export async function AuthDiscordAPI(code: string) {
   const request = await axios
     .post('/api/signin/discord', {
-      id: args.id,
-      address: args.address,
-      chain_id: args.chain_id,
-      discord: process.env.REACT_APP_DISCORD_SERIAL,
+      code: code,
     })
     .then((res) => res.data)
 

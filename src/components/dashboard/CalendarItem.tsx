@@ -94,7 +94,9 @@ const CalendarItem: FC<Props> = ({className}) => {
     <div className={`card d-xxl-flex d-none ${className}`}>
       {isLoading ? (
         <div className='card-body'>
-          <Empty>Loading...</Empty>
+          <div className='col-4'>
+            <Empty>Loading...</Empty>
+          </div>
         </div>
       ) : (
         <div id='calander' className='card-body' />

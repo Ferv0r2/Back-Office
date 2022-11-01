@@ -4,7 +4,7 @@ import {MasterLayout} from 'src/layout/MasterLayout'
 
 /* Pages */
 import DashboardPage from 'src/pages/DashboardPage'
-import AddProjectPage from 'src/pages/AddProjectPage'
+import NFTManagementPage from 'src/pages/NFTManagementPage'
 import NFTHomePage from 'src/pages/NFTHomePage'
 import NFTEventPage from 'src/pages/NFTEventPage'
 import EventCreatePage from 'src/pages/EventCreatePage'
@@ -14,6 +14,7 @@ import EventDetailPage from 'src/pages/EventDetailPage'
 /* Hooks */
 import useCollection from 'src/hooks/useCollection'
 import useEvent from 'src/hooks/useEvent'
+import DiscordAuthPage from 'src/pages/DiscordAuthPage'
 
 const PrivateRoutes = () => {
   const {collections} = useCollection()
@@ -21,13 +22,14 @@ const PrivateRoutes = () => {
 
   return (
     <Routes>
+      <Route path='discord' element={<DiscordAuthPage />} />
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardPage />} />
         <Route path='nft/*' element={<Navigate to='/nft/management' />} />
-        <Route path='nft/management' element={<AddProjectPage />} />
+        <Route path='nft/management' element={<NFTManagementPage />} />
         <Route path='nft/collections/*' element={<Navigate to={`/nft/management`} />} />
         {!isLoading &&
           collections?.map((nft) => {

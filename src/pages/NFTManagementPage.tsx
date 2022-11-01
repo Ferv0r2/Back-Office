@@ -9,7 +9,8 @@ import useCollection from 'src/hooks/useCollection'
 /* Components */
 import {NFTCard} from 'src/components/card/NFTCard'
 import {ToastWidget} from 'src/components/toast/ToastWidget'
-const AddProjectPage: FC = () => {
+import {Empty} from 'src/components/empty/Empty'
+const NFTManagementPage: FC = () => {
   const {isLoading, collections, refetch} = useCollection()
   const [contract, setContract] = useState('')
   const [addLoading, setAddLoading] = useState(false)
@@ -123,11 +124,13 @@ const AddProjectPage: FC = () => {
             <NFTCard key={nft.contract} className='col-11 col-lg-5 mx-lg-4 mx-auto m-4' nft={nft} />
           ))
         ) : (
-          <p className='fs-5'>No NFTs registered.</p>
+          <div className='col-md-10 col-xxl-4 mx-auto'>
+            <Empty>No NFTs are registered.</Empty>
+          </div>
         )}
       </div>
     </>
   )
 }
 
-export default AddProjectPage
+export default NFTManagementPage

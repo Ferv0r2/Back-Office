@@ -18,6 +18,7 @@ import {
   resultState,
 } from 'src/components/states/eventState'
 import {collectionState} from 'src/components/states/nftState'
+import {Empty} from 'src/components/empty/Empty'
 
 const EventCreatePage: FC = () => {
   const collections = useRecoilValue(collectionState)
@@ -145,7 +146,7 @@ const EventCreatePage: FC = () => {
                       ))}
                     </select>
                   ) : (
-                    <div className='px-4 py-2'>Please register NFT first.</div>
+                    <Empty>Please register NFT first.</Empty>
                   )}
                 </div>
               </div>

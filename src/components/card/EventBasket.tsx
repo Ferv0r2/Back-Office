@@ -18,6 +18,7 @@ import {
 } from 'src/components/states/eventState'
 import {ToastWidget} from '../toast/ToastWidget'
 import {CollectionTypes} from '../states/nftState'
+import {Empty} from '../empty/Empty'
 
 interface Props {
   nft: CollectionTypes
@@ -257,9 +258,7 @@ const EventBasket: FC<Props> = ({
                 )
               })
             ) : (
-              <div className='fs-4 p-4'>
-                <p>Please select an event item.</p>
-              </div>
+              <Empty>Please select an event item.</Empty>
             )}
           </div>
         </div>

@@ -45,7 +45,12 @@ const EventDetailPage: FC = () => {
     }, 1500)
   }, [copied])
 
-  if (isLoading) return <Empty>Loading...</Empty>
+  if (isLoading)
+    return (
+      <div className='col-md-10 col-xxl-4 mx-auto'>
+        <Empty>Loading...</Empty>
+      </div>
+    )
 
   return (
     <div className='row py-4 gy-10'>
