@@ -40,7 +40,7 @@ const AsideDefault: FC = () => {
               className='h-25px logo'
               src={toAbsoluteUrl('/media/logos/favicon.ico')}
             />
-            <h4 className='menu-title m-3 text-light'>METAONEER</h4>
+            <h4 className='menu-title m-3 text-light'>BIMS</h4>
           </div>
         </Link>
         {aside.minimize && (

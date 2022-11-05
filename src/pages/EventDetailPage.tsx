@@ -11,7 +11,7 @@ import {useQuery} from 'react-query'
 import {Empty} from 'src/components/empty/Empty'
 import {UserTable} from 'src/components/table/UserTable'
 
-const BASE_URL = 'http://metaoneerkgf2.s3-website.ap-northeast-2.amazonaws.com/user/'
+const BASE_URL = 'https://bims.metaoneer.club/user/'
 const EventDetailPage: FC = () => {
   const params = useParams()
   const {isLoading, data} = useQuery(['UserEvent'], async () => {

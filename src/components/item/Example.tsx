@@ -134,7 +134,7 @@ const Example: FC<Props> = ({nft}) => {
             </span>
           </h3>
           <div className='card-toolbar'>
-            <button type='button' className='btn btn-sm btn-light'>
+            <button type='button' className='btn btn-sm btn-secondary'>
               Connect Wallet
             </button>
           </div>

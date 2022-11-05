@@ -9,7 +9,7 @@ const Footer: FC = () => {
         className={`${classes.footerContainer} d-flex flex-column flex-md-row align-items-center justify-content-between`}
       >
         <div className='text-dark order-2 order-md-1'>
-          <span className='text-muted fw-bold me-2'>{new Date().getFullYear()} &copy;</span>
+          <span className='text-muted fw-bold me-2'>2021 - 2022 &copy;</span>
           <span className='text-muted fw-bold'>METAONEER. ALL RIGHT RESERVED.</span>
         </div>
 
@@ -17,21 +17,24 @@ const Footer: FC = () => {
           <li className='menu-item'>
             <a
               target='_blank'
-              href='https://discord.com/channels/937571529087152189/952307109339463730'
-              className='menu-link pe-0'
+              href='mailto:cs@metaoneer.club'
+              className='menu-link'
               rel='noreferrer'
             >
-              Discord
+              CS
             </a>
+          </li>
+          <li className='d-flex align-items-center py-2'>
+            <span className='bullet bullet-vertical'></span>
           </li>
           <li className='menu-item'>
             <a
               target='_blank'
-              href='https://bot.metaoneer.club/'
-              className='menu-link pe-0'
+              href='https://metaoneer.club/'
+              className='menu-link'
               rel='noreferrer'
             >
-              Lisence
+              Official Site
             </a>
           </li>
         </ul>

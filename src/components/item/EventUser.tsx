@@ -186,7 +186,7 @@ const EventUser: FC<Props> = ({event}) => {
                 data-bs-target='#connectWalletModal'
                 data-kt-indicator={isOpen && 'on'}
                 onClick={() => setIsOpen(true)}
-                className='btn btn-sm btn-light'
+                className='btn btn-sm btn-secondary'
                 disabled={Boolean(token)}
               >
                 <span className='indicator-label'>

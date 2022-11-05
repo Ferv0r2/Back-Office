@@ -220,7 +220,8 @@ const Login = () => {
             <div className='alert-text font-weight-bold'>
               <strong className='fs-6'>Klaytn NFT Integrated Marketing Services</strong>
               <div className='fs-7'>
-                Register NFT and create events to encourage users to participate!
+                Register NFT and create events to encourage users to participate! This service is
+                currently under beta testing.
               </div>
             </div>
           </div>

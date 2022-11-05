@@ -33,6 +33,9 @@ export function HeaderWrapper() {
   return (
     <div
       id='kt_header'
+      style={{
+        zIndex: 1050,
+      }}
       className={clsx('header', classes.header.join(' '), 'align-items-stretch')}
       {...attributes.headerMenu}
     >

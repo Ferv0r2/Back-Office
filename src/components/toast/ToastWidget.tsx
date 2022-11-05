@@ -22,7 +22,7 @@ const ToastWidget: FC<Props> = ({content, type, delay, close}) => {
       aria-live='polite'
       aria-atomic='true'
       style={{
-        zIndex: 1099,
+        zIndex: 2000,
       }}
     >
       <div

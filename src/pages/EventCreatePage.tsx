@@ -73,7 +73,7 @@ const EventCreatePage: FC = () => {
     <>
       {isTutorial && (
         <>
-          <div className='modal-backdrop bg-dark bg-opacity-50'></div>
+          <div className='modal-backdrop bg-dark bg-opacity-50' />
           {tutorialIndex === 0 && (
             <TutorialToast onCancel={tutorialSkipHandler} onTutorial={() => setTutorialIndex(1)} />
           )}
