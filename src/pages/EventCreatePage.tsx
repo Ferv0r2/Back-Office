@@ -48,6 +48,7 @@ const EventCreatePage: FC = () => {
   }, [collections, setIsReady])
 
   const continueHandler = () => {
+    setTutorialIndex(0)
     if (window.innerWidth < 992) window.scrollTo(0, 0)
     setIsAnimate(true)
     setTimeout(() => {
@@ -67,6 +68,7 @@ const EventCreatePage: FC = () => {
   const tutorialSkipHandler = () => {
     localStorage.setItem('Tutorial', 'Done')
     setIsTutorial(false)
+    setTutorialIndex(0)
   }
 
   return (

@@ -25,8 +25,10 @@ const AuthLayout = () => {
           <Outlet />
         </div>
       </div>
-      <div className='col-8 mx-auto'>
-        <Footer />
+      <div className='footer'>
+        <div className='col-8 mx-auto'>
+          <Footer />
+        </div>
       </div>
     </div>
   )
