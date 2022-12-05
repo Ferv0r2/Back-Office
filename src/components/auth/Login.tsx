@@ -127,7 +127,7 @@ const Login = () => {
   }
 
   const setAuthHandler = async () => {
-    if (selectedWallet === 'metamask' && chainId === (1001 || 8217)) {
+    if (selectedWallet === 'metamask' && !(chainId === 1001 || chainId === 8217)) {
       setToastContent('Please set the network to Klaytn Mainnet or Klaytn Baobab.')
       setIsToast(true)
       return

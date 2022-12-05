@@ -29,7 +29,7 @@ const UserPage: FC = () => {
           </div>
         ) : (
           <div className='w-lg-500px col-11'>
-            <EventUser event={data} />
+            <EventUser isLoading={isLoading} event={data} />
           </div>
         )}
       </div>

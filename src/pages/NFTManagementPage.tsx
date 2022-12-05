@@ -124,7 +124,7 @@ const NFTManagementPage: FC = () => {
             <NFTCard key={nft.contract} className='col-11 col-lg-5 mx-lg-4 mx-auto m-4' nft={nft} />
           ))
         ) : (
-          <div className='col-md-10 col-xxl-4 mx-auto'>
+          <div className='col-md-10 col-xxl-4 mx-lg-4 mx-auto'>
             <Empty>No NFTs are registered.</Empty>
           </div>
         )}

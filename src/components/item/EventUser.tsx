@@ -7,7 +7,6 @@ import {setColor} from '../card/EventBasket'
 import {EventJoinAPI, EventJoinDiscordAPI, EventStatusAPI, NFTDetailAPI} from 'src/api'
 
 /* Components */
-import {Empty} from '../empty/Empty'
 import ConnectWalletModal from '../modal/ConnectWalletModal'
 
 /* State */
@@ -15,10 +14,11 @@ import {Event} from '../states/eventState'
 import {ToastWidget} from '../toast/ToastWidget'
 
 interface Props {
+  isLoading: boolean
   event: Event
 }
 
-const EventUser: FC<Props> = ({event}) => {
+const EventUser: FC<Props> = ({isLoading, event}) => {
   const [nft, setNFT] = useState({
     name: '',
     contract: '',
@@ -27,7 +27,6 @@ const EventUser: FC<Props> = ({event}) => {
   const [currentAccount, setAccount] = useState('')
   const [, setNetwork] = useState(1001)
   const [token, setToken] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [isToast, setIsToast] = useState(false)
   const [isType, setIsType] = useState('primary')
@@ -41,11 +40,9 @@ const EventUser: FC<Props> = ({event}) => {
   }, [])
 
   useEffect(() => {
-    setIsLoading(true)
     const getData = async () => {
       const detail = await NFTDetailAPI(event.project_id)
       setNFT(detail)
-      setIsLoading(false)
     }
 
     getData()
@@ -141,6 +138,8 @@ const EventUser: FC<Props> = ({event}) => {
     joinEventItemHandler(id)
   }
 
+  console.log(nft)
+
   return (
     <>
       {isToast && (
@@ -159,24 +158,13 @@ const EventUser: FC<Props> = ({event}) => {
         deleteHandler={() => setIsOpen(false)}
       />
 
-      {isLoading ? (
-        <div className='card'>
-          <div className='card-body d-flex justify-content-between align-items-center'>
-            <div className='col-md-10 col-xxl-4 mx-auto'>
-              <Empty>Loading...</Empty>
-            </div>
-            <div className='spinner-border align-middle me-4' />
-          </div>
-        </div>
-      ) : (
+      {!isLoading && (
         <div className='card card-custom'>
           <div className='card-header'>
             <h3 className='card-title align-items-start flex-column'>
-              <span className='card-label fw-bold text-dark'>
-                {!isLoading ? nft.name : 'Loading...'}
-              </span>
+              <span className='card-label fw-bold text-dark'>{nft.name || 'Loading...'}</span>
               <span className='text-muted mt-1 fw-semibold fs-7'>
-                {!isLoading && nft.contract.replace(nft.contract.substring(6, 36), '...')}
+                {nft.contract.replace(nft.contract.substring(6, 36), '...') || ''}
               </span>
             </h3>
             <div className='card-toolbar'>

@@ -45,13 +45,6 @@ const EventDetailPage: FC = () => {
     }, 1500)
   }, [copied])
 
-  if (isLoading)
-    return (
-      <div className='col-md-10 col-xxl-4 mx-auto'>
-        <Empty>Loading...</Empty>
-      </div>
-    )
-
   return (
     <div className='row py-4 gy-10'>
       <div className='col-lg-6 col-11 mx-lg-0 mx-auto'>
@@ -69,7 +62,7 @@ const EventDetailPage: FC = () => {
         </div>
       </div>
       <div className='col-lg-5 col-11 mx-auto'>
-        <EventUser event={data} />
+        <EventUser isLoading={isLoading} event={data} />
         <div className='card mt-8'>
           <div className='card-body w-100'>
             <div className='ms-2 mb-3 fw-bold'>Event URL</div>
